@@ -1,0 +1,36 @@
+name: 🚀 Deploy Angular App
+
+on:
+  push:
+    branches:
+      - main   # ou master, usa o nome da sua branch principal
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 📥 Clonar repositório
+        uses: actions/checkout@v4
+
+      - name: 🟢 Instalar Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: 📦 Instalar dependências
+        run: npm install
+
+      - name: 🔨 Build do Angular
+        run: npm run build -- --configuration production
+
+      - name: 🚀 Deploy no Netlify
+        uses: nwtgck/actions-netlify@v2
+        with:
+          publish-dir: ./dist
+          production-branch: main
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          deploy-message: "Deploy automático"
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
