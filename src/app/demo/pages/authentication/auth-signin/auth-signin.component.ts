@@ -1,47 +1,59 @@
-// angular import
-import { ChangeDetectorRef, Component, inject, signal } from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { email, Field, form, minLength, required } from '@angular/forms/signals';
+import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 
-// project import
 import { SharedModule } from 'src/app/theme/shared/shared.module';
+import { AuthService } from './auth-signin.service';
+import { LoginRequest } from './login-request.model';
 
 @Component({
   selector: 'app-auth-signin',
-  imports: [CommonModule, RouterModule, SharedModule, Field],
+  standalone: true,
+  imports: [
+    CommonModule,
+    RouterModule,
+    ReactiveFormsModule,
+    SharedModule
+  ],
   templateUrl: './auth-signin.component.html',
   styleUrls: ['./auth-signin.component.scss']
 })
+
 export class AuthSigninComponent {
-  private cd = inject(ChangeDetectorRef);
 
-  submitted = signal(false);
-  error = signal('');
-  showPassword = signal(false);
+  error = '';
+  showPassword = false;
 
-  loginModal = signal<{ email: string; password: string }>({
-    email: '',
-    password: ''
+  constructor(
+    private fb: FormBuilder,
+    private authService: AuthService
+  ) {}
+
+  loginForm = this.fb.group({
+    username: ['', [Validators.required]],
+    password: ['', [Validators.required, Validators.minLength(1)]]
   });
 
-  loginForm = form(this.loginModal, (schemaPath) => {
-    required(schemaPath.email, { message: 'Email is required' });
-    email(schemaPath.email, { message: 'Enter a valid email address' });
-    required(schemaPath.password, { message: 'Password is required' });
-    minLength(schemaPath.password, 8, { message: 'Password must be at least 8 characters' });
-  });
+  onSubmit(): void {
+    if (this.loginForm.invalid) {
+      this.loginForm.markAllAsTouched();
+      return;
+    }
 
-  onSubmit(event: Event) {
-    this.submitted.set(true);
-    this.error.set('');
-    event.preventDefault();
-    const credentials = this.loginModal();
-    console.log('login user logged in with:', credentials);
-    this.cd.detectChanges();
+    const payload: LoginRequest = this.loginForm.value as LoginRequest;
+
+    this.authService.login(payload).subscribe({
+      next: (response) => {
+        localStorage.setItem('accessToken', response.accessToken);
+      },
+      error: () => {
+        this.error = 'Usuário ou senha inválidos';
+      }
+    });
   }
 
-  togglePasswordVisibility() {
-    this.showPassword.set(!this.showPassword());
+  togglePasswordVisibility(): void {
+    this.showPassword = !this.showPassword;
   }
 }
