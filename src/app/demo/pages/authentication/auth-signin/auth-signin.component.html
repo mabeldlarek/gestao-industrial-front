@@ -21,7 +21,7 @@
 
           <!-- ===== EMAIL ===== -->
           <div class="input-group mb-3">
-            <input type="text" class="form-control" formControlName="username" placeholder="Username"
+            <input type="text" class="form-control" formControlName="username" placeholder="Usuário"
               [class.is-invalid]="
                 loginForm.get('username')?.touched &&
                 loginForm.get('username')?.invalid
@@ -40,7 +40,7 @@
           <!-- ===== PASSWORD ===== -->
           <div class="input-group mb-4">
             <input [type]="showPassword ? 'text' : 'password'" class="form-control" formControlName="password"
-              placeholder="Password (min. 8 characters)" [class.is-invalid]="
+              placeholder="Senha (mín. 8 caracteres)" [class.is-invalid]="
                 loginForm.get('password')?.touched &&
                 loginForm.get('password')?.invalid
               " />
@@ -64,7 +64,7 @@
           <div class="form-group text-start">
             <div class="checkbox checkbox-fill d-inline">
               <input type="checkbox" id="checkbox-fill-a1" />
-              <label for="checkbox-fill-a1" class="cr">Save Details</label>
+              <label for="checkbox-fill-a1" class="cr">Salvar Dados</label>
             </div>
           </div>
 
@@ -73,15 +73,15 @@
           </button>
 
           <p class="mb-2 text-muted">
-            Forgot password?
-            <a routerLink="#">Reset</a>
+            Esqueceu sua senha?
+            <a routerLink="/reset-password">Redefinir Senha</a>
           </p>
 
         </form>
 
         <p class="mb-0 text-muted">
-          Don’t have an account?
-          <a routerLink="/register">Sign up</a>
+          Não tem uma conta?
+          <a routerLink="/register">Cadastrar-se</a>
         </p>
 
       </div>
