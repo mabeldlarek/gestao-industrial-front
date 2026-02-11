@@ -1,0 +1,117 @@
+<div class="row">
+    <div class="col-sm-12">
+        <app-card cardTitle="Cadastro de Funcionário" [options]="false">
+            <h5>Geral</h5>
+            <hr />
+            <div class="row">
+                <div class="col-md-6">
+                    <form action="javascript:void(0)">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Matrícula</label>
+                            <input type="email" class="form-control" id="exampleInputEmail1"
+                                aria-describedby="emailHelp" placeholder="" />
+                            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone
+                                else.</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Nome</label>
+                            <input type="password" class="form-control" id="exampleInputPassword1"
+                                placeholder="Password" />
+                        </div>
+                        <div class="form-group form-check">
+                            <input type="checkbox" class="form-check-input" id="exampleCheck1" />
+                            <label class="form-check-label" for="exampleCheck1">Check me out</label>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                </div>
+                <div class="col-md-6">
+                    <form action="javascript:void(0)">
+                        <div class="form-group">
+                            <label for="text">Cargo</label>
+                            <input type="text" class="form-control" placeholder="Text" />
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleFormControlSelect1">Equipe</label>
+                            <select class="form-control" id="exampleFormControlSelect1">
+                                <option>1</option>
+                                <option>2</option>
+                                <option>3</option>
+                                <option>4</option>
+                                <option>5</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Especialidades</label>
+                            <select class="mb-3 form-control" multiple (change)="onSelectEspecialidades($event)">
+                                <option *ngFor="let esp of especialidades" [value]="esp.id">
+                                    {{ esp.nome }}
+                                </option>
+                            </select>
+
+                            <!-- Card abaixo -->
+                            <div class="card" *ngIf="especialidadesSelecionadas.length">
+                                <div class="card-body p-2">
+                                    <strong>Especialidades selecionadas</strong>
+
+                                    <div class="d-flex flex-wrap gap-2 mt-2">
+                                        <span class="badge badge-primary p-2"
+                                            *ngFor="let id of especialidadesSelecionadas">
+                                            {{ getNomeEspecialidade(id) }}
+                                            <button type="button" class="ml-2 close text-white"
+                                                (click)="removerEspecialidade(id)">
+                                                &times;
+                                            </button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <h5 class="mt-5">Disponibilidade</h5>
+            <hr />
+            <div class="row">
+                <div class="col-md-6">
+                    <h5 class="mt-2">Dias da Semana</h5>
+                    <div class="custom-control custom-checkbox ps-2">
+                        <input type="checkbox" class="custom-control-input" id="customCheck1" />
+                        <label class="custom-control-label ps-2" for="customCheck1">Segunda-Feira</label>
+                    </div>
+                    <div class="custom-control custom-checkbox ps-2">
+                        <input type="checkbox" class="custom-control-input" id="customCheck2" />
+                        <label class="custom-control-label ps-2" for="customCheck2">Terça-Feira</label>
+                    </div>
+                    <div class="custom-control custom-checkbox ps-2">
+                        <input type="checkbox" class="custom-control-input" id="customCheck3" />
+                        <label class="custom-control-label ps-2" for="customCheck3">Quarta-Feira</label>
+                    </div>
+                    <div class="custom-control custom-checkbox ps-2">
+                        <input type="checkbox" class="custom-control-input" id="customCheck4" />
+                        <label class="custom-control-label ps-2" for="customCheck4">Quinta-Feira</label>
+                    </div>
+                    <div class="custom-control custom-checkbox ps-2">
+                        <input type="checkbox" class="custom-control-input" id="customCheck5" />
+                        <label class="custom-control-label ps-2" for="customCheck5">Sexta-Feira</label>
+                    </div>
+                    <div class="custom-control custom-checkbox ps-2">
+                        <input type="checkbox" class="custom-control-input" id="customCheck6" />
+                        <label class="custom-control-label ps-2" for="customCheck6">Sábado</label>
+                    </div>
+                    <div class="custom-control custom-checkbox ps-2">
+                        <input type="checkbox" class="custom-control-input" id="customCheck7" />
+                        <label class="custom-control-label ps-2" for="customCheck7">Domingo</label>
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <h5 class="mt-2">Turno</h5>
+                    <select class="mb-3 form-control" title="select">
+                        <option>Manhã</option>
+                        <option>Tarde</option>
+                        <option>Noite</option>
+                    </select>
+                </div>
+            </div>
+        </app-card>
+    </div>

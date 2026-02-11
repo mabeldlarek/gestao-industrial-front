@@ -38,7 +38,12 @@ const routes: Routes = [
       {
         path: 'sample-page',
         loadComponent: () => import('./demo/extra/sample-page/sample-page.component').then((c) => c.SamplePageComponent)
+      },
+       {
+        path: 'funcionario',
+        loadComponent: () => import('./demo/pages/authentication/funcionario-register/funcionario-register').then((c) => c.FuncionarioRegister)
       }
+
     ]
   },
   {
@@ -52,7 +57,7 @@ const routes: Routes = [
       {
         path: 'register',
         loadComponent: () => import('./demo/pages/authentication/auth-signup/auth-signup.component').then((c) => c.AuthSignupComponent)
-      }
+      },
     ]
   }
 ];

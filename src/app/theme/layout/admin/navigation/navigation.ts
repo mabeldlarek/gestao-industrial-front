@@ -130,25 +130,32 @@ export const NavigationItems: NavigationItem[] = [
     children: [
       {
         id: 'auth',
-        title: 'Authentication',
+        title: 'Cadastros',
         type: 'collapse',
         icon: 'feather icon-lock',
         children: [
           {
-            id: 'signup',
-            title: 'Sign up',
+            id: 'Usuário',
+            title: 'Usuário',
             type: 'item',
             url: '/register',
             target: true,
             breadcrumbs: false
           },
           {
-            id: 'signin',
-            title: 'Sign in',
+            id: 'Login',
+            title: 'Login',
             type: 'item',
             url: '/login',
             target: true,
             breadcrumbs: false
+          },
+          {
+            id: 'Funcionário',
+            title: 'Funcionário',
+            type: 'item',
+            url: '/funcionario',
+            classes: 'nav-item',
           }
         ]
       },
