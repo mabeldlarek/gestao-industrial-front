@@ -159,6 +159,92 @@ export const NavigationItems: NavigationItem[] = [
           }
         ]
       },
+       {
+        id: 'ativos',
+        title: 'Ativos',
+        type: 'collapse',
+        icon: 'feather icon-lock',
+        children: [
+          {
+            id: 'Equipamento',
+            title: 'Equipamentos',
+            type: 'item',
+            url: '/equipamentos',
+            target: true,
+            breadcrumbs: false
+          },
+          {
+            id: 'Criticidade',
+            title: 'Criticidade',
+            type: 'item',
+            url: '/criticidade',
+            target: true,
+            breadcrumbs: false
+          },
+          {
+            id: 'Medidor',
+            title: 'Medidores',
+            type: 'item',
+            url: '/medidores',
+            classes: 'nav-item',
+          }
+        ]
+      },
+       {
+        id: 'estoque',
+        title: 'Estoque',
+        type: 'collapse',
+        icon: 'feather icon-lock',
+        children: [
+          {
+            id: 'peca',
+            title: 'Peças',
+            type: 'item',
+            url: '/pecas',
+            target: true,
+            breadcrumbs: false
+          }
+        ]
+      },
+             {
+        id: 'manutencao',
+        title: 'Manutenção',
+        type: 'collapse',
+        icon: 'feather icon-lock',
+        children: [
+          {
+            id: 'plano',
+            title: 'Planos',
+            type: 'item',
+            url: '/planos',
+            target: true,
+            breadcrumbs: false
+          },          
+          {
+            id: 'ordem',
+            title: 'Ordens',
+            type: 'item',
+            url: '/ordens',
+            classes: 'nav-item',
+          },
+          {
+            id: 'execucao',
+            title: 'Executar',
+            type: 'item',
+            url: '/executar',
+            target: true,
+            breadcrumbs: false
+          }
+        ]
+      },
+      {
+        id: 'procedimento',
+        title: 'Procedimentos',
+        type: 'item',
+        url: '/sample-page',
+        classes: 'nav-item',
+        icon: 'feather icon-sidebar'
+      },
       {
         id: 'sample-page',
         title: 'Sample Page',
