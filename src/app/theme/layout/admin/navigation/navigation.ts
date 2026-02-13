@@ -156,6 +156,13 @@ export const NavigationItems: NavigationItem[] = [
             type: 'item',
             url: '/funcionario',
             classes: 'nav-item',
+          },
+          {
+            id: 'Form',
+            title: 'Formulario',
+            type: 'item',
+            url: '/form-element',
+            classes: 'nav-item',
           }
         ]
       },
@@ -169,8 +176,8 @@ export const NavigationItems: NavigationItem[] = [
             id: 'Equipamento',
             title: 'Equipamentos',
             type: 'item',
-            url: '/equipamentos',
-            target: true,
+            url: '/equipamento-register',
+            target: false,
             breadcrumbs: false
           },
           {
@@ -201,9 +208,15 @@ export const NavigationItems: NavigationItem[] = [
             title: 'Peças',
             type: 'item',
             url: '/pecas',
-            target: true,
-            breadcrumbs: false
-          }
+            classes: 'nav-item',
+          },
+          {
+            id: 'peca-consumo',
+            title: 'Consumo de Peças',
+            type: 'item',
+            url: '/consumo-pecas',
+            classes: 'nav-item',
+          },
         ]
       },
              {
@@ -216,8 +229,8 @@ export const NavigationItems: NavigationItem[] = [
             id: 'plano',
             title: 'Planos',
             type: 'item',
-            url: '/planos',
-            target: true,
+            url: '/plano-register',
+            target: false,
             breadcrumbs: false
           },          
           {
@@ -232,7 +245,15 @@ export const NavigationItems: NavigationItem[] = [
             title: 'Executar',
             type: 'item',
             url: '/executar',
-            target: true,
+            target: false,
+            breadcrumbs: false
+          },
+                    {
+            id: 'ordem',
+            title: 'Ordem de Serviço',
+            type: 'item',
+            url: '/ordem',
+            target: false,
             breadcrumbs: false
           }
         ]

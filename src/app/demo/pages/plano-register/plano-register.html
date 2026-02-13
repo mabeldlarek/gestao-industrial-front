@@ -1,0 +1,157 @@
+<div class="row">
+  <div class="col-sm-12">
+    <app-card cardTitle="Cadastro de Plano de Manutenção" [options]="false">
+
+      <!-- INFORMAÇÕES BÁSICAS -->
+      <h5 class="mt-5">Informações do Plano</h5>
+      <hr />
+
+      <form action="javascript:void(0)">
+
+        <div class="row">
+          <div class="form-group col-md-6">
+            <label>Código</label>
+            <input type="text" class="form-control" placeholder="Código do plano" />
+          </div>
+
+          <div class="form-group col-md-6">
+            <label>Nome</label>
+            <input type="text" class="form-control" placeholder="Nome do plano de manutenção" />
+          </div>
+        </div>
+
+        <!-- RELACIONAMENTOS -->
+        <h5 class="mt-4">Vínculos</h5>
+        <hr />
+
+        <div class="row">
+          <div class="form-group col-md-6">
+            <label>Equipamento</label>
+            <select class="form-control">
+              <option selected disabled>Selecione o equipamento</option>
+            </select>
+          </div>
+
+          <div class="form-group col-md-6">
+            <label>Procedimento</label>
+            <select class="form-control">
+              <option selected disabled>Selecione o procedimento</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- TIPO DE MANUTENÇÃO -->
+        <h5 class="mt-4">Tipo de Manutenção</h5>
+        <hr />
+
+        <div class="row">
+          <div class="form-group col-md-4">
+            <label>Tipo</label>
+            <select class="form-control">
+              <option selected disabled>Selecione</option>
+              <option value="PREVENTIVA">Preventiva</option>
+              <option value="CORRETIVA">Corretiva</option>
+              <option value="PREDITIVA">Preditiva</option>
+            </select>
+          </div>
+
+          <div class="form-group col-md-4">
+            <label>Status</label>
+            <select class="form-control">
+              <option value="ATIVO">Ativo</option>
+              <option value="INATIVO">Inativo</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- FREQUÊNCIA -->
+        <h5 class="mt-4">Frequência</h5>
+        <hr />
+
+        <div class="row">
+          <div class="form-group col-md-4">
+            <label>Tipo de Frequência</label>
+            <select class="form-control">
+              <option selected disabled>Selecione</option>
+              <option value="TEMPO">Tempo</option>
+              <option value="MEDIDOR">Medidor</option>
+            </select>
+          </div>
+
+          <div class="form-group col-md-4">
+            <label>Valor</label>
+            <input type="number" class="form-control" min="1" />
+          </div>
+
+          <div class="form-group col-md-4">
+            <label>Unidade</label>
+            <select class="form-control">
+              <option selected disabled>Selecione</option>
+              <option value="DIA">Dia(s)</option>
+              <option value="MES">Mês(es)</option>
+              <option value="ANO">Ano(s)</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- AUTOMAÇÃO -->
+        <h5 class="mt-4">Automação de Ordem de Manutenção</h5>
+        <hr />
+
+        <div class="row">
+          <div class="form-group col-md-4">
+            <label>
+              <input type="checkbox" />
+              Gerar OM automaticamente
+            </label>
+          </div>
+
+          <div class="form-group col-md-4">
+            <label>
+              <input type="checkbox" />
+              Gerar OM automática por medidor
+            </label>
+          </div>
+        </div>
+
+        <div class="row mt-3">
+          <div class="form-group col-md-6">
+            <label>Data de Criação</label>
+            <input type="datetime-local" class="form-control" disabled />
+          </div>
+
+          <div class="form-group col-md-6">
+            <label>Data de Geração Automática da OM</label>
+            <input type="datetime-local" class="form-control" />
+          </div>
+        </div>
+
+        <!-- RESPONSÁVEIS -->
+        <h5 class="mt-4">Responsáveis Padrão</h5>
+        <hr />
+
+        <div class="form-group">
+          <label>Responsáveis</label>
+          <select class="form-control" multiple>
+            <option>Selecionar responsáveis</option>
+          </select>
+        </div>
+
+        <!-- MEDIDOR -->
+        <h5 class="mt-4">Medidor</h5>
+        <hr />
+
+        <div class="form-group">
+          <label>Código do Medidor (opcional)</label>
+          <input type="text" class="form-control" placeholder="Ex: HORA-MAQ-01" />
+        </div>
+
+        <!-- AÇÕES -->
+        <button type="button" class="btn btn-primary mt-4">
+          Salvar Plano de Manutenção
+        </button>
+
+      </form>
+    </app-card>
+  </div>
+</div>
