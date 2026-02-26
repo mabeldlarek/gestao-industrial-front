@@ -70,6 +70,10 @@ const routes: Routes = [
       {
         path: 'ordem',
         loadComponent: () => import('./demo/pages/ordem/ordem').then((c) => c.Ordem)
+      },
+      {
+        path: 'funcionarios',
+        loadComponent: () => import('./demo/listas/funcionarios').then((c) => c.FuncionariosComponent)
       }
     ]
   },

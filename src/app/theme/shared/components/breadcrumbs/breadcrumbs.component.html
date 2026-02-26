@@ -7,9 +7,9 @@
             <div class="page-header-title">
               @for (breadcrumb of navigationList; track breadcrumb; let last = $last) {
                 @if (last) {
-                  <h5 class="m-b-10">
+                  <h3 class="m-b-10">
                     {{ breadcrumb.title }}
-                  </h5>
+                  </h3>
                 }
               }
             </div>
