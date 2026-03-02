@@ -1,141 +1,160 @@
 <div class="row">
-  <div class="col-sm-7">
-    <app-card cardTitle="" [options]="false" blockClass="table-border-style">
+    <div class="col-sm-7">
+        <app-card cardTitle="" [options]="false" blockClass="table-border-style">
 
-      <div
-        class="d-flex flex-column flex-md-row justify-content-between align-items-stretch align-items-md-center mb-3 gap-2">
+            <div
+                class="d-flex flex-column flex-md-row justify-content-between align-items-stretch align-items-md-center mb-3 gap-2">
 
-        <input class="form-control flex-fill" placeholder="Type to search..." />
+                <!-- Barra de pesquisa menor -->
+                <div class="flex-grow-1 flex-md-grow-1" style="max-width: 500px;">
+                    <input class="form-control" placeholder="Pesquisar..." />
+                </div>
 
-        <div class="d-flex gap-2">
-          <button type="button" class="btn btn-primary">
-            <i class="feather icon-plus"></i>
-            Adicionar
-          </button>
+                <div class="d-flex gap-2">
+                    <button type="button" class="btn btn-primary">
+                        <i class="feather icon-plus"></i>
+                        Adicionar
+                    </button>
 
-          <button type="button" class="btn btn-danger" disabled>
-            <i class="feather icon-trash-2"></i>
-            Excluir
-          </button>
-        </div>
+                    <button type="button" class="btn btn-danger" disabled>
+                        <i class="feather icon-trash-2"></i>
+                        Excluir
+                    </button>
+                </div>
 
-      </div>
-
-      <!-- Tabela -->
-      <div class="table-responsive">
-        <table class="table table-hover">
-          <thead>
-            <tr>
-              <th></th>
-              <th>Nome</th>
-              <th>Código</th>
-              <th>Tipo</th>
-              <th>Fabricante</th>
-              <th>Modelo</th>
-              <th>Status</th>
-              <th>Criticidade</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let item of dados" (click)="selecionarItem(item)" [class.table-active]="estaSelecionado(item)">
-              <td>
-                <img class="rounded-circle" style="width: 40px" src="https://i.pravatar.cc/40" alt="Usuário" />
-              </td>
-
-              <td>{{ item.nome }}</td>
-              <td>{{ item.codigo }}</td>
-              <td>{{ item.tipo }}</td>
-              <td>{{ item.fabricante }}</td>
-              <td>{{ item.modelo }}</td>
-              <td>{{ item.status }}</td>
-              <td>{{ item.criticidade }}</td>
-
-              <td>
-                <!-- Impede que o clique do botão selecione a linha -->
-                <button type="button" class="btn btn-icon btn-warning" (click)="desabilitarEdicao($event)"
-                  [disabled]="desabilitarEdicao()">
-                  <i class="feather icon-edit"></i>
-                </button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </app-card>
-  </div>
-  <div class="col-sm-4">
-    <div class="card">
-      <div class="card-header">
-        <h5>Filtros</h5>
-      </div>
-      <div class="card-body">
-        <div ngbAccordion>
-          <div ngbAccordionItem [collapsed]="false">
-            <h2 ngbAccordionHeader>
-              <button ngbAccordionButton>Criticidade</button>
-            </h2>
-            <div ngbAccordionCollapse>
-              <div ngbAccordionBody>
-                Teste, teste
-              </div>
             </div>
-          </div>
-          <div ngbAccordionItem>
-            <h2 ngbAccordionHeader>
-              <button ngbAccordionButton>
-                Tipo
-              </button>
-            </h2>
-            <div ngbAccordionCollapse>
-              <div ngbAccordionBody>
-                <ng-template>
-                  {{ loremText }}
-                </ng-template>
-              </div>
+
+            <!-- Tabela -->
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Nome</th>
+                            <th>Código</th>
+                            <th>Tipo</th>
+                            <th>Fabricante</th>
+                            <th>Modelo</th>
+                            <th>Status</th>
+                            <th>Criticidade</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of dados" (click)="selecionarItem(item)"
+                            [class.table-active]="estaSelecionado(item)">
+                            <td>
+                                <img class="rounded-circle" style="width: 40px" src="https://i.pravatar.cc/40"
+                                    alt="Usuário" />
+                            </td>
+
+                            <td>{{ item.nome }}</td>
+                            <td>{{ item.codigo }}</td>
+                            <td>{{ item.tipo }}</td>
+                            <td>{{ item.fabricante }}</td>
+                            <td>{{ item.modelo }}</td>
+                            <td>{{ item.status }}</td>
+                            <td>{{ item.criticidade }}</td>
+
+                            <td>
+                                <!-- Impede que o clique do botão selecione a linha -->
+                                <button type="button" class="btn btn-icon btn-warning"
+                                    (click)="desabilitarEdicao($event)" [disabled]="desabilitarEdicao()">
+                                    <i class="feather icon-edit"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
-          </div>
-          <div ngbAccordionItem>
-            <h2 ngbAccordionHeader>
-              <button ngbAccordionButton class="text-break">
-                Fabricante
-              </button>
-            </h2>
-            <div ngbAccordionCollapse>
-              <div ngbAccordionBody>
-                <ng-template>
-                  {{ loremText }}
-                </ng-template>
-              </div>
+        </app-card>
+    </div>
+    <div class="col-sm-4">
+        <div class="card">
+            <div class="card-header">
+                <h5>Filtros</h5>
             </div>
-          </div>
-          <div ngbAccordionItem>
-            <h2 ngbAccordionHeader>
-              <button ngbAccordionButton>
-                Localização
-              </button>
-            </h2>
-            <div ngbAccordionCollapse>
-              <div ngbAccordionBody>
-                <ng-template>
-                  {{ loremText }}
-                </ng-template>
-              </div>
-            </div>
-          </div>
+            <div class="card-body">
+                <div ngbAccordion>
+                    <div ngbAccordionItem [collapsed]="false">
+                        <h2 ngbAccordionHeader>
+                            <button ngbAccordionButton>Criticidade</button>
+                        </h2>
+                        <div ngbAccordionCollapse>
+                            <div ngbAccordionBody>
+                                Teste, teste
+                            </div>
+                        </div>
+                    </div>
                     <div ngbAccordionItem>
-            <h2 ngbAccordionHeader>
-              <button ngbAccordionButton>
-                Status
-              </button>
-            </h2>
-            <div ngbAccordionCollapse>
-              <div ngbAccordionBody>
-                <ng-template>
-                  {{ loremText }}
-                </ng-template>
-              </div>
+                        <h2 ngbAccordionHeader>
+                            <button ngbAccordionButton>
+                                Tipo
+                            </button>
+                        </h2>
+                        <div ngbAccordionCollapse>
+                            <div ngbAccordionBody>
+                                <ng-template>
+                                    {{ loremText }}
+                                </ng-template>
+                            </div>
+                        </div>
+                    </div>
+                    <div ngbAccordionItem>
+                        <h2 ngbAccordionHeader>
+                            <button ngbAccordionButton class="text-break">
+                                Fabricante
+                            </button>
+                        </h2>
+                        <div ngbAccordionCollapse>
+                            <div ngbAccordionBody>
+                                <ng-template>
+                                    {{ loremText }}
+                                </ng-template>
+                            </div>
+                        </div>
+                    </div>
+                                        <div ngbAccordionItem>
+                        <h2 ngbAccordionHeader>
+                            <button ngbAccordionButton class="text-break">
+                                Modelo
+                            </button>
+                        </h2>
+                        <div ngbAccordionCollapse>
+                            <div ngbAccordionBody>
+                                <ng-template>
+                                    {{ loremText }}
+                                </ng-template>
+                            </div>
+                        </div>
+                    </div>
+                    <div ngbAccordionItem>
+                        <h2 ngbAccordionHeader>
+                            <button ngbAccordionButton>
+                                Localização
+                            </button>
+                        </h2>
+                        <div ngbAccordionCollapse>
+                            <div ngbAccordionBody>
+                                <ng-template>
+                                    {{ loremText }}
+                                </ng-template>
+                            </div>
+                        </div>
+                    </div>
+                    <div ngbAccordionItem>
+                        <h2 ngbAccordionHeader>
+                            <button ngbAccordionButton>
+                                Status
+                            </button>
+                        </h2>
+                        <div ngbAccordionCollapse>
+                            <div ngbAccordionBody>
+                                <ng-template>
+                                    {{ loremText }}
+                                </ng-template>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
-        </div>
-      </div>
