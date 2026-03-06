@@ -47,17 +47,21 @@ const routes: Routes = [
         path: 'funcionario',
         loadComponent: () => import('./demo/pages/authentication/funcionario-register/funcionario-register').then((c) => c.FuncionarioRegister)
       },
-      {
+      /*{
         path: 'pecas',
         loadComponent: () => import('./demo/pages/peca-register/peca-register').then((c) => c.PecaRegister)
-      },
+      },*/
       {
         path: 'consumo-pecas',
         loadComponent: () => import('./demo/pages/peca-register/peca-register').then((c) => c.PecaRegister)
       },
       {
-        path: 'equipamento-register',
-        loadComponent: () => import('./demo/pages/equipamento-register/equipamento-register').then((c) => c.EquipamentoRegister)
+        path: 'equipamento-create',
+        loadComponent: () => import('./demo/features/ativos/equipamentos/formulario/equipamentos-create').then((c) => c.EquipamentosCreate)
+      },
+      {
+        path: 'equipamentos-list',
+        loadComponent: () => import('./demo/features/ativos/equipamentos/lista/equipamentos-list').then((c) => c.EquipamentosComponent)
       },
       {
         path: 'plano-register',
@@ -73,7 +77,15 @@ const routes: Routes = [
       },
       {
         path: 'funcionarios',
-        loadComponent: () => import('./demo/listas/funcionarios').then((c) => c.FuncionariosComponent)
+        loadComponent: () => import('./demo/listas/funcionarios/funcionarios').then((c) => c.FuncionariosComponent)
+      },
+      {
+        path: 'usuarios',
+        loadComponent: () => import('./demo/listas/usuarios/usuarios').then((c) => c.UsuariosComponent)
+      },
+      {
+        path: 'pecas',
+        loadComponent: () => import('./demo/listas/pecas/pecas').then((c) => c.PecasComponent)
       }
     ]
   },

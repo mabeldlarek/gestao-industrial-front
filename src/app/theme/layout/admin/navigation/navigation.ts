@@ -164,6 +164,20 @@ export const NavigationItems: NavigationItem[] = [
             url: '/funcionarios',
             classes: 'nav-item',
           },
+                              {
+            id: 'Peças',
+            title: 'Peças',
+            type: 'item',
+            url: '/pecas',
+            classes: 'nav-item',
+          },
+                              {
+            id: 'Usuarios',
+            title: 'Usuários',
+            type: 'item',
+            url: '/usuarios',
+            classes: 'nav-item',
+          },
           {
             id: 'Form',
             title: 'Formulario',
@@ -183,9 +197,14 @@ export const NavigationItems: NavigationItem[] = [
             id: 'Equipamento',
             title: 'Equipamentos',
             type: 'item',
-            url: '/equipamento-register',
-            target: false,
-            breadcrumbs: false
+            url: '/equipamento-create',
+          },
+                    {
+            id: 'Lista de Equipamentos',
+            title: 'Lista de Equipamentos',
+            type: 'item',
+            url: '/equipamentos-list',
+
           },
           {
             id: 'Criticidade',
