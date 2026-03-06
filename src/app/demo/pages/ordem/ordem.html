@@ -1,0 +1,196 @@
+<div class="row">
+  <div class="col-sm-12">
+    <app-card cardTitle="Ordem de Manutenção" [options]="false">
+
+      <!-- IDENTIFICAÇÃO -->
+      <h5 class="mt-5">Identificação</h5>
+      <hr />
+
+      <form action="javascript:void(0)">
+
+        <div class="row">
+          <div class="form-group col-md-4">
+            <label>Número da OS</label>
+            <input type="text" class="form-control" placeholder="OM-0001" />
+          </div>
+
+          <div class="form-group col-md-4">
+            <label>Status</label>
+            <select class="form-control">
+              <option selected disabled>Selecione</option>
+              <option value="ABERTA">Aberta</option>
+              <option value="EM_EXECUCAO">Em execução</option>
+              <option value="CONCLUIDA">Concluída</option>
+              <option value="CANCELADA">Cancelada</option>
+            </select>
+          </div>
+
+          <div class="form-group col-md-4">
+            <label>Prioridade</label>
+            <select class="form-control">
+              <option value="BAIXA">Baixa</option>
+              <option value="MEDIA">Média</option>
+              <option value="ALTA">Alta</option>
+              <option value="CRITICA">Crítica</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- RELACIONAMENTOS -->
+        <h5 class="mt-4">Relacionamentos</h5>
+        <hr />
+
+        <div class="row">
+          <div class="form-group col-md-4">
+            <label>Equipamento</label>
+            <select class="form-control">
+              <option selected disabled>Selecione o equipamento</option>
+            </select>
+          </div>
+
+          <div class="form-group col-md-4">
+            <label>Plano de Manutenção</label>
+            <select class="form-control">
+              <option selected>Nenhum</option>
+            </select>
+          </div>
+
+          <div class="form-group col-md-4">
+            <label>Procedimento</label>
+            <select class="form-control">
+              <option selected disabled>Selecione o procedimento</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- DESCRIÇÃO -->
+        <h5 class="mt-4">Descrição</h5>
+        <hr />
+
+        <div class="form-group">
+          <label>Descrição do Problema / Atividade</label>
+          <textarea
+            class="form-control"
+            rows="3"
+            placeholder="Descreva o problema ou atividade"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label>Observações</label>
+          <textarea
+            class="form-control"
+            rows="2"></textarea>
+        </div>
+
+        <!-- TIPO DE MANUTENÇÃO -->
+        <h5 class="mt-4">Tipo de Manutenção</h5>
+        <hr />
+
+        <div class="row">
+          <div class="form-group col-md-4">
+            <label>Tipo</label>
+            <select class="form-control">
+              <option value="PREVENTIVA">Preventiva</option>
+              <option value="CORRETIVA">Corretiva</option>
+              <option value="PREDITIVA">Preditiva</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- DATAS -->
+        <h5 class="mt-4">Datas</h5>
+        <hr />
+
+        <div class="row">
+          <div class="form-group col-md-6">
+            <label>Data de Abertura</label>
+            <input type="datetime-local" class="form-control" />
+          </div>
+
+          <div class="form-group col-md-6">
+            <label>Data de Fechamento</label>
+            <input type="datetime-local" class="form-control" />
+          </div>
+        </div>
+
+        <!-- RESPONSÁVEIS -->
+        <h5 class="mt-4">Responsáveis</h5>
+        <hr />
+
+        <div class="row">
+          <div class="form-group col-md-6">
+            <label>Solicitante</label>
+            <select class="form-control">
+              <option selected disabled>Selecione</option>
+            </select>
+          </div>
+
+          <div class="form-group col-md-6">
+            <label>Responsável</label>
+            <select class="form-control">
+              <option selected disabled>Selecione</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- CUSTOS -->
+        <h5 class="mt-4">Custos</h5>
+        <hr />
+
+        <div class="row">
+          <div class="form-group col-md-6">
+            <label>Custo Estimado (R$)</label>
+            <input type="number" step="0.01" class="form-control" />
+          </div>
+
+          <div class="form-group col-md-6">
+            <label>Custo Real (R$)</label>
+            <input type="number" step="0.01" class="form-control" />
+          </div>
+        </div>
+
+        <!-- TEMPO DE PARADA -->
+        <h5 class="mt-4">Tempo de Parada (min)</h5>
+        <hr />
+
+        <div class="row">
+          <div class="form-group col-md-6">
+            <label>Estimado</label>
+            <input type="number" class="form-control" />
+          </div>
+
+          <div class="form-group col-md-6">
+            <label>Real</label>
+            <input type="number" class="form-control" />
+          </div>
+        </div>
+
+        <!-- ANÁLISE DE FALHA -->
+        <h5 class="mt-4">Análise de Falha</h5>
+        <hr />
+
+        <div class="row">
+          <div class="form-group col-md-6">
+            <label>Modo de Falha</label>
+            <select class="form-control">
+              <option selected>Nenhum</option>
+            </select>
+          </div>
+
+          <div class="form-group col-md-6">
+            <label>Causa Raiz</label>
+            <select class="form-control">
+              <option selected>Nenhum</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- AÇÕES -->
+        <button type="button" class="btn btn-primary mt-4">
+          Salvar Ordem de Manutenção
+        </button>
+
+      </form>
+    </app-card>
+  </div>
+</div>

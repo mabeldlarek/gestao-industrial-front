@@ -1,0 +1,23 @@
+.custom-ng-select {
+
+  .ng-select-container {
+    min-height: 48px;
+    align-items: center;
+    padding: 4px 8px;
+  }
+
+  .ng-placeholder {
+    padding-left: 6px;
+    line-height: 32px;
+  }
+
+  .ng-value-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .ng-value {
+    margin: 0;
+  }
+}

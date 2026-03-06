@@ -1,0 +1,124 @@
+<div class="row">
+  <div class="col-sm-7">
+    <app-card cardTitle="" [options]="false" blockClass="table-border-style">
+
+      <!-- Barra de ações -->
+      <div class="d-flex justify-content-end align-items-center mb-3">
+
+        <!-- Botões lado a lado -->
+        <div class="d-flex gap-2">
+          <button type="button" class="btn btn-primary">
+            <i class="feather icon-plus"></i>
+            Adicionar
+          </button>
+          <button type="button" class="btn btn-danger" disabled>
+            <i class="feather icon-trash-2"></i>
+            Excluir
+          </button>
+
+        </div>
+      </div>
+
+      <!-- Tabela -->
+      <div class="table-responsive">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th></th>
+              <th>Nome</th>
+              <th>Matrícula</th>
+              <th>Cargo</th>
+              <th>Equipe</th>
+              <th>Status</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of dados">
+              <td>
+                <img class="rounded-circle" style="width: 40px" src="https://i.pravatar.cc/40" alt="Usuário" />
+              </td>
+              <td>{{ item.nome }}</td>
+              <td>{{ item.matricula }}</td>
+              <td>{{ item.cargo }}</td>
+              <td>{{ item.equipe }}</td>
+              <td>{{ item.status }}</td>
+
+              <!-- Botão menor -->
+              <td>
+                <button type="button" class="btn btn-icon btn-outline-primary">
+                  <i class="feather icon-edit"></i>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </app-card>
+  </div>
+  <div class="col-sm-4">
+    <div class="card">
+      <div class="card-header">
+        <h5>Filtros</h5>
+      </div>
+      <div class="card-body">
+        <div class="mb-3">
+        <input class="form-control search-btn" list="datalistOptions" id="exampleDataList" placeholder="Type to search..." />
+        </div>
+        <div ngbAccordion>
+          <div ngbAccordionItem [collapsed]="false">
+            <h2 ngbAccordionHeader>
+              <button ngbAccordionButton>Cargo</button>
+            </h2>
+            <div ngbAccordionCollapse>
+              <div ngbAccordionBody>
+                <ng-template>
+                  {{ loremText }}
+                </ng-template>
+              </div>
+            </div>
+          </div>
+          <div ngbAccordionItem>
+            <h2 ngbAccordionHeader>
+              <button ngbAccordionButton>
+                Equipe
+              </button>
+            </h2>
+            <div ngbAccordionCollapse>
+              <div ngbAccordionBody>
+                <ng-template>
+                  {{ loremText }}
+                </ng-template>
+              </div>
+            </div>
+          </div>
+          <div ngbAccordionItem>
+            <h2 ngbAccordionHeader>
+              <button ngbAccordionButton>
+                Especialidades
+              </button>
+            </h2>
+            <div ngbAccordionCollapse>
+              <div ngbAccordionBody>
+                <ng-template>
+                  {{ loremText }}
+                </ng-template>
+              </div>
+            </div>
+          </div>
+          <div ngbAccordionItem>
+            <h2 ngbAccordionHeader>
+              <button ngbAccordionButton>
+                Status
+              </button>
+            </h2>
+            <div ngbAccordionCollapse>
+              <div ngbAccordionBody>
+                <ng-template>
+                  {{ loremText }}
+                </ng-template>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>

@@ -20,18 +20,21 @@ export class AuthSignupComponent {
   error = signal('');
   showPassword = signal(false);
 
-  registerModel = signal<{ email: string; password: string; username: string }>({
+  registerModel = signal<{ email: string; senha: string; nomeUsuario: string; tipoUsuario: string; ativo: boolean }>({
     email: '',
-    password: '',
-    username: ''
+    senha: '',
+    nomeUsuario: '',
+    tipoUsuario: '',
+    ativo: true
   });
 
   registerForm = form(this.registerModel, (schemaPath) => {
-    required(schemaPath.email, { message: 'Email is required' });
+    required(schemaPath.email, { message: 'Email é obrigatório' });
     email(schemaPath.email, { message: 'Enter a valid email address' });
-    required(schemaPath.password, { message: 'Password is required' });
-    minLength(schemaPath.password, 8, { message: 'Password must be at least 8 characters' });
-    required(schemaPath.username, { message: 'Username is required' });
+    required(schemaPath.senha, { message: 'Senha é obrigatória' });
+    minLength(schemaPath.senha, 8, { message: 'Senha deve ter no mínimo 8 caracteres' });
+    required(schemaPath.nomeUsuario, { message: 'Nome de usuário é obrigatório' });
+    required(schemaPath.tipoUsuario, { message: 'Tipo de usuário é obrigatório' });
   });
 
   onSubmit(event: Event) {

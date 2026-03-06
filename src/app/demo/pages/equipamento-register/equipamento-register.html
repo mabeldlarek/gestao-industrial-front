@@ -1,0 +1,150 @@
+<div class="row">
+  <div class="col-sm-12">
+    <app-card cardTitle="Cadastro de Equipamento" [options]="false">
+
+      <!-- INFORMAÇÕES BÁSICAS -->
+      <h5 class="mt-5">Informações do Equipamento</h5>
+      <hr />
+
+      <form action="javascript:void(0)">
+        <div class="row">
+          <div class="form-group col-md-6">
+            <label>Código</label>
+            <input type="text" class="form-control" placeholder="Código do equipamento" />
+          </div>
+
+          <div class="form-group col-md-6">
+            <label>Nome</label>
+            <input type="text" class="form-control" placeholder="Nome do equipamento" />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Descrição</label>
+          <input type="text" class="form-control" placeholder="Descrição do equipamento" />
+        </div>
+
+        <div class="row">
+          <div class="form-group col-md-6">
+            <label>Tipo</label>
+            <input type="text" class="form-control" placeholder="Sensor, Motor, Bomba..." />
+          </div>
+
+          <div class="form-group col-md-6">
+            <label>Status Operacional</label>
+            <select class="form-control">
+              <option selected disabled>Selecione</option>
+              <option>Operacional</option>
+              <option>Em Manutenção</option>
+              <option>Inoperante</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- IDENTIFICAÇÃO -->
+        <h5 class="mt-4">Identificação</h5>
+        <hr />
+
+        <div class="row">
+          <div class="form-group col-md-4">
+            <label>Número de Série</label>
+            <input type="text" class="form-control" />
+          </div>
+
+          <div class="form-group col-md-4">
+            <label>Fabricante</label>
+            <input type="text" class="form-control" />
+          </div>
+
+          <div class="form-group col-md-4">
+            <label>Modelo</label>
+            <input type="text" class="form-control" />
+          </div>
+        </div>
+
+        <!-- LOCALIZAÇÃO -->
+        <h5 class="mt-4">Localização</h5>
+        <hr />
+
+        <div class="form-group">
+          <label>Localização Física</label>
+          <input type="text" class="form-control" placeholder="Planta / Sala / Área" />
+        </div>
+
+        <!-- DATAS -->
+        <h5 class="mt-4">Datas</h5>
+        <hr />
+
+        <div class="row">
+          <div class="form-group col-md-6">
+            <label>Data de Instalação</label>
+            <input type="datetime-local" class="form-control" />
+          </div>
+
+          <div class="form-group col-md-6">
+            <label>Data da Última Manutenção</label>
+            <input type="datetime-local" class="form-control" />
+          </div>
+        </div>
+
+        <!-- PARÂMETROS OPERACIONAIS -->
+        <h5 class="mt-4">Parâmetros Operacionais</h5>
+        <hr />
+
+        <div class="row">
+          <div class="form-group col-md-6">
+            <label>Faixa de Frequência (Hz)</label>
+            <input type="text" class="form-control" placeholder="Ex: 10-1000" />
+          </div>
+
+          <div class="form-group col-md-6">
+            <label>Vibração Máxima (mm/s)</label>
+            <input type="number" step="0.01" class="form-control" />
+          </div>
+        </div>
+
+        <!-- RELACIONAMENTOS -->
+        <h5 class="mt-4">Relacionamentos</h5>
+        <hr />
+
+        <div class="row">
+          <div class="form-group col-md-6">
+            <label>Criticidade</label>
+            <select class="form-control">
+              <option selected disabled>Selecione</option>
+              <option value="1">Baixa</option>
+              <option value="2">Média</option>
+              <option value="3">Alta</option>
+            </select>
+          </div>
+
+          <div class="form-group col-md-6">
+            <label>Equipamento Pai</label>
+            <select class="form-control">
+              <option selected>Nenhum</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- ANEXOS -->
+        <h5 class="mt-4">Anexos</h5>
+        <hr />
+
+        <div class="form-group">
+          <label>Documentos</label>
+          <input type="file" class="form-control" multiple />
+        </div>
+
+        <div class="form-group">
+          <label>Imagem (URL)</label>
+          <input type="text" class="form-control" placeholder="https://..." />
+        </div>
+
+        <button type="button" class="btn btn-primary mt-4">
+          Salvar Equipamento
+        </button>
+      </form>
+
+    </app-card>
+  </div>
+</div>

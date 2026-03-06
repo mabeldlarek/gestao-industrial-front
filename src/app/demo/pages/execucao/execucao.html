@@ -1,0 +1,140 @@
+<div class="row">
+  <div class="col-sm-12">
+    <app-card cardTitle="Execução da Ordem de Manutenção" [options]="false">
+
+      <!-- IDENTIFICAÇÃO -->
+      <h5 class="mt-5">Identificação</h5>
+      <hr />
+
+      <form action="javascript:void(0)">
+
+        <div class="row">
+          <div class="form-group col-md-6">
+            <label>Ordem de Manutenção</label>
+            <select class="form-control">
+              <option selected disabled>Selecione a OM</option>
+            </select>
+          </div>
+
+          <div class="form-group col-md-6">
+            <label>Executor</label>
+            <select class="form-control">
+              <option selected disabled>Selecione o executor</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- EXECUÇÃO -->
+        <h5 class="mt-4">Execução do Trabalho</h5>
+        <hr />
+
+        <div class="form-group">
+          <label>Descrição do Trabalho Executado</label>
+          <textarea
+            class="form-control"
+            rows="3"
+            placeholder="Descreva o serviço realizado"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label>Observações do Executor</label>
+          <textarea
+            class="form-control"
+            rows="3"
+            placeholder="Observações adicionais"></textarea>
+        </div>
+
+        <!-- STATUS -->
+        <h5 class="mt-4">Status da Execução</h5>
+        <hr />
+
+        <div class="row">
+          <div class="form-group col-md-4">
+            <label>Status</label>
+            <select class="form-control">
+              <option selected disabled>Selecione</option>
+              <option value="CONCLUIDA">Concluída</option>
+              <option value="PARCIAL">Parcial</option>
+              <option value="NAO_CONCLUIDA">Não Concluída</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- CHECKLIST -->
+        <h5 class="mt-4">Checklist</h5>
+        <hr />
+
+        <div class="form-group">
+          <label>Itens do Checklist</label>
+          <!-- aqui normalmente entra um ngFor -->
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" />
+            <label class="form-check-label">Item 1</label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" />
+            <label class="form-check-label">Item 2</label>
+          </div>
+        </div>
+
+        <!-- PERÍODOS DE TRABALHO -->
+        <h5 class="mt-4">Períodos de Trabalho</h5>
+        <hr />
+
+        <div class="row">
+          <div class="form-group col-md-4">
+            <label>Início</label>
+            <input type="datetime-local" class="form-control" />
+          </div>
+
+          <div class="form-group col-md-4">
+            <label>Fim</label>
+            <input type="datetime-local" class="form-control" />
+          </div>
+
+          <div class="form-group col-md-4 d-flex align-items-end">
+            <button type="button" class="btn btn-outline-primary">
+              Adicionar Período
+            </button>
+          </div>
+        </div>
+
+        <!-- FOTOS -->
+        <h5 class="mt-4">Registro Fotográfico</h5>
+        <hr />
+
+        <div class="row">
+          <div class="form-group col-md-6">
+            <label>Fotos Antes</label>
+            <input type="file" class="form-control" multiple />
+          </div>
+
+          <div class="form-group col-md-6">
+            <label>Fotos Depois</label>
+            <input type="file" class="form-control" multiple />
+          </div>
+        </div>
+
+        <!-- ASSINATURA -->
+        <h5 class="mt-4">Assinatura</h5>
+        <hr />
+
+        <div class="form-group">
+          <label>Assinatura Digital</label>
+          <!-- normalmente aqui entra um canvas -->
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Assinatura em base64"
+            readonly />
+        </div>
+
+        <!-- AÇÕES -->
+        <button type="button" class="btn btn-success mt-4">
+          Finalizar Execução
+        </button>
+
+      </form>
+    </app-card>
+  </div>
+</div>

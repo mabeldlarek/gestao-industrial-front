@@ -130,27 +130,148 @@ export const NavigationItems: NavigationItem[] = [
     children: [
       {
         id: 'auth',
-        title: 'Authentication',
+        title: 'Cadastros',
         type: 'collapse',
         icon: 'feather icon-lock',
         children: [
           {
-            id: 'signup',
-            title: 'Sign up',
+            id: 'Usuário',
+            title: 'Usuário',
             type: 'item',
             url: '/register',
             target: true,
             breadcrumbs: false
           },
           {
-            id: 'signin',
-            title: 'Sign in',
+            id: 'Login',
+            title: 'Login',
             type: 'item',
             url: '/login',
             target: true,
             breadcrumbs: false
+          },
+          {
+            id: 'Funcionário',
+            title: 'Funcionário',
+            type: 'item',
+            url: '/funcionario',
+            classes: 'nav-item',
+          },
+                    {
+            id: 'Funcionários',
+            title: 'Funcionários',
+            type: 'item',
+            url: '/funcionarios',
+            classes: 'nav-item',
+          },
+          {
+            id: 'Form',
+            title: 'Formulario',
+            type: 'item',
+            url: '/form-element',
+            classes: 'nav-item',
           }
         ]
+      },
+       {
+        id: 'ativos',
+        title: 'Ativos',
+        type: 'collapse',
+        icon: 'feather icon-lock',
+        children: [
+          {
+            id: 'Equipamento',
+            title: 'Equipamentos',
+            type: 'item',
+            url: '/equipamento-register',
+            target: false,
+            breadcrumbs: false
+          },
+          {
+            id: 'Criticidade',
+            title: 'Criticidade',
+            type: 'item',
+            url: '/criticidade',
+            target: true,
+            breadcrumbs: false
+          },
+          {
+            id: 'Medidor',
+            title: 'Medidores',
+            type: 'item',
+            url: '/medidores',
+            classes: 'nav-item',
+          }
+        ]
+      },
+       {
+        id: 'estoque',
+        title: 'Estoque',
+        type: 'collapse',
+        icon: 'feather icon-lock',
+        children: [
+          {
+            id: 'peca',
+            title: 'Peças',
+            type: 'item',
+            url: '/pecas',
+            classes: 'nav-item',
+          },
+          {
+            id: 'peca-consumo',
+            title: 'Consumo de Peças',
+            type: 'item',
+            url: '/consumo-pecas',
+            classes: 'nav-item',
+          },
+        ]
+      },
+             {
+        id: 'manutencao',
+        title: 'Manutenção',
+        type: 'collapse',
+        icon: 'feather icon-lock',
+        children: [
+          {
+            id: 'plano',
+            title: 'Planos',
+            type: 'item',
+            url: '/plano-register',
+            target: false,
+            breadcrumbs: false
+          },          
+          {
+            id: 'ordem',
+            title: 'Ordens',
+            type: 'item',
+            url: '/ordens',
+            classes: 'nav-item',
+          },
+          {
+            id: 'execucao',
+            title: 'Executar',
+            type: 'item',
+            url: '/executar',
+            target: false,
+            breadcrumbs: false
+          },
+                    {
+            id: 'ordem',
+            title: 'Ordem de Serviço',
+            type: 'item',
+            url: '/ordem',
+            target: false,
+            breadcrumbs: false
+          }
+        ]
+      },
+      {
+        id: 'procedimento',
+        title: 'Procedimentos',
+        type: 'item',
+        url: '/sample-page',
+        classes: 'nav-item',
+        icon: 'feather icon-sidebar'
       },
       {
         id: 'sample-page',
