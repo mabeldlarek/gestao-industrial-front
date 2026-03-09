@@ -1,0 +1,113 @@
+<div class="row">
+    <div class="col-sm-8">
+        <app-card cardTitle="" [options]="false" blockClass="table-border-style">
+            
+            <div class="d-flex flex-column flex-md-row justify-content-between align-items-stretch align-items-md-center mb-3 gap-2">
+                <div class="flex-grow-1" style="max-width: 500px;">
+                    <input class="form-control" placeholder="Pesquisar por nome, código, tipo..."
+                        [(ngModel)]="termoPesquisa" (input)="filtrarProcedimentos()" />
+                </div>
+
+                <div class="d-flex gap-2">
+                    <button type="button" class="btn btn-primary" (click)="adicionarProcedimento()">
+                        <i class="feather icon-plus"></i> Adicionar
+                    </button>
+                    <button type="button" class="btn btn-danger" [disabled]="!podeExcluir" (click)="confirmarExclusao()">
+                        <i class="feather icon-trash-2"></i> Excluir
+                    </button>
+                </div>
+            </div>
+
+         <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Título</th>
+                            <th>Código</th>
+                            <th>Tipo</th>
+                            <th>Tempo Est.</th>
+                            <th>Revisado Por</th>
+                            <th>Última Revisão</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of dadosFiltrados" (click)="selecionarItem(item)"
+                            [class.table-active]="estaSelecionado(item)" style="cursor:pointer">
+                            <td>
+                                <div class="btn btn-sm btn-light-primary rounded-circle">
+                                    <i class="feather icon-file-text"></i>
+                                </div>
+                            </td>
+                            <td><strong>{{ item.titulo }}</strong></td>
+                            <td><span class="badge bg-light-secondary">{{ item.codigo }}</span></td>
+                            <td>{{ item.tipoManutencao }}</td>
+                            <td>{{ item.tempoEstimado }}h</td>
+                            <td>{{ item.revisadoPor }}</td>
+                            <td>{{ item.dataUltimaRevisao | date:'dd/MM/yyyy' }}</td>
+                            <td>
+                                <button type="button" class="btn btn-icon btn-warning"
+                                    (click)="$event.stopPropagation(); editarProcedimento()"
+                                    [disabled]="desabilitarEdicao()">
+                                    <i class="feather icon-edit"></i>
+                                </button>
+                            </td>
+                        </tr>
+                        <tr *ngIf="dadosFiltrados.length === 0">
+                            <td colspan="8" class="text-center text-muted py-4">
+                                Nenhum procedimento encontrado para "<strong>{{ termoPesquisa }}</strong>"
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </app-card>
+    </div>
+
+    <div class="col-sm-4">
+        <div class="card">
+            <div class="card-header">
+                <h5>Filtros de Procedimento</h5>
+            </div>
+            <div class="card-body">
+                <div ngbAccordion [closeOthers]="true">
+                    
+                    <div ngbAccordionItem [collapsed]="false">
+                        <h2 ngbAccordionHeader>
+                            <button ngbAccordionButton>Tipo de Manutenção</button>
+                        </h2>
+                        <div ngbAccordionCollapse>
+                            <div ngbAccordionBody>
+                                <p>Preventiva, Corretiva, Preditiva...</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div ngbAccordionItem>
+                        <h2 ngbAccordionHeader>
+                            <button ngbAccordionButton>Riscos Associados</button>
+                        </h2>
+                        <div ngbAccordionCollapse>
+                            <div ngbAccordionBody>
+                                <p>Elétrico, Queda, Químico...</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div ngbAccordionItem>
+                        <h2 ngbAccordionHeader>
+                            <button ngbAccordionButton>Tempo Estimado</button>
+                        </h2>
+                        <div ngbAccordionCollapse>
+                            <div ngbAccordionBody>
+                                <p>Até 2h, 2h a 5h, Mais de 5h...</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
