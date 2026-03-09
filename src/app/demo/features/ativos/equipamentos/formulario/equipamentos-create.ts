@@ -36,10 +36,10 @@ export class EquipamentosCreate implements OnInit {
 
     ngOnInit() {
         if (this.equipamentoEdicao) {
-            // Fazemos a cópia profunda
-            this.dadosForm = JSON.parse(JSON.stringify(this.equipamentoEdicao));
+            // Criamos uma cópia completa incluindo IDs e campos ocultos
+            this.dadosForm = { ...this.equipamentoEdicao };
 
-            // Ajustamos as datas para o formato do navegador (YYYY-MM-DDThh:mm)
+            // Formatação das datas para os inputs do tipo datetime-local
             if (this.dadosForm.dataInstalacao) {
                 this.dadosForm.dataInstalacao = this.formatarDataParaInput(this.dadosForm.dataInstalacao);
             }

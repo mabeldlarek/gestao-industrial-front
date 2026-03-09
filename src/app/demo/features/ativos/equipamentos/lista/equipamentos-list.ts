@@ -233,7 +233,7 @@ export class EquipamentosComponent {
     return this.itensSelecionados.length > 0;
   }
 
-   adicionarEquipamento() {
+  adicionarEquipamento() {
 
     this.modalService.open(EquipamentosCreate, {
       size: 'lg',
@@ -243,48 +243,61 @@ export class EquipamentosComponent {
 
   }
 
-
   editarEquipamento() {
-
     if (this.itensSelecionados.length !== 1) return;
 
-    Swal.fire({
-      icon: 'info',
-      title: 'Editar Equipamento',
-      text: `Editar ${this.itensSelecionados[0].nome}`
+    const itemParaEditar = this.itensSelecionados[0];
+
+    const modalRef = this.modalService.open(EquipamentosCreate, {
+      size: 'lg',
+      backdrop: 'static',
+      keyboard: true
     });
 
+    // ATENÇÃO AQUI: O nome deve ser 'equipamentoEdicao' para bater com o seu @Input
+    modalRef.componentInstance.equipamentoEdicao = { ...itemParaEditar };
+
+    // Opcional: Pegar o retorno ao salvar
+    modalRef.result.then((resultado) => {
+      if (resultado) {
+        const index = this.dados.findIndex(d => d.id === resultado.id);
+        if (index !== -1) {
+          this.dados[index] = resultado;
+          this.filtrarEquipamentos();
+        }
+      }
+    }).catch(() => { });
   }
 
-confirmarExclusao() {
+  confirmarExclusao() {
 
-  if (!this.itensSelecionados.length) return;
+    if (!this.itensSelecionados.length) return;
 
-  let mensagem = '';
+    let mensagem = '';
 
-  if (this.itensSelecionados.length === 1) {
-    mensagem = `Excluir ${this.itensSelecionados[0].nome}?`;
-  } else {
-    mensagem = `Excluir ${this.itensSelecionados.length} itens selecionados?`;
-  }
-
-  Swal.fire({
-    title: 'Tem certeza?',
-    text: mensagem,
-    icon: 'warning',
-    showCancelButton: true,
-    confirmButtonColor: '#d33',
-    cancelButtonColor: '#3085d6',
-    confirmButtonText: 'Sim, excluir',
-    cancelButtonText: 'Cancelar'
-  }).then(result => {
-
-    if (result.isConfirmed) {
-      this.excluirEquipamento();
+    if (this.itensSelecionados.length === 1) {
+      mensagem = `Excluir ${this.itensSelecionados[0].nome}?`;
+    } else {
+      mensagem = `Excluir ${this.itensSelecionados.length} itens selecionados?`;
     }
 
-  });
-}
+    Swal.fire({
+      title: 'Tem certeza?',
+      text: mensagem,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#3085d6',
+      confirmButtonText: 'Sim, excluir',
+      cancelButtonText: 'Cancelar'
+    }).then(result => {
+
+      if (result.isConfirmed) {
+        this.excluirEquipamento();
+      }
+
+    });
+  }
 
   excluirEquipamento() {
 
