@@ -4,22 +4,23 @@ import { SharedModule } from 'src/app/theme/shared/shared.module';
 import { NavSearchComponent } from "src/app/theme/layout/admin/nav-bar/nav-left/nav-search/nav-search.component";
 import { EquipamentosCreate } from '../formulario/equipamentos-create';
 import { NgbModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { CommonModule } from '@angular/common';
 import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-equipamentos',
   standalone: true,
-  imports: [CardComponent, SharedModule, NavSearchComponent, NgbModule, CommonModule],
+  imports: [CardComponent, SharedModule, NavSearchComponent, NgbModule],
   templateUrl: './equipamentos-list.html',
   styleUrl: './equipamentos-list.scss',
 })
 export class EquipamentosComponent {
 
+  termoPesquisa: string = '';
+
   dados = [
     {
       id: 1,
-      codigo: "TESTE",
+      codigo: "EQP-001",
       nome: "Sensor de Vibração - Motor",
       descricao: "Sensor responsável por monitorar vibração do motor principal.",
       tipo: "Sensor",
@@ -30,98 +31,182 @@ export class EquipamentosComponent {
       dataInstalacao: "2024-06-10T12:00:00Z",
       dataUltimaManutencao: "2025-02-05T14:00:00Z",
       statusOperacional: "Operacional",
-      criticidadeID: "2",
-      parametrosOperacionais: {
-        faixaHz: "10-1000",
-        vibracaoMax_mm_s: 4.5
-      },
+      criticidadeID: "Alta",
+      parametrosOperacionais: { faixaHz: "10-1000", vibracaoMax_mm_s: 4.5 },
       medidorIds: [],
       documentosAnexados: ["manual-sensor-vibracao.pdf"],
-      imagemURL: "https://exemplo.com/imagens/vibracao01.png",
+      imagemURL: "",
       parentID: null
     },
+
     {
       id: 2,
-      codigo: "MOT-001",
-      nome: "Motor Trifásico - Esteira A",
-      descricao: "Motor de indução responsável pela tração da esteira transportadora principal.",
+      codigo: "EQP-002",
+      nome: "Motor Elétrico Principal",
+      descricao: "Motor responsável pela linha de produção 1.",
       tipo: "Motor",
-      localizacao: "Planta Norte - Setor C",
-      numeroSerie: "MOT-ABC-12345",
+      localizacao: "Planta Central - Linha 1",
+      numeroSerie: "MTR-88421",
       fabricante: "WEG",
-      modelo: "W22 Super Premium",
-      dataInstalacao: "2023-01-15T08:30:00Z",
-      dataUltimaManutencao: "2024-12-20T10:00:00Z",
-      statusOperacional: "Em Manutenção",
-      criticidadeID: "1",
-      parametrosOperacionais: {
-        faixaHz: "60",
-        vibracaoMax_mm_s: 2.8
-      },
-      medidorIds: [10, 11],
-      documentosAnexados: ["catalogo-weg-w22.pdf"],
-      imagemURL: "https://exemplo.com/imagens/motor001.png",
+      modelo: "W22 50CV",
+      dataInstalacao: "2023-03-15T10:00:00Z",
+      dataUltimaManutencao: "2025-01-10T09:00:00Z",
+      statusOperacional: "Operacional",
+      criticidadeID: "Alta",
+      parametrosOperacionais: { rpm: 1750, potencia_kw: 37 },
+      medidorIds: [],
+      documentosAnexados: [],
+      imagemURL: "",
       parentID: null
     },
+
     {
       id: 3,
-      codigo: "BOM-442",
-      nome: "Bomba Centrífuga - Resfriamento",
-      descricao: "Bomba de alta pressão do sistema de resfriamento das caldeiras.",
+      codigo: "EQP-003",
+      nome: "Bomba Hidráulica",
+      descricao: "Bomba utilizada no sistema de refrigeração.",
       tipo: "Bomba",
-      localizacao: "Planta Sul - Subsolo",
-      numeroSerie: "BOM-998-XYZ",
-      fabricante: "KSB",
-      modelo: "MegaCPK",
-      dataInstalacao: "2022-11-05T15:00:00Z",
-      dataUltimaManutencao: "2025-01-10T09:15:00Z",
+      localizacao: "Setor Hidráulico",
+      numeroSerie: "BMB-77821",
+      fabricante: "Grundfos",
+      modelo: "CRN32",
+      dataInstalacao: "2022-11-02T10:00:00Z",
+      dataUltimaManutencao: "2025-02-15T11:00:00Z",
       statusOperacional: "Operacional",
-      criticidadeID: "3",
-      parametrosOperacionais: {
-        faixaHz: "0-3600 RPM",
-        vibracaoMax_mm_s: 7.1
-      },
+      criticidadeID: "Média",
+      parametrosOperacionais: { vazao_l_min: 120 },
       medidorIds: [],
-      documentosAnexados: ["ksb-manual-centrifuga.pdf", "diagrama-hidraulico.png"],
-      imagemURL: "https://exemplo.com/imagens/bomba442.png",
+      documentosAnexados: [],
+      imagemURL: "",
+      parentID: null
+    },
+
+    {
+      id: 4,
+      codigo: "EQP-004",
+      nome: "CLP Linha Produção",
+      descricao: "Controlador lógico programável da linha principal.",
+      tipo: "Controlador",
+      localizacao: "Painel Elétrico 1",
+      numeroSerie: "CLP-99812",
+      fabricante: "Siemens",
+      modelo: "S7-1500",
+      dataInstalacao: "2023-05-20T09:00:00Z",
+      dataUltimaManutencao: "2025-02-02T14:00:00Z",
+      statusOperacional: "Operacional",
+      criticidadeID: "Alta",
+      parametrosOperacionais: {},
+      medidorIds: [],
+      documentosAnexados: [],
+      imagemURL: "",
+      parentID: null
+    },
+
+    {
+      id: 5,
+      codigo: "EQP-005",
+      nome: "Sensor de Temperatura Forno",
+      descricao: "Sensor responsável por medir temperatura do forno industrial.",
+      tipo: "Sensor",
+      localizacao: "Forno Industrial",
+      numeroSerie: "TMP-88321",
+      fabricante: "Omron",
+      modelo: "E52",
+      dataInstalacao: "2024-01-10T08:00:00Z",
+      dataUltimaManutencao: "2025-01-20T09:00:00Z",
+      statusOperacional: "Operacional",
+      criticidadeID: "Alta",
+      parametrosOperacionais: { temperaturaMax: 800 },
+      medidorIds: [],
+      documentosAnexados: [],
+      imagemURL: "",
+      parentID: null
+    },
+
+    {
+      id: 6,
+      codigo: "EQP-006",
+      nome: "Válvula Pneumática",
+      descricao: "Controle de fluxo do sistema pneumático.",
+      tipo: "Válvula",
+      localizacao: "Linha 2",
+      numeroSerie: "VAL-22831",
+      fabricante: "Festo",
+      modelo: "VPPE",
+      dataInstalacao: "2023-09-12T08:00:00Z",
+      dataUltimaManutencao: "2025-02-18T13:00:00Z",
+      statusOperacional: "Operacional",
+      criticidadeID: "Baixa",
+      parametrosOperacionais: {},
+      medidorIds: [],
+      documentosAnexados: [],
+      imagemURL: "",
+      parentID: null
+    },
+
+    {
+      id: 7,
+      codigo: "EQP-007",
+      nome: "Compressor de Ar",
+      descricao: "Compressor principal do sistema pneumático.",
+      tipo: "Compressor",
+      localizacao: "Casa de Máquinas",
+      numeroSerie: "CMP-88321",
+      fabricante: "Atlas Copco",
+      modelo: "GA 75",
+      dataInstalacao: "2022-07-22T11:00:00Z",
+      dataUltimaManutencao: "2025-01-30T10:00:00Z",
+      statusOperacional: "Manutenção",
+      criticidadeID: "Alta",
+      parametrosOperacionais: { pressao_bar: 8 },
+      medidorIds: [],
+      documentosAnexados: [],
+      imagemURL: "",
+      parentID: null
+    },
+
+    {
+      id: 8,
+      codigo: "EQP-008",
+      nome: "Sensor de Pressão",
+      descricao: "Sensor de pressão da linha hidráulica.",
+      tipo: "Sensor",
+      localizacao: "Sistema Hidráulico",
+      numeroSerie: "PRS-88221",
+      fabricante: "Bosch Rexroth",
+      modelo: "HED 8",
+      dataInstalacao: "2024-02-01T10:00:00Z",
+      dataUltimaManutencao: "2025-02-12T15:00:00Z",
+      statusOperacional: "Operacional",
+      criticidadeID: "Média",
+      parametrosOperacionais: { pressaoMax_bar: 250 },
+      medidorIds: [],
+      documentosAnexados: [],
+      imagemURL: "",
       parentID: null
     }
   ];
 
-  termoPesquisa: string = '';
   dadosFiltrados = [...this.dados];
-
-  filtrarEquipamentos() {
-    const termo = this.termoPesquisa.toLowerCase().trim();
-
-    // Se a barra estiver vazia, a lista visual volta a ser IGUAL à lista de dados original
-    if (!termo) {
-      this.dadosFiltrados = [...this.dados];
-      return;
-    }
-
-    // Filtra apenas para a lista visual
-    this.dadosFiltrados = this.dados.filter(item => {
-      return (
-        item.nome.toLowerCase().includes(termo) ||
-        item.codigo.toLowerCase().includes(termo) ||
-        item.tipo.toLowerCase().includes(termo)
-      );
-    });
-  }
 
   itensSelecionados: any[] = [];
 
   constructor(private modalService: NgbModal) { }
 
-  // Verifica se exatamente um item está selecionado para edição
-  get podeEditar(): boolean {
-    return this.itensSelecionados.length === 1;
-  }
+  filtrarEquipamentos() {
 
-  // Verifica se ao menos um item está selecionado para exclusão
-  get podeExcluir(): boolean {
-    return this.itensSelecionados.length > 0;
+    const termo = this.termoPesquisa.toLowerCase();
+
+    this.dadosFiltrados = this.dados.filter(item =>
+      item.nome?.toLowerCase().includes(termo) ||
+      item.codigo?.toLowerCase().includes(termo) ||
+      item.tipo?.toLowerCase().includes(termo) ||
+      item.fabricante?.toLowerCase().includes(termo) ||
+      item.modelo?.toLowerCase().includes(termo) ||
+      item.statusOperacional?.toLowerCase().includes(termo)
+    );
+
+    this.itensSelecionados = [];
   }
 
   estaSelecionado(item: any): boolean {
@@ -129,6 +214,7 @@ export class EquipamentosComponent {
   }
 
   selecionarItem(item: any) {
+
     const index = this.itensSelecionados.findIndex(i => i.id === item.id);
 
     if (index > -1) {
@@ -136,76 +222,88 @@ export class EquipamentosComponent {
     } else {
       this.itensSelecionados.push(item);
     }
-    // Força a atualização da referência para o Angular detectar mudanças nos botões
-    this.itensSelecionados = [...this.itensSelecionados];
+
   }
 
-  adicionarEquipamento() {
+  desabilitarEdicao(): boolean {
+    return this.itensSelecionados.length !== 1;
+  }
+
+  get podeExcluir(): boolean {
+    return this.itensSelecionados.length > 0;
+  }
+
+   adicionarEquipamento() {
+
     this.modalService.open(EquipamentosCreate, {
       size: 'lg',
       backdrop: 'static',
       keyboard: true
     });
+
   }
+
 
   editarEquipamento() {
-    if (this.podeEditar) {
-      const itemParaEditar = this.itensSelecionados[0];
 
-      const modalRef = this.modalService.open(EquipamentosCreate, {
-        size: 'lg',
-        backdrop: 'static',
-        keyboard: true
-      });
-
-      // Passa o objeto para a variável "equipamentoEdicao" dentro do EquipamentosCreate
-      modalRef.componentInstance.equipamentoEdicao = itemParaEditar;
-
-      // Opcional: Tratar o retorno após salvar a edição
-      modalRef.result.then((result) => {
-        if (result) {
-          // Lógica para atualizar a lista local se necessário
-        }
-      }, () => { });
-    }
-  }
-
-  confirmarExclusao() {
-    const qtd = this.itensSelecionados.length;
+    if (this.itensSelecionados.length !== 1) return;
 
     Swal.fire({
-      title: 'Excluir?',
-      text: qtd === 1
-        ? `Remover "${this.itensSelecionados[0].nome}"?`
-        : `Remover ${qtd} itens?`,
-      icon: 'warning',
-      width: '350px', // Define a largura menor
-      padding: '1em', // Reduz o espaçamento interno
-      showCancelButton: true,
-      confirmButtonColor: '#d33',
-      cancelButtonColor: '#3085d6',
-      confirmButtonText: 'Sim',
-      cancelButtonText: 'Não',
-      reverseButtons: true,
-      customClass: {
-        title: 'fs-5', // Classe do Bootstrap para diminuir a fonte do título
-        htmlContainer: 'fs-6' // Classe do Bootstrap para diminuir a fonte do texto
-      }
-    }).then((result) => {
-      if (result.isConfirmed) {
-        const idsParaRemover = this.itensSelecionados.map(i => i.id);
-        this.dados = this.dados.filter(d => !idsParaRemover.includes(d.id));
-        this.itensSelecionados = [];
-
-        // Feedback de sucesso também pequeno
-        Swal.fire({
-          title: 'Pronto!',
-          icon: 'success',
-          width: '250px',
-          timer: 1000,
-          showConfirmButton: false
-        });
-      }
+      icon: 'info',
+      title: 'Editar Equipamento',
+      text: `Editar ${this.itensSelecionados[0].nome}`
     });
+
   }
+
+confirmarExclusao() {
+
+  if (!this.itensSelecionados.length) return;
+
+  let mensagem = '';
+
+  if (this.itensSelecionados.length === 1) {
+    mensagem = `Excluir ${this.itensSelecionados[0].nome}?`;
+  } else {
+    mensagem = `Excluir ${this.itensSelecionados.length} itens selecionados?`;
+  }
+
+  Swal.fire({
+    title: 'Tem certeza?',
+    text: mensagem,
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#d33',
+    cancelButtonColor: '#3085d6',
+    confirmButtonText: 'Sim, excluir',
+    cancelButtonText: 'Cancelar'
+  }).then(result => {
+
+    if (result.isConfirmed) {
+      this.excluirEquipamento();
+    }
+
+  });
+}
+
+  excluirEquipamento() {
+
+    const ids = this.itensSelecionados.map(i => i.id);
+
+    this.dados = this.dados.filter(item => !ids.includes(item.id));
+
+    this.itensSelecionados = [];
+
+    this.filtrarEquipamentos();
+
+    Swal.fire({
+      icon: 'success',
+      title: 'Excluído!',
+      text: 'Equipamento removido com sucesso',
+      timer: 2000,
+      showConfirmButton: false
+    });
+
+  }
+
 }
