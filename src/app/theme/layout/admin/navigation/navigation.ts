@@ -157,21 +157,21 @@ export const NavigationItems: NavigationItem[] = [
             url: '/funcionario',
             classes: 'nav-item',
           },
-                    {
+          {
             id: 'Funcionários',
             title: 'Funcionários',
             type: 'item',
             url: '/funcionarios',
             classes: 'nav-item',
           },
-                              {
+          {
             id: 'Peças',
             title: 'Peças',
             type: 'item',
             url: '/pecas',
             classes: 'nav-item',
           },
-                              {
+          {
             id: 'Usuarios',
             title: 'Usuários',
             type: 'item',
@@ -187,7 +187,7 @@ export const NavigationItems: NavigationItem[] = [
           }
         ]
       },
-       {
+      {
         id: 'ativos',
         title: 'Ativos',
         type: 'collapse',
@@ -199,7 +199,7 @@ export const NavigationItems: NavigationItem[] = [
             type: 'item',
             url: '/equipamento-create',
           },
-                    {
+          {
             id: 'Lista de Equipamentos',
             title: 'Lista de Equipamentos',
             type: 'item',
@@ -223,7 +223,7 @@ export const NavigationItems: NavigationItem[] = [
           }
         ]
       },
-       {
+      {
         id: 'estoque',
         title: 'Estoque',
         type: 'collapse',
@@ -245,7 +245,7 @@ export const NavigationItems: NavigationItem[] = [
           },
         ]
       },
-             {
+      {
         id: 'manutencao',
         title: 'Manutenção',
         type: 'collapse',
@@ -258,7 +258,7 @@ export const NavigationItems: NavigationItem[] = [
             url: '/plano-register',
             target: false,
             breadcrumbs: false
-          },          
+          },
           {
             id: 'ordem',
             title: 'Ordens',
@@ -274,7 +274,7 @@ export const NavigationItems: NavigationItem[] = [
             target: false,
             breadcrumbs: false
           },
-                    {
+          {
             id: 'ordem',
             title: 'Ordem de Serviço',
             type: 'item',
@@ -287,10 +287,26 @@ export const NavigationItems: NavigationItem[] = [
       {
         id: 'procedimento',
         title: 'Procedimentos',
-        type: 'item',
-        url: '/sample-page',
-        classes: 'nav-item',
-        icon: 'feather icon-sidebar'
+        type: 'collapse',
+        icon: 'feather icon-lock',
+        children: [
+          {
+            id: 'procedimentos',
+            title: 'Lista de Procedimentos',
+            type: 'item',
+            url: '/procedimentos-list',
+            target: false,
+            breadcrumbs: false
+          },
+                  {
+            id: 'procedimentos',
+            title: 'Cadastro de Procedimentos',
+            type: 'item',
+            url: '/procedimentos-create',
+            target: false,
+            breadcrumbs: false
+          },      
+        ]
       },
       {
         id: 'sample-page',

@@ -64,6 +64,10 @@ const routes: Routes = [
         loadComponent: () => import('./demo/features/ativos/equipamentos/lista/equipamentos-list').then((c) => c.EquipamentosComponent)
       },
       {
+        path: 'procedimentos-list',
+        loadComponent: () => import('./demo/features/conteudo/lista/procedimentos-list').then((c) => c.ProcedimentosComponent)
+      },
+      {
         path: 'plano-register',
         loadComponent: () => import('./demo/pages/plano-register/plano-register').then((c) => c.PlanoRegister)
       },

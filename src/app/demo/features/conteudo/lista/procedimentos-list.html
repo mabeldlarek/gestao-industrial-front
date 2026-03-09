@@ -1,8 +1,9 @@
 <div class="row">
     <div class="col-sm-8">
         <app-card cardTitle="" [options]="false" blockClass="table-border-style">
-            
-            <div class="d-flex flex-column flex-md-row justify-content-between align-items-stretch align-items-md-center mb-3 gap-2">
+
+            <div
+                class="d-flex flex-column flex-md-row justify-content-between align-items-stretch align-items-md-center mb-3 gap-2">
                 <div class="flex-grow-1" style="max-width: 500px;">
                     <input class="form-control" placeholder="Pesquisar por nome, código, tipo..."
                         [(ngModel)]="termoPesquisa" (input)="filtrarProcedimentos()" />
@@ -12,13 +13,15 @@
                     <button type="button" class="btn btn-primary" (click)="adicionarProcedimento()">
                         <i class="feather icon-plus"></i> Adicionar
                     </button>
-                    <button type="button" class="btn btn-danger" [disabled]="!podeExcluir" (click)="confirmarExclusao()">
-                        <i class="feather icon-trash-2"></i> Excluir
+                    <button type="button" class="btn btn-danger" [disabled]="itensSelecionados.length === 0"
+                        (click)="confirmarExclusao()">
+                        <i class="feather icon-trash-2"></i>
+                        Excluir {{ itensSelecionados.length > 0 ? '(' + itensSelecionados.length + ')' : '' }}
                     </button>
                 </div>
             </div>
 
-         <div class="table-responsive">
+            <div class="table-responsive">
                 <table class="table table-hover">
                     <thead>
                         <tr>
@@ -72,7 +75,7 @@
             </div>
             <div class="card-body">
                 <div ngbAccordion [closeOthers]="true">
-                    
+
                     <div ngbAccordionItem [collapsed]="false">
                         <h2 ngbAccordionHeader>
                             <button ngbAccordionButton>Tipo de Manutenção</button>

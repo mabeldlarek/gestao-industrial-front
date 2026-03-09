@@ -203,7 +203,7 @@ filtrarProcedimentos() {
     let mensagem = '';
 
     if (this.itensSelecionados.length === 1) {
-      mensagem = `Excluir ${this.itensSelecionados[0].nome}?`;
+      mensagem = `Excluir ${this.itensSelecionados[0].titulo}?`;
     } else {
       mensagem = `Excluir ${this.itensSelecionados.length} itens selecionados?`;
     }
