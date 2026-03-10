@@ -182,7 +182,7 @@ filtrarProcedimentos() {
     });
 
     // ATENÇÃO AQUI: O nome deve ser 'equipamentoEdicao' para bater com o seu @Input
-    modalRef.componentInstance.equipamentoEdicao = { ...itemParaEditar };
+    modalRef.componentInstance.procedimentoEdicao= { ...itemParaEditar };
 
     // Opcional: Pegar o retorno ao salvar
     modalRef.result.then((resultado) => {

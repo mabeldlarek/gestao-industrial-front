@@ -12,10 +12,8 @@ import { SharedModule } from 'src/app/theme/shared/shared.module';
 })
 export class ProcedimentosCreate implements OnInit {
 
-    // O modal injeta os dados do procedimento selecionado aqui
     @Input() procedimentoEdicao: any;
 
-    // Objeto mapeado para o modelo de Procedimentos
     dadosForm: any = {
         titulo: '',
         codigo: '',
@@ -36,22 +34,30 @@ export class ProcedimentosCreate implements OnInit {
 
     ngOnInit() {
         if (this.procedimentoEdicao) {
-            if (this.procedimentoEdicao) {
-                this.dadosForm = { ...this.procedimentoEdicao };
+            // 1. Cria uma cópia profunda para não alterar o objeto original da listagem por referência
+            this.dadosForm = JSON.parse(JSON.stringify(this.procedimentoEdicao));
 
-                if (!this.dadosForm.documentosAnexados) {
-                    this.dadosForm.documentosAnexados = [];
-                }
+            // 2. Garante que os arrays existam (evita erro de .push ou .includes)
+            const camposArray = [
+                'documentosAnexados',
+                'ferramentasNecessarias',
+                'riscosAssociados',
+                'EPIsRequeridos',
+                'passosChecklist'
+            ];
 
-                this.dadosForm = JSON.parse(JSON.stringify(this.procedimentoEdicao));
+            camposArray.forEach(campo => {
+                if (!this.dadosForm[campo]) {
+                    this.dadosForm[campo] = [];
+                }
+            });
 
-                // Ajuste das datas para o formato do input datetime-local (YYYY-MM-DDThh:mm)
-                if (this.dadosForm.dataCriacao) {
-                    this.dadosForm.dataCriacao = this.formatarDataParaInput(this.dadosForm.dataCriacao);
-                }
-                if (this.dadosForm.dataUltimaRevisao) {
-                    this.dadosForm.dataUltimaRevisao = this.formatarDataParaInput(this.dadosForm.dataUltimaRevisao);
-                }
+            // 3. Ajuste das datas para o formato do input datetime-local (YYYY-MM-DDThh:mm)
+            if (this.dadosForm.dataCriacao) {
+                this.dadosForm.dataCriacao = this.formatarDataParaInput(this.dadosForm.dataCriacao);
+            }
+            if (this.dadosForm.dataUltimaRevisao) {
+                this.dadosForm.dataUltimaRevisao = this.formatarDataParaInput(this.dadosForm.dataUltimaRevisao);
             }
         }
     }
