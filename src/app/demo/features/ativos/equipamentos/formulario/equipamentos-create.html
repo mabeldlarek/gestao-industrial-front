@@ -26,15 +26,18 @@
                                     <div class="row">
                                         <div class="form-group col-md-3">
                                             <label>Código</label>
-                                            <input type="text" name="codigo" class="form-control" [(ngModel)]="dadosForm.codigo" placeholder="Código" />
+                                            <input type="text" name="codigo" class="form-control"
+                                                [(ngModel)]="dadosForm.codigo" placeholder="Código" />
                                         </div>
                                         <div class="form-group col-md-6">
                                             <label>Nome</label>
-                                            <input type="text" name="nome" class="form-control" [(ngModel)]="dadosForm.nome" placeholder="Nome do equipamento" />
+                                            <input type="text" name="nome" class="form-control"
+                                                [(ngModel)]="dadosForm.nome" placeholder="Nome do equipamento" />
                                         </div>
                                         <div class="form-group col-md-3">
                                             <label>Criticidade</label>
-                                            <input type="text" name="criticidade" class="form-control" [(ngModel)]="dadosForm.criticidadeID" placeholder="Criticidade" />
+                                            <input type="text" name="criticidade" class="form-control"
+                                                [(ngModel)]="dadosForm.criticidadeID" placeholder="Criticidade" />
                                         </div>
                                     </div>
                                     <div class="row">
@@ -49,7 +52,8 @@
                                         </div>
                                         <div class="form-group col-md-6">
                                             <label>Status Operacional</label>
-                                            <select name="status" class="form-control" [(ngModel)]="dadosForm.statusOperacional">
+                                            <select name="status" class="form-control"
+                                                [(ngModel)]="dadosForm.statusOperacional">
                                                 <option selected disabled>Selecione</option>
                                                 <option>Operacional</option>
                                                 <option>Em Manutenção</option>
@@ -59,7 +63,9 @@
                                     </div>
                                     <div class="form-group">
                                         <label>Descrição</label>
-                                        <textarea name="descricao" class="form-control" rows="3" [(ngModel)]="dadosForm.descricao" placeholder="Descrição detalhada do equipamento"></textarea>
+                                        <textarea name="descricao" class="form-control" rows="3"
+                                            [(ngModel)]="dadosForm.descricao"
+                                            placeholder="Descrição detalhada do equipamento"></textarea>
                                     </div>
                                 </ng-template>
                             </div>
@@ -76,11 +82,13 @@
                                     <div class="row">
                                         <div class="form-group col-md-4">
                                             <label>Número de Série</label>
-                                            <input type="text" name="serial" class="form-control" [(ngModel)]="dadosForm.numeroSerie" />
+                                            <input type="text" name="serial" class="form-control"
+                                                [(ngModel)]="dadosForm.numeroSerie" />
                                         </div>
                                         <div class="form-group col-md-4">
                                             <label>Fabricante</label>
-                                            <select name="fabricante" class="form-control" [(ngModel)]="dadosForm.fabricante">
+                                            <select name="fabricante" class="form-control"
+                                                [(ngModel)]="dadosForm.fabricante">
                                                 <option selected disabled>Selecione o fabricante</option>
                                                 <option>Fabricante A</option>
                                                 <option>SKF</option>
@@ -88,7 +96,8 @@
                                         </div>
                                         <div class="form-group col-md-4">
                                             <label>Modelo</label>
-                                            <input type="text" name="modelo" class="form-control" [(ngModel)]="dadosForm.modelo" />
+                                            <input type="text" name="modelo" class="form-control"
+                                                [(ngModel)]="dadosForm.modelo" />
                                         </div>
                                     </div>
                                 </ng-template>
@@ -107,7 +116,8 @@
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>Localização Física</label>
-                                                <select name="local" class="form-control" [(ngModel)]="dadosForm.localizacao">
+                                                <select name="local" class="form-control"
+                                                    [(ngModel)]="dadosForm.localizacao">
                                                     <option selected disabled>Selecione o local</option>
                                                     <option>Planta A</option>
                                                     <option>Planta Central - Sala 1</option>
@@ -118,11 +128,15 @@
                                             <div class="row">
                                                 <div class="form-group col-md-6">
                                                     <label>Data de Instalação</label>
-                                                    <input type="datetime-local" name="dataInst" class="form-control form-control-sm" [(ngModel)]="dadosForm.dataInstalacao" />
+                                                    <input type="datetime-local" name="dataInst"
+                                                        class="form-control form-control-sm"
+                                                        [(ngModel)]="dadosForm.dataInstalacao" />
                                                 </div>
                                                 <div class="form-group col-md-6">
                                                     <label>Última Manutenção</label>
-                                                    <input type="datetime-local" name="dataManut" class="form-control form-control-sm" [(ngModel)]="dadosForm.dataUltimaManutencao" />
+                                                    <input type="datetime-local" name="dataManut"
+                                                        class="form-control form-control-sm"
+                                                        [(ngModel)]="dadosForm.dataUltimaManutencao" />
                                                 </div>
                                             </div>
                                         </div>
@@ -142,19 +156,30 @@
                                     <div class="row" *ngIf="dadosForm.parametrosOperacionais">
                                         <div class="form-group col-md-6">
                                             <label>Faixa de Frequência (Hz)</label>
-                                            <input type="text" name="faixa" class="form-control" placeholder="Ex: 10-1000" [(ngModel)]="dadosForm.parametrosOperacionais.faixaHz" />
+                                            <input type="text" name="faixa" class="form-control"
+                                                placeholder="Ex: 10-1000"
+                                                [(ngModel)]="dadosForm.parametrosOperacionais.faixaHz" />
                                         </div>
                                         <div class="form-group col-md-6">
                                             <label>Vibração Máxima (mm/s)</label>
-                                            <input type="number" name="vibra" step="0.01" class="form-control" [(ngModel)]="dadosForm.parametrosOperacionais.vibracaoMax_mm_s" />
+                                            <input type="number" name="vibra" step="0.01" class="form-control"
+                                                [(ngModel)]="dadosForm.parametrosOperacionais.vibracaoMax_mm_s" />
                                         </div>
                                     </div>
                                 </ng-template>
                             </div>
                         </div>
                     </div>
-
+                    <div class="input-group">
+                        <input type="text" name="criticidade" class="form-control" [(ngModel)]="dadosForm.criticidadeID"
+                            placeholder="ID Criticidade" readonly />
+                        <button class="btn btn-icon btn-outline-danger" type="button"
+                            (click)="abrirCalculoCriticidade()" ngbTooltip="Calcular Criticidade">
+                            <i class="feather icon-target"></i>
+                        </button>
+                    </div>
                 </div>
+
                 <div class="text-right">
                     <button type="button" class="btn btn-primary mt-4" (click)="salvar()">
                         Salvar Equipamento

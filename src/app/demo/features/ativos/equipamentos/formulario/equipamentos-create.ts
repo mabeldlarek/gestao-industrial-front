@@ -1,7 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { CardComponent } from "src/app/theme/shared/components/card/card.component";
 import { SharedModule } from 'src/app/theme/shared/shared.module';
+import { CriticidadeCreate } from './criticidade-create';
 
 @Component({
     selector: 'app-equipamentos-create',
@@ -27,8 +28,10 @@ export class EquipamentosCreate implements OnInit {
         localizacao: ''
     };
 
-    constructor(public activeModal: NgbActiveModal) { }
-
+    constructor(
+        private modalService: NgbModal,
+        public activeModal: NgbActiveModal // Caso seja um modal
+    ) { }
     salvar() {
         // Aqui você envia o 'this.dadosForm' para sua API ou serviço
         this.activeModal.close(this.dadosForm);
@@ -54,5 +57,24 @@ export class EquipamentosCreate implements OnInit {
         // Remove o 'Z' ou milissegundos e pega apenas os primeiros 16 caracteres
         // Exemplo: De "2024-06-10T12:00:00Z" para "2024-06-10T12:00"
         return dataIso.substring(0, 16);
+    }
+
+    abrirCalculoCriticidade() {
+        const modalRef = this.modalService.open(CriticidadeCreate, {
+            size: 'lg',
+            backdrop: 'static',
+            keyboard: false
+        });
+
+        // Se o usuário salvar a criticidade, pegamos o resultado (ou o ID gerado)
+        modalRef.result.then((resultado) => {
+            if (resultado) {
+                // Aqui você vincula o resultado do cálculo ao seu formulário de equipamento
+                this.dadosForm.criticidadeID = resultado.id || 'CÁLCULO REALIZADO';
+                // Se tiver um campo de classe (A, B, C), pode preencher aqui também
+            }
+        }).catch(() => {
+            // Modal fechado sem salvar
+        });
     }
 }

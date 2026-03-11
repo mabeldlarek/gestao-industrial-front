@@ -87,7 +87,7 @@ const routes: Routes = [
         path: 'planos-create',
         loadComponent: () => import('./demo/features/manutencao/planos/planos-create').then((c) => c.PlanosCreate)
       },
-            {
+      {
         path: 'ordem-list',
         loadComponent: () => import('./demo/features/manutencao/ordens/ordem-list').then((c) => c.OrdemManutencaoComponent)
       },
@@ -95,13 +95,17 @@ const routes: Routes = [
         path: 'ordem-create',
         loadComponent: () => import('./demo/features/manutencao/ordens/ordem-create').then((c) => c.OrdemManutencaoCreate)
       },
-                  {
+      {
         path: 'execucao-list',
         loadComponent: () => import('./demo/features/manutencao/execucao/execucao-list').then((c) => c.ExecucaoComponent)
       },
       {
         path: 'execucao-create',
         loadComponent: () => import('./demo/features/manutencao/execucao/execucao-create').then((c) => c.ExecucaoCreate)
+      },
+      {
+        path: 'criticidade-create',
+        loadComponent: () => import('./demo/features/ativos/equipamentos/formulario/criticidade-create').then((c) => c.CriticidadeCreate)
       },
       {
         path: 'executar',

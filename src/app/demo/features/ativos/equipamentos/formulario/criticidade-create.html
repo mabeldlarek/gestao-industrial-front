@@ -1,0 +1,205 @@
+<div class="row">
+  <div class="col-sm-12">
+    <app-card cardTitle="" [options]="false">
+      <form action="javascript:void(0)">
+
+        <div class="d-flex align-items-center mb-4 pb-2 border-bottom">
+          <div class="bg-light-danger text-danger p-2 rounded-circle mr-3 d-flex align-items-center justify-content-center"
+            style="width: 45px; height: 45px;">
+            <i class="feather icon-alert-triangle font-weight-bold" style="font-size: 1.2rem;"></i>
+          </div>
+          <div>
+            <h4 class="mb-0 font-weight-600 text-dark">
+              Análise de Criticidade do Ativo
+            </h4>
+            <small class="text-muted">Avalie os riscos e impactos para determinar a prioridade de manutenção</small>
+          </div>
+        </div>
+
+        <div ngbAccordion [closeOthers]="true">
+
+          <div ngbAccordionItem [collapsed]="false">
+            <h2 ngbAccordionHeader>
+              <button ngbAccordionButton><i class="feather icon-settings mr-2"></i> Produção</button>
+            </h2>
+            <div ngbAccordionCollapse>
+              <div ngbAccordionBody>
+                <div class="row">
+                  <div class="form-group col-md-6">
+                    <label>Impacto na Produção</label>
+                    <select name="impactoProducao" class="form-control" [(ngModel)]="dadosForm.impactoProducao">
+                      <option [value]="null" disabled>Selecione o Impacto</option>
+                      <option value="INSIGNIFICANTE">Insignificante</option>
+                      <option value="BAIXO">Baixo</option>
+                      <option value="MEDIO">Médio</option>
+                      <option value="ALTO">Alto</option>
+                      <option value="CATASTROFICO">Catastrófico</option>
+                    </select>
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label>Frequência de Parada</label>
+                    <select name="frequenciaProducao" class="form-control" [(ngModel)]="dadosForm.frequenciaProducao">
+                      <option [value]="null" disabled>Selecione a Frequência</option>
+                      <option value="IMPROVAVEL">Improvável</option>
+                      <option value="REMOTA">Remota</option>
+                      <option value="BAIXA">Baixa</option>
+                      <option value="MEDIA">Média</option>
+                      <option value="ALTA">Alta</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div ngbAccordionItem>
+            <h2 ngbAccordionHeader>
+              <button ngbAccordionButton><i class="feather icon-shield mr-2"></i> Segurança do Trabalho</button>
+            </h2>
+            <div ngbAccordionCollapse>
+              <div ngbAccordionBody>
+                <div class="row">
+                  <div class="form-group col-md-6">
+                    <label>Impacto à Integridade Física</label>
+                    <select name="impactoSeguranca" class="form-control" [(ngModel)]="dadosForm.impactoSeguranca">
+                      <option [value]="null" disabled>Selecione o Impacto</option>
+                      <option value="INSIGNIFICANTE">Insignificante</option>
+                      <option value="BAIXO">Baixo</option>
+                      <option value="MEDIO">Médio</option>
+                      <option value="ALTO">Alto</option>
+                      <option value="CATASTROFICO">Catastrófico</option>
+                    </select>
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label>Frequência de Exposição ao Risco</label>
+                    <select name="frequenciaSeguranca" class="form-control" [(ngModel)]="dadosForm.frequenciaSeguranca">
+                      <option [value]="null" disabled>Selecione a Frequência</option>
+                      <option value="IMPROVAVEL">Improvável</option>
+                      <option value="REMOTA">Remota</option>
+                      <option value="BAIXA">Baixa</option>
+                      <option value="MEDIA">Média</option>
+                      <option value="ALTA">Alta</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div ngbAccordionItem>
+            <h2 ngbAccordionHeader>
+              <button ngbAccordionButton><i class="feather icon-feather mr-2"></i> Ambiental</button>
+            </h2>
+            <div ngbAccordionCollapse>
+              <div ngbAccordionBody>
+                <div class="row">
+                  <div class="form-group col-md-6">
+                    <label>Impacto Ambiental</label>
+                    <select name="impactoAmbiental" class="form-control" [(ngModel)]="dadosForm.impactoAmbiental">
+                      <option [value]="null" disabled>Selecione o Impacto</option>
+                      <option value="INSIGNIFICANTE">Insignificante</option>
+                      <option value="BAIXO">Baixo</option>
+                      <option value="MEDIO">Médio</option>
+                      <option value="ALTO">Alto</option>
+                      <option value="CATASTROFICO">Catastrófico</option>
+                    </select>
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label>Frequência de Possíveis Vazamentos/Incidentes</label>
+                    <select name="frequenciaAmbiental" class="form-control" [(ngModel)]="dadosForm.frequenciaAmbiental">
+                      <option [value]="null" disabled>Selecione a Frequência</option>
+                      <option value="IMPROVAVEL">Improvável</option>
+                      <option value="REMOTA">Remota</option>
+                      <option value="BAIXA">Baixa</option>
+                      <option value="MEDIA">Média</option>
+                      <option value="ALTA">Alta</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div ngbAccordionItem>
+            <h2 ngbAccordionHeader>
+              <button ngbAccordionButton><i class="feather icon-dollar-sign mr-2"></i> Custo de Reparo</button>
+            </h2>
+            <div ngbAccordionCollapse>
+              <div ngbAccordionBody>
+                <div class="row">
+                  <div class="form-group col-md-6">
+                    <label>Impacto Financeiro (Peças/Mão de Obra)</label>
+                    <select name="impactoCusto" class="form-control" [(ngModel)]="dadosForm.impactoCusto">
+                      <option [value]="null" disabled>Selecione o Impacto</option>
+                      <option value="INSIGNIFICANTE">Insignificante</option>
+                      <option value="BAIXO">Baixo</option>
+                      <option value="MEDIO">Médio</option>
+                      <option value="ALTO">Alto</option>
+                      <option value="CATASTROFICO">Catastrófico</option>
+                    </select>
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label>Frequência de Quebras de Alto Custo</label>
+                    <select name="frequenciaCusto" class="form-control" [(ngModel)]="dadosForm.frequenciaCusto">
+                      <option [value]="null" disabled>Selecione a Frequência</option>
+                      <option value="IMPROVAVEL">Improvável</option>
+                      <option value="REMOTA">Remota</option>
+                      <option value="BAIXA">Baixa</option>
+                      <option value="MEDIA">Média</option>
+                      <option value="ALTA">Alta</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div ngbAccordionItem>
+            <h2 ngbAccordionHeader>
+              <button ngbAccordionButton><i class="feather icon-zap mr-2"></i> Falha</button>
+            </h2>
+            <div ngbAccordionCollapse>
+              <div ngbAccordionBody>
+                <div class="row">
+                  <div class="form-group col-md-6">
+                    <label>Severidade da Falha</label>
+                    <select name="impactoFalha" class="form-control" [(ngModel)]="dadosForm.impactoFalha">
+                      <option [value]="null" disabled>Selecione o Impacto</option>
+                      <option value="INSIGNIFICANTE">Insignificante</option>
+                      <option value="BAIXO">Baixo</option>
+                      <option value="MEDIO">Médio</option>
+                      <option value="ALTO">Alto</option>
+                      <option value="CATASTROFICO">Catastrófico</option>
+                    </select>
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label>Frequência da Ocorrência</label>
+                    <select name="frequenciaFalha" class="form-control" [(ngModel)]="dadosForm.frequenciaFalha">
+                      <option [value]="null" disabled>Selecione a Frequência</option>
+                      <option value="IMPROVAVEL">Improvável</option>
+                      <option value="REMOTA">Remota</option>
+                      <option value="BAIXA">Baixa</option>
+                      <option value="MEDIA">Média</option>
+                      <option value="ALTA">Alta</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="text-right mt-4 pb-2">
+          <button type="button" class="btn btn-secondary mr-2" (click)="activeModal.dismiss()">
+            Cancelar
+          </button>
+          <button type="button" class="btn btn-danger" (click)="salvar()">
+            <i class="feather icon-bar-chart mr-1"></i> 
+            Calcular Criticidade Final
+          </button>
+        </div>
+      </form>
+    </app-card>
+  </div>
+</div>

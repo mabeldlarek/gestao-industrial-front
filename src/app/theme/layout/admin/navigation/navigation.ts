@@ -194,12 +194,6 @@ export const NavigationItems: NavigationItem[] = [
         icon: 'feather icon-lock',
         children: [
           {
-            id: 'Equipamento',
-            title: 'Equipamentos',
-            type: 'item',
-            url: '/equipamento-create',
-          },
-          {
             id: 'Lista de Equipamentos',
             title: 'Lista de Equipamentos',
             type: 'item',
