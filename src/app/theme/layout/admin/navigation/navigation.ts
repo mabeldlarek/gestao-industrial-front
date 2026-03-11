@@ -233,7 +233,7 @@ export const NavigationItems: NavigationItem[] = [
             id: 'peca',
             title: 'Peças',
             type: 'item',
-            url: '/pecas',
+            url: '/pecas-list',
             classes: 'nav-item',
           },
           {

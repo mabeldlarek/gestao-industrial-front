@@ -64,6 +64,14 @@ const routes: Routes = [
         loadComponent: () => import('./demo/features/ativos/equipamentos/lista/equipamentos-list').then((c) => c.EquipamentosComponent)
       },
       {
+        path: 'pecas-create',
+        loadComponent: () => import('./demo/features/estoque/formulario/pecas-create').then((c) => c.PecasCreate)
+      },
+      {
+        path: 'pecas-list',
+        loadComponent: () => import('./demo/features/estoque/lista/pecas-list').then((c) => c.PecasComponent)
+      },
+      {
         path: 'procedimentos-list',
         loadComponent: () => import('./demo/features/conteudo/lista/procedimentos-list').then((c) => c.ProcedimentosComponent)
       },
