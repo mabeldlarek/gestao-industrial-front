@@ -240,7 +240,7 @@ export const NavigationItems: NavigationItem[] = [
             id: 'peca-consumo',
             title: 'Consumo de Peças',
             type: 'item',
-            url: '/consumo-pecas',
+            url: '/consumo-pecas-list',
             classes: 'nav-item',
           },
         ]

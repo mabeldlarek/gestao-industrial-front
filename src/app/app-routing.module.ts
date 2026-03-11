@@ -52,8 +52,12 @@ const routes: Routes = [
         loadComponent: () => import('./demo/pages/peca-register/peca-register').then((c) => c.PecaRegister)
       },*/
       {
-        path: 'consumo-pecas',
-        loadComponent: () => import('./demo/pages/peca-register/peca-register').then((c) => c.PecaRegister)
+        path: 'consumo-pecas-list',
+        loadComponent: () => import('./demo/features/estoque/lista/consumo-list').then((c) => c.ConsumoComponent)
+      },
+      {
+        path: 'consumo-create',
+        loadComponent: () => import('./demo/features/estoque/formulario/consumo-create').then((c) => c.ConsumoCreate)
       },
       {
         path: 'equipamento-create',
