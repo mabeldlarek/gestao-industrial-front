@@ -80,8 +80,28 @@ const routes: Routes = [
         loadComponent: () => import('./demo/features/conteudo/lista/procedimentos-list').then((c) => c.ProcedimentosComponent)
       },
       {
-        path: 'plano-register',
-        loadComponent: () => import('./demo/pages/plano-register/plano-register').then((c) => c.PlanoRegister)
+        path: 'planos-list',
+        loadComponent: () => import('./demo/features/manutencao/planos/planos-list').then((c) => c.PlanosComponent)
+      },
+      {
+        path: 'planos-create',
+        loadComponent: () => import('./demo/features/manutencao/planos/planos-create').then((c) => c.PlanosCreate)
+      },
+            {
+        path: 'ordem-list',
+        loadComponent: () => import('./demo/features/manutencao/ordens/ordem-list').then((c) => c.OrdemManutencaoComponent)
+      },
+      {
+        path: 'ordem-create',
+        loadComponent: () => import('./demo/features/manutencao/ordens/ordem-create').then((c) => c.OrdemManutencaoCreate)
+      },
+                  {
+        path: 'execucao-list',
+        loadComponent: () => import('./demo/features/manutencao/execucao/execucao-list').then((c) => c.ExecucaoComponent)
+      },
+      {
+        path: 'execucao-create',
+        loadComponent: () => import('./demo/features/manutencao/execucao/execucao-create').then((c) => c.ExecucaoCreate)
       },
       {
         path: 'executar',

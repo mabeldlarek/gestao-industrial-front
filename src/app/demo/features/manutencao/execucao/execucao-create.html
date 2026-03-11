@@ -1,0 +1,119 @@
+<app-card cardTitle="" [options]="false">
+    <div class="d-flex align-items-center mb-4 pb-2 border-bottom">
+        <div class="bg-light-info text-info p-2 rounded-circle mr-3 d-flex align-items-center justify-content-center"
+            style="width: 45px; height: 45px;">
+            <i class="feather icon-play-circle font-weight-bold" style="font-size: 1.2rem;"></i>
+        </div>
+        <div>
+            <h4 class="mb-0 font-weight-600 text-dark">{{ dadosForm.ordemManutencaoID ? 'Apontamento' : 'Iniciar' }} de
+                Execução</h4>
+            <small class="text-muted">ID Ordem: {{ dadosForm.ordemManutencaoID || 'Nova' }}</small>
+        </div>
+    </div>
+
+    <form #f="ngForm">
+        <div class="row">
+            <div class="form-group col-md-4">
+                <label class="font-weight-600">ID Ordem</label>
+                <input type="text" name="ordemID" class="form-control" [(ngModel)]="dadosForm.ordemManutencaoID">
+            </div>
+            <div class="form-group col-md-4">
+                <label class="font-weight-600">ID Executor</label>
+                <input type="text" name="executorID" class="form-control" [(ngModel)]="dadosForm.executorID">
+            </div>
+            <div class="form-group col-md-4">
+                <label class="font-weight-600">Status</label>
+                <select name="statusExec" class="form-control" [(ngModel)]="dadosForm.statusExecucao">
+                    <option value="EM_ANDAMENTO">Em Andamento</option>
+                    <option value="RETOMADA">Retomada</option>
+                    <option value="CONCLUIDA">Concluída</option>
+                </select>
+            </div>
+        </div>
+
+        <div ngbAccordion [closeOthers]="true">
+            <div ngbAccordionItem [collapsed]="false">
+                <h2 ngbAccordionHeader><button ngbAccordionButton><i class="feather icon-check-square mr-2"></i>
+                        Checklist</button></h2>
+                <div ngbAccordionCollapse>
+                    <div ngbAccordionBody>
+                        @for (item of dadosForm?.checklistItens; track $index) {
+                        @if (item) {
+                        <div class="custom-control custom-checkbox mb-2">
+                            <input type="checkbox" class="custom-control-input" [id]="'chk' + $index"
+                                [(ngModel)]="item.concluido" [name]="'chk' + $index">
+                            <label class="custom-control-label" [for]="'chk' + $index"
+                                [class.text-muted]="item.concluido">
+                                {{ item.descricao }}
+                            </label>
+                        </div>
+                        }
+                        } @empty {
+                        <div class="text-muted small">Nenhum item de checklist disponível.</div>
+                        }
+
+                    </div>
+                </div>
+            </div>
+
+            <div ngbAccordionItem>
+                <h2 ngbAccordionHeader><button ngbAccordionButton><i class="feather icon-file-text mr-2"></i>
+                        Relatório</button></h2>
+                <div ngbAccordionCollapse>
+                    <div ngbAccordionBody>
+                        <div class="form-group">
+                            <label>Trabalho Executado</label>
+                            <textarea name="trab" class="form-control" rows="3"
+                                [(ngModel)]="dadosForm.descricaoTrabalhoExecutado"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Observações</label>
+                            <textarea name="obs" class="form-control" rows="2"
+                                [(ngModel)]="dadosForm.observacoesExecutor"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div ngbAccordionItem>
+                <h2 ngbAccordionHeader><button ngbAccordionButton><i class="feather icon-camera mr-2"></i>
+                        Fotos</button></h2>
+                <div ngbAccordionCollapse>
+                    <div ngbAccordionBody>
+                        <div class="row">
+                            <div class="col-md-6 border-right">
+                                <label>Antes</label>
+                                <input type="file" class="form-control-file mb-2"
+                                    (change)="onFileChange($event, 'fotosAntes')" multiple>
+                                @for (f of dadosForm.fotosAntes; track $index) {
+                                <div class="small bg-light p-1 mb-1 d-flex justify-content-between">
+                                    <span>{{ f }}</span>
+                                    <a href="javascript:" class="text-danger"
+                                        (click)="removerFoto('fotosAntes', $index)">x</a>
+                                </div>
+                                }
+                            </div>
+                            <div class="col-md-6">
+                                <label>Depois</label>
+                                <input type="file" class="form-control-file mb-2"
+                                    (change)="onFileChange($event, 'fotosDepois')" multiple>
+                                @for (f of dadosForm.fotosDepois; track $index) {
+                                <div class="small bg-light p-1 mb-1 d-flex justify-content-between">
+                                    <span>{{ f }}</span>
+                                    <a href="javascript:" class="text-danger"
+                                        (click)="removerFoto('fotosDepois', $index)">x</a>
+                                </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="text-right mt-4">
+            <button type="button" class="btn btn-secondary mr-2" (click)="activeModal.dismiss()">Cancelar</button>
+            <button type="button" class="btn btn-info" (click)="salvar()">Salvar Execução</button>
+        </div>
+    </form>
+</app-card>

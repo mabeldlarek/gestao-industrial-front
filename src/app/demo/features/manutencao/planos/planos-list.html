@@ -1,0 +1,110 @@
+<div class="row">
+    <div class="col-sm-8">
+        <app-card cardTitle="Planos de Manutenção" [options]="false" blockClass="table-border-style">
+
+            <div class="d-flex flex-column flex-md-row justify-content-between align-items-stretch align-items-md-center mb-3 gap-2">
+                <div class="flex-grow-1" style="max-width: 500px;">
+                    <input class="form-control" placeholder="Pesquisar por nome, código ou equipamento..."
+                        [(ngModel)]="termoPesquisa" (input)="filtrarPlanos()" />
+                </div>
+
+                <div class="d-flex gap-2">
+                    <button type="button" class="btn btn-primary" (click)="adicionarPlano()">
+                        <i class="feather icon-plus"></i> Novo Plano
+                    </button>
+                    <button type="button" class="btn btn-danger" [disabled]="itensSelecionados.length === 0"
+                        (click)="confirmarExclusao()">
+                        <i class="feather icon-trash-2"></i>
+                        Excluir {{ itensSelecionados.length > 0 ? '(' + itensSelecionados.length + ')' : '' }}
+                    </button>
+                </div>
+            </div>
+
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Plano / Código</th>
+                            <th>Equipamento</th>
+                            <th>Frequência</th>
+                            <th>Próxima Geração</th>
+                            <th>Status</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of dadosFiltrados" (click)="selecionarItem(item)"
+                            [class.table-active]="estaSelecionado(item)" style="cursor:pointer">
+                            <td>
+                                <div class="btn btn-sm btn-light-primary rounded-circle">
+                                    <i class="feather icon-calendar"></i>
+                                </div>
+                            </td>
+                            <td>
+                                <strong>{{ item.nome }}</strong><br>
+                                <small class="badge bg-light-secondary">{{ item.codigo }}</small>
+                            </td>
+                            <td>{{ item.equipamentoNome }}</td>
+                            <td>
+                                <span class="text-info font-weight-bold">
+                                    {{ item.valorFrequencia }} {{ item.unidadeFrequencia }}(s)
+                                </span>
+                            </td>
+                            <td>{{ item.dataGeracaoAuto | date:'dd/MM/yyyy HH:mm' }}</td>
+                            <td>
+                                <span class="badge" [ngClass]="item.status === 'ATIVO' ? 'bg-light-success' : 'bg-light-danger'">
+                                    {{ item.status }}
+                                </span>
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-icon btn-warning"
+                                    (click)="$event.stopPropagation(); editarPlano()"
+                                    [disabled]="itensSelecionados.length !== 1">
+                                    <i class="feather icon-edit"></i>
+                                </button>
+                            </td>
+                        </tr>
+                        <tr *ngIf="dadosFiltrados.length === 0">
+                            <td colspan="7" class="text-center text-muted py-4">
+                                Nenhum plano de manutenção encontrado.
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </app-card>
+    </div>
+
+    <div class="col-sm-4">
+        <div class="card">
+            <div class="card-header">
+                <h5>Filtros do Planejamento</h5>
+            </div>
+            <div class="card-body">
+                <div ngbAccordion [closeOthers]="true">
+                    <div ngbAccordionItem [collapsed]="false">
+                        <h2 ngbAccordionHeader>
+                            <button ngbAccordionButton>Tipo de Frequência</button>
+                        </h2>
+                        <div ngbAccordionCollapse>
+                            <div ngbAccordionBody>
+                                <p>Por Tempo (Dias/Meses), Por Medidor (Horas/KM)</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div ngbAccordionItem>
+                        <h2 ngbAccordionHeader>
+                            <button ngbAccordionButton>Automação</button>
+                        </h2>
+                        <div ngbAccordionCollapse>
+                            <div ngbAccordionBody>
+                                <p>Gerar OM automático: Ativado/Desativado</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

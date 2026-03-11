@@ -255,7 +255,7 @@ export const NavigationItems: NavigationItem[] = [
             id: 'plano',
             title: 'Planos',
             type: 'item',
-            url: '/plano-register',
+            url: '/planos-list',
             target: false,
             breadcrumbs: false
           },
@@ -263,22 +263,14 @@ export const NavigationItems: NavigationItem[] = [
             id: 'ordem',
             title: 'Ordens',
             type: 'item',
-            url: '/ordens',
+            url: '/ordem-list',
             classes: 'nav-item',
           },
           {
             id: 'execucao',
             title: 'Executar',
             type: 'item',
-            url: '/executar',
-            target: false,
-            breadcrumbs: false
-          },
-          {
-            id: 'ordem',
-            title: 'Ordem de Serviço',
-            type: 'item',
-            url: '/ordem',
+            url: '/execucao-list',
             target: false,
             breadcrumbs: false
           }
