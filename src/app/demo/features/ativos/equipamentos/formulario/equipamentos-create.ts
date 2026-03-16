@@ -3,6 +3,7 @@ import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { CardComponent } from "src/app/theme/shared/components/card/card.component";
 import { SharedModule } from 'src/app/theme/shared/shared.module';
 import { CriticidadeCreate } from './criticidade-create';
+import { MedidorCreate } from './medidor-create';
 
 @Component({
     selector: 'app-equipamentos-create',
@@ -17,7 +18,7 @@ export class EquipamentosCreate implements OnInit {
     @Input() equipamentoEdicao: any;
 
     // Objeto que o HTML vai usar (Inicia vazio para novos itens)
-    dadosForm: any = {
+dadosForm: any = {
         nome: '',
         codigo: '',
         descricao: '',
@@ -25,7 +26,11 @@ export class EquipamentosCreate implements OnInit {
         fabricante: '',
         modelo: '',
         statusOperacional: '',
-        localizacao: ''
+        localizacao: '',
+        
+        // CAMPOS ADICIONAIS NECESSÁRIOS:
+        criticidadeID: null, // Para armazenar o ID da análise de criticidade
+        medidores: []        // Inicializado como array para evitar erro de .length no HTML
     };
 
     constructor(
@@ -77,4 +82,30 @@ export class EquipamentosCreate implements OnInit {
             // Modal fechado sem salvar
         });
     }
+
+    // 2. Adicione o método que o HTML está chamando
+    inserirMedidor() {
+        // Abre o modal do medidor
+        const modalRef = this.modalService.open(MedidorCreate, { size: 'lg', backdrop: 'static' });
+
+        // Escuta o resultado quando o modal for fechado (activeModal.close)
+        modalRef.result.then((resultado) => {
+            if (resultado) {
+                // Adiciona o medidor retornado à lista do equipamento
+                if (!this.dadosForm.medidores) {
+                    this.dadosForm.medidores = [];
+                }
+                this.dadosForm.medidores.push(resultado);
+            }
+        }).catch((error) => {
+            // Captura o fechamento via 'cancelar' ou clique fora (se habilitado)
+            console.log('Modal fechado sem dados');
+        });
+    }
+
+    // Método auxiliar para remover um medidor da lista, se precisar
+    removerMedidor(index: number) {
+        this.dadosForm.medidores.splice(index, 1);
+    }
+
 }
