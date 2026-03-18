@@ -130,52 +130,22 @@ export const NavigationItems: NavigationItem[] = [
     children: [
       {
         id: 'auth',
-        title: 'Cadastros',
+        title: 'Identidade e Acesso',
         type: 'collapse',
         icon: 'feather icon-lock',
         children: [
           {
-            id: 'Usuário',
-            title: 'Usuário',
+            id: 'Usuários',
+            title: 'Usuários',
             type: 'item',
-            url: '/register',
-            target: true,
-            breadcrumbs: false
-          },
-          {
-            id: 'Login',
-            title: 'Login',
-            type: 'item',
-            url: '/login',
-            target: true,
-            breadcrumbs: false
-          },
-          {
-            id: 'Funcionário',
-            title: 'Funcionário',
-            type: 'item',
-            url: '/funcionario',
+            url: '/usuarios-list',
             classes: 'nav-item',
           },
           {
             id: 'Funcionários',
-            title: 'Funcionários',
+            title: 'Funcionário',
             type: 'item',
-            url: '/funcionarios',
-            classes: 'nav-item',
-          },
-          {
-            id: 'Peças',
-            title: 'Peças',
-            type: 'item',
-            url: '/pecas',
-            classes: 'nav-item',
-          },
-          {
-            id: 'Usuarios',
-            title: 'Usuários',
-            type: 'item',
-            url: '/usuarios',
+            url: '/funcionario-list',
             classes: 'nav-item',
           },
           {
@@ -199,21 +169,6 @@ export const NavigationItems: NavigationItem[] = [
             type: 'item',
             url: '/equipamentos-list',
 
-          },
-          {
-            id: 'Criticidade',
-            title: 'Criticidade',
-            type: 'item',
-            url: '/criticidade',
-            target: true,
-            breadcrumbs: false
-          },
-          {
-            id: 'Medidor',
-            title: 'Medidores',
-            type: 'item',
-            url: '/medidores',
-            classes: 'nav-item',
           }
         ]
       },
@@ -284,14 +239,14 @@ export const NavigationItems: NavigationItem[] = [
             target: false,
             breadcrumbs: false
           },
-                  {
+          {
             id: 'procedimentos',
             title: 'Cadastro de Procedimentos',
             type: 'item',
             url: '/procedimentos-create',
             target: false,
             breadcrumbs: false
-          },      
+          },
         ]
       },
       {

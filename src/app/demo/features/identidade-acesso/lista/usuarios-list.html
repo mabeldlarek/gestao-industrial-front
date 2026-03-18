@@ -1,0 +1,43 @@
+<div class="row">
+  <div class="col-sm-12">
+    <app-card cardTitle="" [options]="false">
+      
+      <div class="d-flex justify-content-between mb-3 gap-2">
+        <input class="form-control w-50" placeholder="Buscar por nome ou e-mail..." [(ngModel)]="termoPesquisa" (input)="filtrarUsuarios()" />
+        <div class="d-flex gap-2">
+          <button class="btn btn-primary" (click)="adicionarUsuario()"><i class="feather icon-plus"></i> Novo Usuário</button>
+          <button class="btn btn-danger" [disabled]="itensSelecionados.length === 0" (click)="confirmarExclusao()"><i class="feather icon-trash"></i></button>
+        </div>
+      </div>
+
+      <div class="table-responsive">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>Usuário</th>
+              <th>Login/E-mail</th>
+              <th>Perfil</th>
+              <th>Status</th>
+              <th class="text-right">Ações</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of dadosFiltrados" (click)="selecionarItem(item)" [class.table-active]="itensSelecionados.includes(item)" style="cursor:pointer">
+              <td><strong>{{ item.nomeUsuario }}</strong></td>
+              <td>{{ item.email }}</td>
+              <td><span class="badge bg-light-info">{{ item.tipoUsuario }}</span></td>
+              <td>
+                <span class="badge" [ngClass]="item.ativo ? 'bg-success' : 'bg-danger'">
+                  {{ item.ativo ? 'Ativo' : 'Inativo' }}
+                </span>
+              </td>
+              <td class="text-right">
+                <button class="btn btn-sm btn-icon btn-warning"><i class="feather icon-edit"></i></button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </app-card>
+  </div>
+</div>
