@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Component } from '@angular/core';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 
 import { SharedModule } from 'src/app/theme/shared/shared.module';
 import { AuthService } from './auth-signin.service';
@@ -36,18 +36,29 @@ export class AuthSigninComponent {
   });
 
   onSubmit(): void {
+
+    console.log('Botão clicar acionado!'); // Adicione isso
+  
     if (this.loginForm.invalid) {
+      console.warn('Formulário inválido:', this.loginForm.value); // E isso
       this.loginForm.markAllAsTouched();
       return;
     }
+  
 
     const payload: LoginRequest = this.loginForm.value as LoginRequest;
 
     this.authService.login(payload).subscribe({
       next: (response) => {
-        localStorage.setItem('accessToken', response.accessToken);
+        console.log('Resposta do Servidor:', response); 
+        
+        if (response && response.accessToken) {
+          localStorage.setItem('accessToken', response.accessToken);
+          console.log('Token salvo com sucesso!');
+        }
       },
-      error: () => {
+      error: (err) => {
+        console.error('Erro no login:', err);
         this.error = 'Usuário ou senha inválidos';
       }
     });
