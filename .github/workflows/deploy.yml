@@ -26,20 +26,23 @@ jobs:
           mkdir -p src/environments
           # A URL agora é HTTPS e aponta para o seu domínio fixo
           echo "export const environment = { production: true, apiUrl: 'https://${{ secrets.VM_HOST }}', appVersion: '1.0.0' };" > src/environments/environment.prod.ts  
-          
+
       - name: 🔍 Debug (Verificar estrutura do arquivo)
         run: cat src/environments/environment.prod.ts | sed 's/[0-9]/x/g' # Mostra a estrutura sem vazar seu IP real
 
-      - name: 🔨 Build do Angular
-        run: npm run build -- --configuration production
+     - name: 🛠️ Build Angular
+        run: |
+          npm install
+          # Note o comando de build sem as fontes que davam erro
+          npm run build -- --configuration=production --optimization=false
 
-      - name: 🚀 Deploy no Netlify
-        uses: nwtgck/actions-netlify@v2
+      - name: 🚀 Deploy para a VM via SSH (SCP)
+        uses: appleboy/scp-action@master
         with:
-          publish-dir: ./dist
-          production-branch: main
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          deploy-message: "Deploy automático"
-        env:
-          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+          host: ${{ secrets.VM_HOST }}
+          username: mariabelarek
+          key: ${{ secrets.VM_SSH_KEY }}
+          port: 22
+          source: "dist/*" 
+          target: "/var/www/gestao-industrial/frontend"
+          strip_components: 1 
