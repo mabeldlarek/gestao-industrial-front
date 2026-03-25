@@ -1,0 +1,100 @@
+<div class="row">
+    <div class="col-sm-8">
+        <app-card cardTitle="" [options]="false" blockClass="table-border-style">
+
+            <div class="d-flex flex-column flex-md-row justify-content-between align-items-stretch align-items-md-center mb-3 gap-2">
+                <div class="flex-grow-1" style="max-width: 500px;">
+                    <input class="form-control" placeholder="Pesquisar por ID da Peça ou Ordem..."
+                        [(ngModel)]="termoPesquisa" (input)="filtrarConsumos()" />
+                </div>
+
+                <div class="d-flex gap-2">
+                    <button type="button" class="btn btn-primary" (click)="adicionarConsumo()">
+                        <i class="feather icon-plus"></i> Adicionar
+                    </button>
+                    <button type="button" class="btn btn-danger" [disabled]="itensSelecionados.length === 0"
+                        (click)="confirmarExclusao()">
+                        <i class="feather icon-trash-2"></i>
+                        Excluir {{ itensSelecionados.length > 0 ? '(' + itensSelecionados.length + ')' : '' }}
+                    </button>
+                </div>
+            </div>
+
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>ID da Peça</th>
+                            <th>ID da Ordem</th>
+                            <th>Qtd.</th>
+                            <th>Data Consumo</th>
+                            <th>Custo Total</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of dadosFiltrados" (click)="selecionarItem(item)"
+                            [class.table-active]="estaSelecionado(item)" style="cursor:pointer">
+                            <td>
+                                <div class="btn btn-sm btn-light-success rounded-circle">
+                                    <i class="feather icon-shopping-cart"></i>
+                                </div>
+                            </td>
+                            <td><span class="text-muted" style="font-size: 0.85rem;">{{ item.pecaID }}</span></td>
+                            <td><span class="badge bg-light-info">{{ item.ordemManutencaoID | slice:0:8 }}...</span></td>
+                            <td><strong>{{ item.quantidade }}</strong></td>
+                            <td>{{ item.dataConsumo | date:'dd/MM/yyyy' }}</td>
+                            <td class="text-success font-weight-bold">{{ item.custoTotalConsumo | currency:'BRL' }}</td>
+                            <td>
+                                <button type="button" class="btn btn-icon btn-warning"
+                                    (click)="$event.stopPropagation(); editarConsumo()"
+                                    [disabled]="desabilitarEdicao()">
+                                    <i class="feather icon-edit"></i>
+                                </button>
+                            </td>
+                        </tr>
+                        <tr *ngIf="dadosFiltrados.length === 0">
+                            <td colspan="7" class="text-center text-muted py-4">
+                                Nenhum registro de consumo encontrado.
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </app-card>
+    </div>
+
+    <div class="col-sm-4">
+        <div class="card">
+            <div class="card-header">
+                <h5>Filtros de Consumo</h5>
+            </div>
+            <div class="card-body">
+                <div ngbAccordion [closeOthers]="true">
+                    <div ngbAccordionItem [collapsed]="false">
+                        <h2 ngbAccordionHeader>
+                            <button ngbAccordionButton>Período</button>
+                        </h2>
+                        <div ngbAccordionCollapse>
+                            <div ngbAccordionBody>
+                                <p>Últimos 7 dias, Este mês, Personalizado...</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div ngbAccordionItem>
+                        <h2 ngbAccordionHeader>
+                            <button ngbAccordionButton>Faixa de Custo</button>
+                        </h2>
+                        <div ngbAccordionCollapse>
+                            <div ngbAccordionBody>
+                                <p>Até R$ 100, R$ 100 a R$ 500, Acima de R$ 500...</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

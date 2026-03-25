@@ -1,0 +1,145 @@
+<app-card cardTitle="" [options]="false">
+  <div class="d-flex align-items-center mb-4 pb-2 border-bottom">
+    <div class="bg-light-warning text-warning p-2 rounded-circle mr-3 d-flex align-items-center justify-content-center"
+      style="width: 45px; height: 45px;">
+      <i class="feather icon-clipboard font-weight-bold" style="font-size: 1.2rem;"></i>
+    </div>
+    <div>
+      <h4 class="mb-0 font-weight-600 text-dark">{{ dadosForm.numeroOS ? 'Editar' : 'Nova' }} Ordem de Manutenção</h4>
+      <small class="text-muted">Gestão técnica de execução de serviços</small>
+    </div>
+  </div>
+
+  <form>
+    <div class="row">
+      <div class="form-group col-md-3">
+        <label>Número OS</label>
+        <input type="text" name="numeroOS" class="form-control" [(ngModel)]="dadosForm.numeroOS" placeholder="Ex: OM-0001">
+      </div>
+      <div class="form-group col-md-3">
+        <label>Tipo de Manutenção</label>
+        <select name="tipoManutencao" class="form-control" [(ngModel)]="dadosForm.tipoManutencao">
+          <option value="PREVENTIVA">Preventiva</option>
+          <option value="CORRETIVA">Corretiva</option>
+          <option value="PREDITIVA">Preditiva</option>
+        </select>
+      </div>
+      <div class="form-group col-md-3">
+        <label>Prioridade</label>
+        <select name="prioridade" class="form-control" [(ngModel)]="dadosForm.prioridade">
+          <option value="BAIXA">Baixa</option>
+          <option value="MEDIA">Média</option>
+          <option value="ALTA">Alta</option>
+        </select>
+      </div>
+      <div class="form-group col-md-3">
+        <label>Status</label>
+        <select name="status" class="form-control" [(ngModel)]="dadosForm.status">
+          <option value="ABERTA">Aberta</option>
+          <option value="EM_ANDAMENTO">Em Andamento</option>
+          <option value="CONCLUIDA">Concluída</option>
+          <option value="CANCELADA">Cancelada</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="form-group col-md-4">
+        <label>Equipamento (ID)</label>
+        <input type="text" name="equipamentoID" class="form-control" [(ngModel)]="dadosForm.equipamentoID">
+      </div>
+      <div class="form-group col-md-4">
+        <label>Plano de Manutenção (Opcional)</label>
+        <input type="text" name="planoID" class="form-control" [(ngModel)]="dadosForm.planoManutencaoID">
+      </div>
+      <div class="form-group col-md-4">
+        <label>Procedimento Vinculado</label>
+        <input type="text" name="procedimentoID" class="form-control" [(ngModel)]="dadosForm.procedimentoID">
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Descrição do Problema / Atividade</label>
+      <textarea name="descricaoProblema" class="form-control" rows="2" [(ngModel)]="dadosForm.descricaoProblema"></textarea>
+    </div>
+
+    <div ngbAccordion [closeOthers]="true">
+      <div ngbAccordionItem>
+        <h2 ngbAccordionHeader><button ngbAccordionButton>Responsáveis e Prazos</button></h2>
+        <div ngbAccordionCollapse><div ngbAccordionBody>
+          <div class="row">
+            <div class="form-group col-md-6">
+              <label>Solicitante (ID)</label>
+              <input type="text" name="solicitanteID" class="form-control" [(ngModel)]="dadosForm.solicitanteID">
+            </div>
+            <div class="form-group col-md-6">
+              <label>Responsável Técnico (ID)</label>
+              <input type="text" name="responsavelID" class="form-control" [(ngModel)]="dadosForm.responsavelID">
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group col-md-6">
+              <label>Data de Abertura</label>
+              <input type="datetime-local" name="dataAbertura" class="form-control" [(ngModel)]="dadosForm.dataAbertura">
+            </div>
+            <div class="form-group col-md-6">
+              <label>Data de Fechamento</label>
+              <input type="datetime-local" name="dataFechamento" class="form-control" [(ngModel)]="dadosForm.dataFechamento">
+            </div>
+          </div>
+        </div></div>
+      </div>
+
+      <div ngbAccordionItem>
+        <h2 ngbAccordionHeader><button ngbAccordionButton>Custos e Tempos</button></h2>
+        <div ngbAccordionCollapse><div ngbAccordionBody>
+          <div class="row">
+            <div class="form-group col-md-3">
+              <label>Custo Estimado (R$)</label>
+              <input type="number" name="custoEstimado" class="form-control" [(ngModel)]="dadosForm.custoEstimado">
+            </div>
+            <div class="form-group col-md-3">
+              <label>Custo Real (R$)</label>
+              <input type="number" name="custoReal" class="form-control" [(ngModel)]="dadosForm.custoReal">
+            </div>
+            <div class="form-group col-md-3">
+              <label>Tempo Parada Est. (Min)</label>
+              <input type="number" name="tempoParadaEstimado" class="form-control" [(ngModel)]="dadosForm.tempoParadaEstimado">
+            </div>
+            <div class="form-group col-md-3">
+              <label>Tempo Parada Real (Min)</label>
+              <input type="number" name="tempoParadaReal" class="form-control" [(ngModel)]="dadosForm.tempoParadaReal">
+            </div>
+          </div>
+        </div></div>
+      </div>
+
+      <div ngbAccordionItem>
+        <h2 ngbAccordionHeader><button ngbAccordionButton>Análise de Falha e Observações</button></h2>
+        <div ngbAccordionCollapse><div ngbAccordionBody>
+          <div class="row">
+            <div class="form-group col-md-6">
+              <label>Modo de Falha (ID)</label>
+              <input type="text" name="modoFalhaID" class="form-control" [(ngModel)]="dadosForm.modoFalhaID" placeholder="Ex: MF-01">
+            </div>
+            <div class="form-group col-md-6">
+              <label>Causa Raiz (ID)</label>
+              <input type="text" name="causaRaizID" class="form-control" [(ngModel)]="dadosForm.causaRaizID" placeholder="Ex: CR-02">
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Observações Gerais</label>
+            <textarea name="observacoes" class="form-control" rows="2" [(ngModel)]="dadosForm.observacoes"></textarea>
+          </div>
+        </div></div>
+      </div>
+    </div>
+
+    <div class="text-right mt-4">
+      <button type="button" class="btn btn-secondary mr-2" (click)="activeModal.dismiss()">Cancelar</button>
+      <button type="button" class="btn btn-warning" (click)="salvar()">
+        <i class="feather icon-save mr-1"></i> Salvar Ordem de Manutenção
+      </button>
+    </div>
+  </form>
+</app-card>

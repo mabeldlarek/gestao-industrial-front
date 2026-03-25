@@ -1,0 +1,120 @@
+<div class="row">
+    <div class="col-sm-8">
+        <app-card cardTitle="" [options]="false" blockClass="table-border-style">
+
+            <div class="d-flex flex-column flex-md-row justify-content-between align-items-stretch align-items-md-center mb-3 gap-2">
+                <div class="flex-grow-1" style="max-width: 500px;">
+                    <input class="form-control" placeholder="Pesquisar por nome, código, fabricante..."
+                        [(ngModel)]="termoPesquisa" (input)="filtrarPecas()" />
+                </div>
+
+                <div class="d-flex gap-2">
+                    <button type="button" class="btn btn-primary" (click)="adicionarPeca()">
+                        <i class="feather icon-plus"></i> Adicionar
+                    </button>
+                    <button type="button" class="btn btn-danger" [disabled]="itensSelecionados.length === 0"
+                        (click)="confirmarExclusao()">
+                        <i class="feather icon-trash-2"></i>
+                        Excluir {{ itensSelecionados.length > 0 ? '(' + itensSelecionados.length + ')' : '' }}
+                    </button>
+                </div>
+            </div>
+
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Peça</th>
+                            <th>Código</th>
+                            <th>Fabricante</th>
+                            <th>Estoque</th>
+                            <th>Localização</th>
+                            <th>Custo Un.</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of dadosFiltrados" (click)="selecionarItem(item)"
+                            [class.table-active]="estaSelecionado(item)" style="cursor:pointer">
+                            <td>
+                                <div class="btn btn-sm btn-light-info rounded-circle">
+                                    <i class="feather icon-settings"></i>
+                                </div>
+                            </td>
+                            <td>
+                                <strong>{{ item.nome }}</strong><br>
+                                <small class="text-muted">{{ item.numeroCatalogo }}</small>
+                            </td>
+                            <td><span class="badge bg-light-secondary">{{ item.codigoPeca }}</span></td>
+                            <td>{{ item.fabricante }}</td>
+                            <td>
+                                <span [class.text-danger]="item.estoqueAtual <= item.estoqueMinimo">
+                                    {{ item.estoqueAtual }} {{ item.unidadeMedida }}
+                                </span>
+                            </td>
+                            <td>{{ item.localizacaoAlmoxarifado }}</td>
+                            <td>{{ item.custoUnitario | currency:'BRL' }}</td>
+                            <td>
+                                <button type="button" class="btn btn-icon btn-warning"
+                                    (click)="$event.stopPropagation(); editarPeca()"
+                                    [disabled]="itensSelecionados.length !== 1">
+                                    <i class="feather icon-edit"></i>
+                                </button>
+                            </td>
+                        </tr>
+                        <tr *ngIf="dadosFiltrados.length === 0">
+                            <td colspan="8" class="text-center text-muted py-4">
+                                Nenhuma peça encontrada para "<strong>{{ termoPesquisa }}</strong>"
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </app-card>
+    </div>
+
+    <div class="col-sm-4">
+        <div class="card">
+            <div class="card-header">
+                <h5>Filtros de Inventário</h5>
+            </div>
+            <div class="card-body">
+                <div ngbAccordion [closeOthers]="true">
+                    <div ngbAccordionItem [collapsed]="false">
+                        <h2 ngbAccordionHeader>
+                            <button ngbAccordionButton>Fabricante</button>
+                        </h2>
+                        <div ngbAccordionCollapse>
+                            <div ngbAccordionBody>
+                                <p>SKF, WEG, Omron, Bosch...</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div ngbAccordionItem>
+                        <h2 ngbAccordionHeader>
+                            <button ngbAccordionButton>Status de Estoque</button>
+                        </h2>
+                        <div ngbAccordionCollapse>
+                            <div ngbAccordionBody>
+                                <p>Abaixo do mínimo, Disponível, Sem estoque</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div ngbAccordionItem>
+                        <h2 ngbAccordionHeader>
+                            <button ngbAccordionButton>Almoxarifado</button>
+                        </h2>
+                        <div ngbAccordionCollapse>
+                            <div ngbAccordionBody>
+                                <p>Estante A, Corredor B, Área Externa...</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

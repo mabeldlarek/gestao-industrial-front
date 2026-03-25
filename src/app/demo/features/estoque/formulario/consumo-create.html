@@ -1,0 +1,70 @@
+<div class="row">
+  <div class="col-sm-12">
+    <app-card cardTitle="" [options]="false">
+      <form action="javascript:void(0)">
+
+        <div class="d-flex align-items-center mb-4 pb-2 border-bottom">
+          <div class="bg-light-success text-success p-2 rounded-circle mr-3 d-flex align-items-center justify-content-center"
+            style="width: 45px; height: 45px;">
+            <i class="feather icon-shopping-cart font-weight-bold" style="font-size: 1.2rem;"></i>
+          </div>
+          <div>
+            <h4 class="mb-0 font-weight-600 text-dark">
+              {{ dadosForm.id ? 'Editar' : 'Registrar' }} Consumo de Peça
+            </h4>
+            <small class="text-muted">Informe o uso de materiais em ordens de serviço</small>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="form-group col-md-6">
+            <label>ID da Ordem de Manutenção</label>
+            <input type="text" name="ordemManutencaoID" class="form-control" 
+                   [(ngModel)]="dadosForm.ordemManutencaoID" placeholder="Ex: 55aeb..." />
+          </div>
+
+          <div class="form-group col-md-6">
+            <label>ID da Peça / Componente</label>
+            <input type="text" name="pecaID" class="form-control" 
+                   [(ngModel)]="dadosForm.pecaID" placeholder="Ex: d5e67..." />
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="form-group col-md-4">
+            <label>Quantidade Consumida</label>
+            <input type="number" name="quantidade" class="form-control" 
+                   [(ngModel)]="dadosForm.quantidade" step="0.1" />
+          </div>
+
+          <div class="form-group col-md-4">
+            <label>Data do Consumo</label>
+            <input type="date" name="dataConsumo" class="form-control" 
+                   [(ngModel)]="dadosForm.dataConsumo" />
+          </div>
+
+          <div class="form-group col-md-4">
+            <label>Custo Total (R$)</label>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text">R$</span>
+              </div>
+              <input type="number" name="custoTotalConsumo" class="form-control" 
+                     [(ngModel)]="dadosForm.custoTotalConsumo" />
+            </div>
+          </div>
+        </div>
+
+        <div class="text-right mt-4">
+          <button type="button" class="btn btn-secondary mr-2" (click)="activeModal.dismiss()">
+            Cancelar
+          </button>
+          <button type="button" class="btn btn-success" (click)="salvar()">
+            <i class="feather icon-check-circle mr-1"></i> 
+            {{ dadosForm.id ? 'Atualizar' : 'Confirmar' }} Consumo
+          </button>
+        </div>
+      </form>
+    </app-card>
+  </div>
+</div>

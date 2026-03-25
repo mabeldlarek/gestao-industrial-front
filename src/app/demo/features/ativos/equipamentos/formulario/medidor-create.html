@@ -1,0 +1,72 @@
+<div class="row">
+  <div class="col-sm-12">
+    <app-card cardTitle="" [options]="false">
+      <form action="javascript:void(0)">
+
+        <div class="d-flex align-items-center mb-4 pb-2 border-bottom">
+          <div class="bg-light-primary text-primary p-2 rounded-circle mr-3 d-flex align-items-center justify-content-center"
+            style="width: 45px; height: 45px;">
+            <i class="feather icon-activity font-weight-bold" style="font-size: 1.2rem;"></i>
+          </div>
+          <div>
+            <h4 class="mb-0 font-weight-600 text-dark">
+              Cadastro de Medidor
+            </h4>
+            <small class="text-muted">Configure os parâmetros técnicos e limites de operação do dispositivo</small>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="form-group col-md-3">
+            <label>Código do Medidor</label>
+            <input type="text" name="codigo" class="form-control" [(ngModel)]="medidor.codigo" placeholder="Ex: ABCD123">
+          </div>
+          <div class="form-group col-md-6">
+            <label>Nome / Identificação</label>
+            <input type="text" name="nome" class="form-control" [(ngModel)]="medidor.nome" placeholder="Ex: Medidor Y">
+          </div>
+          <div class="form-group col-md-3">
+            <label>Tipo de Medição</label>
+            <select name="tipo" class="form-control" [(ngModel)]="medidor.tipo">
+              <option [value]="null" disabled>Selecione o Tipo</option>
+              <option value="TEMPERATURA">Temperatura</option>
+              <option value="PRESSAO">Pressão</option>
+              <option value="VIBRACAO">Vibração</option>
+              <option value="CORRENTE">Corrente Elétrica</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="row mt-3">
+          <div class="form-group col-md-3">
+            <label>Unidade de Medida</label>
+            <input type="text" name="unidade" class="form-control" [(ngModel)]="medidor.unidade" placeholder="Ex: CELSIUS">
+          </div>
+          <div class="form-group col-md-3">
+            <label>Valor Mínimo</label>
+            <input type="number" name="valorMinimo" class="form-control" [(ngModel)]="medidor.valorMinimo">
+          </div>
+          <div class="form-group col-md-3">
+            <label>Valor Máximo</label>
+            <input type="number" name="valorMaximo" class="form-control" [(ngModel)]="medidor.valorMaximo">
+          </div>
+          <div class="form-group col-md-3">
+            <label>Valor Atual (Leitura)</label>
+            <input type="number" name="valorAtual" class="form-control" [(ngModel)]="medidor.valorAtual" readonly>
+            <small class="text-info">Campo apenas para leitura</small>
+          </div>
+        </div>
+
+        <div class="text-right mt-4 pb-2">
+          <button type="button" class="btn btn-secondary mr-2" (click)="activeModal.dismiss()">
+            Cancelar
+          </button>
+          <button type="button" class="btn btn-primary" (click)="salvarMedidor()">
+            <i class="feather icon-save mr-1"></i> 
+            Salvar Cadastro
+          </button>
+        </div>
+      </form>
+    </app-card>
+  </div>
+</div>

@@ -1,0 +1,133 @@
+<div class="row">
+    <div class="col-sm-12">
+        <app-card cardTitle="" [options]="false">
+            <form action="javascript:void(0)">
+
+                <div class="d-flex align-items-center mb-4 pb-2 border-bottom">
+                    <div class="bg-light-primary text-primary p-2 rounded-circle mr-3 d-flex align-items-center justify-content-center"
+                        style="width: 45px; height: 45px;">
+                        <i class="feather icon-file-text font-weight-bold" style="font-size: 1.2rem;"></i>
+                    </div>
+                    <div>
+                        <h4 class="mb-0 font-weight-600 text-dark">
+                            {{ dadosForm.id ? 'Editar' : 'Cadastro de' }} Procedimento
+                        </h4>
+                        <small class="text-muted">Defina as etapas técnicas e requisitos de segurança</small>
+                    </div>
+                </div>
+
+                <div ngbAccordion [closeOthers]="true">
+
+                    <div ngbAccordionItem [collapsed]="false">
+                        <h2 ngbAccordionHeader>
+                            <button ngbAccordionButton>Informações Gerais</button>
+                        </h2>
+                        <div ngbAccordionCollapse>
+                            <div ngbAccordionBody>
+                                <ng-template>
+                                    <div class="row">
+                                        <div class="form-group col-md-3">
+                                            <label>Código</label>
+                                            <input type="text" name="codigo" class="form-control"
+                                                [(ngModel)]="dadosForm.codigo" placeholder="Ex: PROC-001" />
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label>Título do Procedimento</label>
+                                            <input type="text" name="titulo" class="form-control"
+                                                [(ngModel)]="dadosForm.titulo"
+                                                placeholder="Ex: Manutenção Preventiva Motor" />
+                                        </div>
+                                        <div class="form-group col-md-3">
+                                            <label>Tipo de Manutenção</label>
+                                            <select name="tipoManutencao" class="form-control"
+                                                [(ngModel)]="dadosForm.tipoManutencao">
+                                                <option value="" disabled>Selecione</option>
+                                                <option value="PREVENTIVA">Preventiva</option>
+                                                <option value="CORRETIVA">Corretiva</option>
+                                                <option value="PREDITIVA">Preditiva</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Descrição do Objetivo</label>
+                                        <textarea name="descricao" class="form-control" rows="2"
+                                            [(ngModel)]="dadosForm.descricao"
+                                            placeholder="Descreva a finalidade deste procedimento"></textarea>
+                                    </div>
+                                </ng-template>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div ngbAccordionItem>
+                        <h2 ngbAccordionHeader>
+                            <button ngbAccordionButton>Planejamento e Revisão</button>
+                        </h2>
+                        <div ngbAccordionCollapse>
+                            <div ngbAccordionBody>
+                                <ng-template>
+                                    <div class="row">
+                                        <div class="form-group col-md-4">
+                                            <label>Tempo Estimado (Horas)</label>
+                                            <input type="number" name="tempoEstimado" class="form-control"
+                                                [(ngModel)]="dadosForm.tempoEstimado" />
+                                        </div>
+                                        <div class="form-group col-md-4">
+                                            <label>Revisado Por (ID/Nome)</label>
+                                            <input type="text" name="revisadoPor" class="form-control"
+                                                [(ngModel)]="dadosForm.revisadoPor" />
+                                        </div>
+                                        <div class="form-group col-md-4">
+                                            <label>Data da Última Revisão</label>
+                                            <input type="datetime-local" name="dataUltimaRevisao" class="form-control"
+                                                [(ngModel)]="dadosForm.dataUltimaRevisao" />
+                                        </div>
+                                    </div>
+                                </ng-template>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div ngbAccordionItem>
+                        <h2 ngbAccordionHeader>
+                            <button ngbAccordionButton>Segurança e EPIs</button>
+                        </h2>
+                        <div ngbAccordionCollapse>
+                            <div ngbAccordionBody>
+                                <ng-template>
+                                    <div class="row">
+                                        <div class="form-group col-md-6">
+                                            <label>Riscos Associados</label>
+                                            <textarea name="riscos" class="form-control" rows="2"
+                                                placeholder="Ex: Choque elétrico, Altura"
+                                                [ngModel]="dadosForm.riscosAssociados?.join(', ')"
+                                                (ngModelChange)="dadosForm.riscosAssociados = $event.split(',')"></textarea>
+                                            <small class="text-muted">Separe por vírgula</small>
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label>EPIs Requeridos</label>
+                                            <textarea name="epis" class="form-control" rows="2"
+                                                placeholder="Ex: Luvas, Capacete"
+                                                [ngModel]="dadosForm.EPIsRequeridos?.join(', ')"
+                                                (ngModelChange)="dadosForm.EPIsRequeridos = $event.split(',')"></textarea>
+                                            <small class="text-muted">Separe por vírgula</small>
+                                        </div>
+                                    </div>
+                                </ng-template>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-right mt-4">
+                    <button type="button" class="btn btn-secondary mr-2" (click)="activeModal.dismiss()">
+                        Cancelar
+                    </button>
+                    <button type="button" class="btn btn-primary" (click)="salvar()">
+                        <i class="feather icon-save mr-1"></i> {{ dadosForm.id ? 'Atualizar' : 'Salvar' }}
+                        Procedimento
+                    </button>
+                </div>
+            </form>
+        </app-card>
+    </div>
+</div>

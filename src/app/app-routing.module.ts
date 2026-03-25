@@ -45,15 +45,27 @@ const routes: Routes = [
       },
       {
         path: 'funcionario',
-        loadComponent: () => import('./demo/pages/authentication/funcionario-register/funcionario-register').then((c) => c.FuncionarioRegister)
+        loadComponent: () => import('./demo/features/identidade-acesso/formulario/funcionario-create').then((c) => c.FuncionarioCreate)
       },
-      /*{
-        path: 'pecas',
-        loadComponent: () => import('./demo/pages/peca-register/peca-register').then((c) => c.PecaRegister)
-      },*/
       {
-        path: 'consumo-pecas',
-        loadComponent: () => import('./demo/pages/peca-register/peca-register').then((c) => c.PecaRegister)
+        path: 'funcionario-list',
+        loadComponent: () => import('./demo/features/identidade-acesso/lista/funcionarios-list').then((c) => c.FuncionarioListComponent)
+      },
+            {
+        path: 'usuario',
+        loadComponent: () => import('./demo/features/identidade-acesso/formulario/usuarios-create').then((c) => c.UsuarioCreate)
+      },
+      {
+        path: 'usuarios-list',
+        loadComponent: () => import('./demo/features/identidade-acesso/lista/usuarios-list').then((c) => c.UsuarioListComponent)
+      },
+      {
+        path: 'consumo-pecas-list',
+        loadComponent: () => import('./demo/features/estoque/lista/consumo-list').then((c) => c.ConsumoComponent)
+      },
+      {
+        path: 'consumo-create',
+        loadComponent: () => import('./demo/features/estoque/formulario/consumo-create').then((c) => c.ConsumoCreate)
       },
       {
         path: 'equipamento-create',
@@ -64,8 +76,44 @@ const routes: Routes = [
         loadComponent: () => import('./demo/features/ativos/equipamentos/lista/equipamentos-list').then((c) => c.EquipamentosComponent)
       },
       {
-        path: 'plano-register',
-        loadComponent: () => import('./demo/pages/plano-register/plano-register').then((c) => c.PlanoRegister)
+        path: 'pecas-create',
+        loadComponent: () => import('./demo/features/estoque/formulario/pecas-create').then((c) => c.PecasCreate)
+      },
+      {
+        path: 'pecas-list',
+        loadComponent: () => import('./demo/features/estoque/lista/pecas-list').then((c) => c.PecasComponent)
+      },
+      {
+        path: 'procedimentos-list',
+        loadComponent: () => import('./demo/features/conteudo/lista/procedimentos-list').then((c) => c.ProcedimentosComponent)
+      },
+      {
+        path: 'planos-list',
+        loadComponent: () => import('./demo/features/manutencao/planos/planos-list').then((c) => c.PlanosComponent)
+      },
+      {
+        path: 'planos-create',
+        loadComponent: () => import('./demo/features/manutencao/planos/planos-create').then((c) => c.PlanosCreate)
+      },
+      {
+        path: 'ordem-list',
+        loadComponent: () => import('./demo/features/manutencao/ordens/ordem-list').then((c) => c.OrdemManutencaoComponent)
+      },
+      {
+        path: 'ordem-create',
+        loadComponent: () => import('./demo/features/manutencao/ordens/ordem-create').then((c) => c.OrdemManutencaoCreate)
+      },
+      {
+        path: 'execucao-list',
+        loadComponent: () => import('./demo/features/manutencao/execucao/execucao-list').then((c) => c.ExecucaoComponent)
+      },
+      {
+        path: 'execucao-create',
+        loadComponent: () => import('./demo/features/manutencao/execucao/execucao-create').then((c) => c.ExecucaoCreate)
+      },
+      {
+        path: 'criticidade-create',
+        loadComponent: () => import('./demo/features/ativos/equipamentos/formulario/criticidade-create').then((c) => c.CriticidadeCreate)
       },
       {
         path: 'executar',
@@ -74,18 +122,6 @@ const routes: Routes = [
       {
         path: 'ordem',
         loadComponent: () => import('./demo/pages/ordem/ordem').then((c) => c.Ordem)
-      },
-      {
-        path: 'funcionarios',
-        loadComponent: () => import('./demo/listas/funcionarios/funcionarios').then((c) => c.FuncionariosComponent)
-      },
-      {
-        path: 'usuarios',
-        loadComponent: () => import('./demo/listas/usuarios/usuarios').then((c) => c.UsuariosComponent)
-      },
-      {
-        path: 'pecas',
-        loadComponent: () => import('./demo/listas/pecas/pecas').then((c) => c.PecasComponent)
       }
     ]
   },

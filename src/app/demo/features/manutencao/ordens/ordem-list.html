@@ -1,0 +1,67 @@
+<div class="row">
+  <div class="col-sm-12">
+    <app-card cardTitle="" [options]="false" blockClass="table-border-style">
+      
+      <div class="d-flex flex-column flex-md-row justify-content-between align-items-stretch align-items-md-center mb-3 gap-2">
+        <div class="flex-grow-1" style="max-width: 500px;">
+          <input class="form-control" placeholder="Pesquisar por OS, Equipamento ou Status..."
+            [(ngModel)]="termoPesquisa" (input)="filtrarOMs()" />
+        </div>
+
+        <div class="d-flex gap-2">
+          <button type="button" class="btn btn-primary" (click)="adicionarOM()">
+            <i class="feather icon-plus"></i> Nova Ordem
+          </button>
+          <button type="button" class="btn btn-danger" [disabled]="itensSelecionados.length === 0"
+            (click)="confirmarExclusao()">
+            <i class="feather icon-trash-2"></i> Excluir
+          </button>
+        </div>
+      </div>
+
+      <div class="table-responsive">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>OS</th>
+              <th>Equipamento</th>
+              <th>Tipo</th>
+              <th>Prioridade</th>
+              <th>Data Abertura</th>
+              <th>Status</th>
+              <th>Ações</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of dadosFiltrados" (click)="selecionarItem(item)"
+              [class.table-active]="estaSelecionado(item)" style="cursor:pointer">
+              <td><strong>{{ item.numeroOS }}</strong></td>
+              <td>{{ item.equipamentoID }}</td>
+              <td><span class="badge bg-light-secondary">{{ item.tipoManutencao }}</span></td>
+              <td>
+                <span class="badge" [ngClass]="{
+                  'bg-danger': item.prioridade === 'ALTA',
+                  'bg-warning': item.prioridade === 'MEDIA',
+                  'bg-info': item.prioridade === 'BAIXA'
+                }">{{ item.prioridade }}</span>
+              </td>
+              <td>{{ item.dataAbertura | date:'dd/MM/yyyy' }}</td>
+              <td>
+                <span class="badge" [ngClass]="item.status === 'CONCLUIDA' ? 'bg-success' : 'bg-primary'">
+                  {{ item.status }}
+                </span>
+              </td>
+              <td>
+                <button type="button" class="btn btn-icon btn-warning"
+                  (click)="$event.stopPropagation(); editarOM()"
+                  [disabled]="itensSelecionados.length !== 1">
+                  <i class="feather icon-edit"></i>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </app-card>
+  </div>
+</div>
