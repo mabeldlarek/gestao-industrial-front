@@ -24,8 +24,8 @@ jobs:
       - name: 🛠️ Criar Environment de Produção
         run: |
           mkdir -p src/environments
-          # Usando printf para evitar quebras de linha indesejadas
-          printf "export const environment = {\n  production: true,\n  apiUrl: 'http://%s:8080',\n  appVersion: '1.0.0'\n};" "${{ secrets.VM_HOST }}" > src/environments/environment.prod.ts
+          # A URL agora é HTTPS e aponta para o seu domínio fixo
+          echo "export const environment = { production: true, apiUrl: 'https://${{ secrets.VM_HOST }}', appVersion: '1.0.0' };" > src/environments/environment.prod.ts  
           
       - name: 🔍 Debug (Verificar estrutura do arquivo)
         run: cat src/environments/environment.prod.ts | sed 's/[0-9]/x/g' # Mostra a estrutura sem vazar seu IP real
