@@ -21,6 +21,17 @@ jobs:
       - name: 📦 Instalar dependências
         run: npm install
 
+        # PASSO NOVO: Criando o arquivo de ambiente dinamicamente
+      - name: 🛠️ Criar Environment de Produção
+        run: |
+          mkdir -p src/environments
+          cat <<EOF > src/environments/environment.prod.ts
+          export const environment = {
+            production: true,
+            apiUrl: 'http://${{ secrets.VM_HOST }}:8080'
+          };
+          EOF
+
       - name: 🔨 Build do Angular
         run: npm run build -- --configuration production
 
