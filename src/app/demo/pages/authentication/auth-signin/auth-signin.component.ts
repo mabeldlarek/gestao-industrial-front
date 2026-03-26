@@ -1,10 +1,7 @@
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
 import { Router, RouterModule } from '@angular/router';
 import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
-import { Component } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { RouterModule } from '@angular/router';
 
 import { SharedModule } from 'src/app/theme/shared/shared.module';
 import { AuthService } from './auth-signin.service';
@@ -40,13 +37,10 @@ export class AuthSigninComponent {
   });
 
   onSubmit(): void {
-  
     if (this.loginForm.invalid) {
-      console.warn('Formulário inválido:', this.loginForm.value); // E isso
       this.loginForm.markAllAsTouched();
       return;
     }
-  
 
     const payload: LoginRequest = this.loginForm.value as LoginRequest;
 
@@ -58,10 +52,7 @@ export class AuthSigninComponent {
       error: (err) => {
         switch (err.status) {
           case 502:
-            this.error = 'Servidor indisponível (Bad Gateway). Verifique se o Docker está rodando.';
-            break;
-          case 400:
-            this.error = 'O servidor não entendeu a requisição (Bad Request).';
+            this.error = 'Servidor indisponível (Bad Gateway). Verifique o Docker.';
             break;
           case 401:
             this.error = 'Credenciais inválidas. Tente novamente.';
@@ -70,22 +61,16 @@ export class AuthSigninComponent {
             this.error = 'Acesso não autorizado.';
             break;
           case 404:
-            this.error = 'Recurso não encontrado no servidor.';
+            this.error = 'Recurso não encontrado.';
+            break;
+          case 400:
+            this.error = 'Requisição inválida (Bad Request).';
             break;
           default:
-            this.error = 'Erro inesperado (' + err.status + '). Tente novamente mais tarde.';
+            this.error = 'Erro inesperado (' + err.status + '). Tente novamente.';
             break;
         }
-        console.log('Resposta do Servidor:', response); 
-        
-        if (response && response.accessToken) {
-          localStorage.setItem('accessToken', response.accessToken);
-          console.log('Token salvo com sucesso!');
-        }
-      },
-      error: (err) => {
-        console.error('Erro no login:', err);
-        this.error = 'Usuário ou senha inválidos';
+
       }
     });
   }
