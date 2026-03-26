@@ -1,4 +1,7 @@
 import { CommonModule } from '@angular/common';
+
+import { Router, RouterModule } from '@angular/router';
+import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { Component } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterModule } from '@angular/router';
@@ -24,11 +27,12 @@ export class AuthSigninComponent {
 
   error = '';
   showPassword = false;
+  private router: Router
 
   constructor(
     private fb: FormBuilder,
     private authService: AuthService
-  ) {}
+  ) { }
 
   loginForm = this.fb.group({
     username: ['', [Validators.required]],
@@ -36,8 +40,6 @@ export class AuthSigninComponent {
   });
 
   onSubmit(): void {
-
-    console.log('Botão clicar acionado!'); // Adicione isso
   
     if (this.loginForm.invalid) {
       console.warn('Formulário inválido:', this.loginForm.value); // E isso
@@ -50,6 +52,28 @@ export class AuthSigninComponent {
 
     this.authService.login(payload).subscribe({
       next: (response) => {
+        localStorage.setItem('accessToken', response.accessToken);
+        this.router.navigate(['/dashboard']);
+      },
+      error: (err) => {
+        if (err.status === 502) {
+          this.error = 'Servidor indisponível (Bad Gateway). Tente novamente mais tarde.';
+        }
+        if (err.status === 400) {
+          this.error = 'O servidor não entendeu a requisiçãol (Bad Request). Tente novamente mais tarde.';
+        }
+        if (err.status === 401) {
+          this.error = 'Credenciais inválidas. Tente novamente.';
+        }
+        if (err.status === 403) {
+          this.error = 'Acesso não autorizado. Tente novamente.';
+        }
+        if (err.status === 404) {
+          this.error = 'Recurso não encontrado. Tente novamente.';
+        }
+        else {
+          this.error = 'Erro inesperado. Tente novamente mais tarde.';
+        }
         console.log('Resposta do Servidor:', response); 
         
         if (response && response.accessToken) {
