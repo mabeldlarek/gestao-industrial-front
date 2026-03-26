@@ -56,23 +56,25 @@ export class AuthSigninComponent {
         this.router.navigate(['/dashboard']);
       },
       error: (err) => {
-        if (err.status === 502) {
-          this.error = 'Servidor indisponível (Bad Gateway). Tente novamente mais tarde.';
-        }
-        if (err.status === 400) {
-          this.error = 'O servidor não entendeu a requisiçãol (Bad Request). Tente novamente mais tarde.';
-        }
-        if (err.status === 401) {
-          this.error = 'Credenciais inválidas. Tente novamente.';
-        }
-        if (err.status === 403) {
-          this.error = 'Acesso não autorizado. Tente novamente.';
-        }
-        if (err.status === 404) {
-          this.error = 'Recurso não encontrado. Tente novamente.';
-        }
-        else {
-          this.error = 'Erro inesperado. Tente novamente mais tarde.';
+        switch (err.status) {
+          case 502:
+            this.error = 'Servidor indisponível (Bad Gateway). Verifique se o Docker está rodando.';
+            break;
+          case 400:
+            this.error = 'O servidor não entendeu a requisição (Bad Request).';
+            break;
+          case 401:
+            this.error = 'Credenciais inválidas. Tente novamente.';
+            break;
+          case 403:
+            this.error = 'Acesso não autorizado.';
+            break;
+          case 404:
+            this.error = 'Recurso não encontrado no servidor.';
+            break;
+          default:
+            this.error = 'Erro inesperado (' + err.status + '). Tente novamente mais tarde.';
+            break;
         }
         console.log('Resposta do Servidor:', response); 
         
