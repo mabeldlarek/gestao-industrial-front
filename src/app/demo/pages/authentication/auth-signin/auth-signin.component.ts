@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
 import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
-
 import { SharedModule } from 'src/app/theme/shared/shared.module';
 import { AuthService } from './auth-signin.service';
 import { LoginRequest } from './login-request.model';
@@ -24,11 +23,11 @@ export class AuthSigninComponent {
 
   error = '';
   showPassword = false;
-  private router: Router
 
   constructor(
     private fb: FormBuilder,
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router
   ) { }
 
   loginForm = this.fb.group({
