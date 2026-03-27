@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
 import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
@@ -27,7 +27,8 @@ export class AuthSigninComponent {
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private cdr: ChangeDetectorRef
   ) { }
 
   loginForm = this.fb.group({
@@ -51,7 +52,7 @@ export class AuthSigninComponent {
       error: (err) => {
         switch (err.status) {
           case 502:
-            this.error = 'Servidor indisponível (Bad Gateway). Verifique o Docker.';
+            this.error = 'Servidor indisponível (Bad Gateway).';
             break;
           case 401:
             this.error = 'Credenciais inválidas. Tente novamente.';
@@ -69,7 +70,7 @@ export class AuthSigninComponent {
             this.error = 'Erro inesperado (' + err.status + '). Tente novamente.';
             break;
         }
-
+        this.cdr.detectChanges();
       }
     });
   }
