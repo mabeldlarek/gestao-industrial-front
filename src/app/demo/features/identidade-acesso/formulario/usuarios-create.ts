@@ -1,25 +1,33 @@
+import { CommonModule } from '@angular/common'; // Importe aqui
+import { FormsModule } from '@angular/forms'; // Importe aqui
 import { Component, Input, OnInit } from '@angular/core';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SharedModule } from 'src/app/theme/shared/shared.module';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CardComponent } from 'src/app/theme/shared/components/card/card.component';
 
 @Component({
   selector: 'app-usuario-create',
   standalone: true,
-  imports: [SharedModule, NgbModule, CardComponent],
+  imports: [
+    CommonModule, 
+    FormsModule,  
+    SharedModule, 
+    NgbModule, 
+    CardComponent
+  ],
   templateUrl: './usuarios-create.html'
 })
+
 export class UsuarioCreate implements OnInit {
   @Input() usuarioEdicao: any;
 
   dadosForm: any = {
-    id: null,
+    id: '',
     nomeUsuario: '',
     email: '',
     senha: '',
     ativo: true,
-    tipoUsuario: 'TECNICO' // Valor padrão
+    tipoUsuario: 'TECNICO' 
   };
 
   tiposUsuario = [
