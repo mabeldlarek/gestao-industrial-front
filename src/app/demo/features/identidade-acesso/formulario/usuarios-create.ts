@@ -58,14 +58,9 @@ export class UsuarioCreate implements OnInit {
   salvar() {
     this.error = null;
 
-    console.log('Dados enviados:', this.dadosForm);
-
     this.userService.create(this.dadosForm).subscribe({
       next: (response) => {
-        console.log('Sucesso no Backend');
-
         this.activeModal.close(this.dadosForm);
-
         Swal.fire({
           icon: 'success',
           title: 'Sucesso!',
@@ -75,28 +70,34 @@ export class UsuarioCreate implements OnInit {
         });
       },
       error: (err) => {
-        switch (err.status) {
-          case 400:
-            this.error = 'Requisição inválida (Bad Request). Verifique os dados.';
-            break;
-          case 401:
-            this.error = 'Credenciais inválidas. Tente novamente.';
-            break;
-          case 403:
-            this.error = 'Acesso não autorizado.';
-            break;
-          case 404:
-            this.error = 'Recurso não encontrado.';
-            break;
-          case 502:
-            this.error = 'Servidor indisponível (Bad Gateway).';
-            break;
-          default:
-            this.error = `Erro inesperado (${err.status}). Tente novamente.`;
-            break;
+        console.error('Erro completo recebido:', err); // Importante para debugar
+
+        let backendMessage = '';
+        if (err.error) {
+          const texto = err.error;
+          
+          const objetoJson = JSON.parse(texto);
+
+          backendMessage = objetoJson.message;
+
+          switch (err.status) {
+            case 409:
+              this.error = backendMessage;
+              break;
+            case 400:
+              this.error = backendMessage;
+              break;
+            case 0:
+              this.error = 'Não foi possível comunicar com o servidor.';
+              break;
+            default:
+              this.error = backendMessage || `Erro inesperado (${err.status})`;
+          }
+
+          this.cdr.detectChanges();
         }
-        this.cdr.detectChanges();
       }
+
     });
   }
 }

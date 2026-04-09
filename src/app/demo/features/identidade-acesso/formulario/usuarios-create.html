@@ -1,6 +1,13 @@
 <div class="row">
   <div class="col-sm-12">
     <app-card cardTitle="" [options]="false">
+      @if (error) {
+      <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        {{ error }}
+        <button type="button" class="btn-close" (click)="error = null"></button>
+      </div>
+      }
+
       <form action="javascript:void(0)">
 
         <div class="d-flex align-items-center mb-4 pb-2 border-bottom">
