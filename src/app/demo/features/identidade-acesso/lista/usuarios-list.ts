@@ -113,15 +113,24 @@ export class UsuarioListComponent implements OnInit {
     });
   }
 
-  editarUsuario(usuario: any) {
+  async editarUsuario(usuario: any) {
     const modalRef = this.modalService.open(UsuarioCreate, { size: 'lg', backdrop: 'static' });
 
-    modalRef.componentInstance.usuarioEdicao = usuario;
+    modalRef.componentInstance.usuarioEdicao = { ...usuario };
 
-    modalRef.result.then((res) => {
-      if (res) {
-        this.carregarUsuarios(); 
+    try {
+      const dadosEditados = await modalRef.result;
+
+      if (dadosEditados) {
+        await lastValueFrom(this.userService.update(dadosEditados.id, dadosEditados));
+
+        this.carregarUsuarios();
+        console.log('Usuário atualizado com sucesso!');
       }
-    }).catch(() => { });
+    } catch (error) {
+      if (error !== 0 && error !== 1 && error !== 'backdrop click' && error !== 'esc') {
+        console.error('Erro ao salvar edição:', error);
+      }
+    }
   }
 }

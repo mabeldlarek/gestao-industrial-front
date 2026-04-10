@@ -1,88 +1,104 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { SharedModule } from 'src/app/theme/shared/shared.module';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { CommonModule } from '@angular/common';
+import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { NgbActiveModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CardComponent } from 'src/app/theme/shared/components/card/card.component';
+import { SharedModule } from 'src/app/theme/shared/shared.module';
+import Swal from 'sweetalert2';
+import { FuncionarioService } from './services/funcionario.service';
 
 @Component({
-    selector: 'app-funcionario-create',
-    standalone: true,
-    imports: [SharedModule, NgbModule, CardComponent],
-    providers: [NgbActiveModal],
-    templateUrl: './funcionario-create.html'
+  selector: 'app-funcionario-create',
+  standalone: true,
+  imports: [
+    CommonModule,
+    FormsModule,
+    SharedModule,
+    NgbModule,
+    CardComponent
+  ],
+  templateUrl: './funcionario-create.html'
 })
 export class FuncionarioCreate implements OnInit {
-    @Input() funcionarioEdicao: any;
-    dadosForm: any = {
-        id: null,
-        matricula: '',
-        nome: '',
-        cargo: '',
-        equipe: '',
-        especialidades: [],
-        disponibilidade: {
-            diasSemana: [],
-            turnos: []
-        },
-        status: 'ATIVO'
-    };
+  @Input() funcionarioEdicao: any;
 
-    listaEspecialidades = ['Mecânica', 'Elétrica', 'Hidráulica', 'Instrumentação', 'Solda'];
+  dadosForm: any = {
+    id: null,
+    matricula: '',
+    nome: '',
+    cargo: '',
+    equipe: '',
+    especialidades: [],
+    status: 'ATIVO'
+  };
 
-    listaDias: any[] = [
-        { label: 'Segunda', value: 'SEGUNDA' },
-        { label: 'Terça', value: 'TERÇA' },
-        { label: 'Quarta', value: 'QUARTA' },
-        { label: 'Quinta', value: 'QUINTA' },
-        { label: 'Sexta', value: 'SEXTA' }
-    ];
+  error: string | null = null;
 
-    listaTurnos: any[] = [
-        { label: 'Manhã', value: 'MANHA' },
-        { label: 'Tarde', value: 'TARDE' },
-        { label: 'Noite', value: 'NOITE' }
-    ];
+  constructor(
+    public activeModal: NgbActiveModal,
+    private funcionarioService: FuncionarioService,
+    private cdr: ChangeDetectorRef
+  ) { }
 
-    constructor(public activeModal: NgbActiveModal) { }
-
-    ngOnInit(): void {
-        if (this.funcionarioEdicao) {
-            const edit = JSON.parse(JSON.stringify(this.funcionarioEdicao));
-
-            this.dadosForm = {
-                ...edit,
-                especialidades: edit.especialidades || [],
-                disponibilidade: {
-                    diasSemana: edit.disponibilidade?.diasSemana || [],
-                    turnos: edit.disponibilidade?.turnos || []
-                }
-            };
-        }
+  ngOnInit(): void {
+    if (this.funcionarioEdicao) {
+      // Clonagem para evitar mutação direta na tabela antes do save
+      this.dadosForm = JSON.parse(JSON.stringify(this.funcionarioEdicao));
     }
+  }
 
-    estaSelecionado(lista: any[] | undefined | null, valor: string): boolean {
-        if (!lista || !Array.isArray(lista)) return false;
-        return lista.includes(valor);
-    }
+  salvar() {
+    this.error = null;
 
-    toggleSelection(path: string, value: any) {
-        const parts = path.split('.');
-        let target = this.dadosForm;
+    const operacaoObs = this.dadosForm.id
+      ? this.funcionarioService.update(this.dadosForm.id, this.dadosForm)
+      : this.funcionarioService.create(this.dadosForm);
 
-        for (let i = 0; i < parts.length; i++) {
-            if (i === parts.length - 1) {
-                if (!Array.isArray(target[parts[i]])) target[parts[i]] = [];
-                const index = target[parts[i]].indexOf(value);
-                if (index > -1) target[parts[i]].splice(index, 1);
-                else target[parts[i]].push(value);
-            } else {
-                if (!target[parts[i]]) target[parts[i]] = {};
-                target = target[parts[i]];
-            }
-        }
-    }
-
-    salvar() {
+    operacaoObs.subscribe({
+      next: (response) => {
         this.activeModal.close(this.dadosForm);
-    }
+
+        Swal.fire({
+          icon: 'success',
+          title: 'Sucesso!',
+          text: this.dadosForm.id ? 'Funcionário atualizado com sucesso!' : 'Funcionário cadastrado com sucesso!',
+          timer: 2000,
+          showConfirmButton: false
+        });
+      },
+      error: (err) => {
+        console.error('Erro na requisição:', err);
+
+        let backendMessage = '';
+        if (err.error) {
+          try {
+            const objetoJson = typeof err.error === 'string' ? JSON.parse(err.error) : err.error;
+            backendMessage = objetoJson.message || objetoJson.error;
+          } catch (e) {
+            backendMessage = typeof err.error === 'string' ? err.error : err.message;
+          }
+        }
+
+        switch (err.status) {
+          case 409:
+            this.error = backendMessage || 'Conflito: Matrícula ou dado duplicado.';
+            break;
+          case 400:
+            this.error = backendMessage || 'Dados inválidos. Verifique os campos.';
+            break;
+          case 403:
+            this.error = 'Você não tem permissão para esta ação.';
+            break;
+          case 0:
+            this.error = 'Servidor inacessível.';
+            break;
+          default:
+            this.error = backendMessage || `Erro inesperado (${err.status})`;
+            break;
+        }
+
+        this.cdr.detectChanges();
+      }
+    });
+  }
 }

@@ -2,7 +2,7 @@ import { Role } from "./role";
 
 export interface UsuarioResponse {
   id: string;
-  nome: string;
+  nomeUsuario: string;
   email: string;
   dataCriacao: string | Date; 
   ativo: boolean;

@@ -25,7 +25,7 @@ export class UsuarioCreate implements OnInit {
 
   dadosForm: any = {
     id: null,        // Adicione o id explicitamente para controle
-    nome: '',
+    nomeUsuario: '',
     email: '',
     senha: '',
     ativo: true,
@@ -50,7 +50,7 @@ export class UsuarioCreate implements OnInit {
   ngOnInit(): void {
     if (this.usuarioEdicao) {
       this.dadosForm = JSON.parse(JSON.stringify(this.usuarioEdicao));
-      this.dadosForm.nomeUsuario = this.dadosForm.nome;
+      console.log("nomeUsuario: ", this.dadosForm.nomeUsuario)
     }
   }
 
