@@ -24,10 +24,6 @@ const routes: Routes = [
         loadChildren: () => import('./demo/ui-elements/ui-basic/ui-basic.module').then((m) => m.UiBasicModule)
       },
       {
-        path: 'forms',
-        loadComponent: () => import('./demo/pages/form-element/form-element').then((c) => c.FormElement)
-      },
-      {
         path: 'tables',
         loadComponent: () => import('./demo/pages/tables/tbl-bootstrap/tbl-bootstrap.component').then((c) => c.TblBootstrapComponent)
       },
@@ -45,19 +41,19 @@ const routes: Routes = [
       },
       {
         path: 'funcionario',
-        loadComponent: () => import('./demo/features/identidade-acesso/formulario/funcionario-create').then((c) => c.FuncionarioCreate)
+        loadComponent: () => import('./demo/features/identidade-acesso/funcionarios/components/funcionario-create/funcionario-create').then((c) => c.FuncionarioCreate)
       },
       {
         path: 'funcionario-list',
-        loadComponent: () => import('./demo/features/identidade-acesso/lista/funcionarios-list').then((c) => c.FuncionarioListComponent)
+        loadComponent: () => import('./demo/features/identidade-acesso/funcionarios/components/funcionario-list/funcionarios-list').then((c) => c.FuncionarioListComponent)
       },
             {
         path: 'usuario',
-        loadComponent: () => import('./demo/features/identidade-acesso/formulario/usuarios-create').then((c) => c.UsuarioCreate)
+        loadComponent: () => import('./demo/features/identidade-acesso/usuarios/components/usuarios-create/usuarios-create').then((c) => c.UsuarioCreate)
       },
       {
         path: 'usuarios-list',
-        loadComponent: () => import('./demo/features/identidade-acesso/lista/usuarios-list').then((c) => c.UsuarioListComponent)
+        loadComponent: () => import('./demo/features/identidade-acesso/usuarios/components/usuarios-list/usuarios-list').then((c) => c.UsuarioListComponent)
       },
       {
         path: 'consumo-pecas-list',

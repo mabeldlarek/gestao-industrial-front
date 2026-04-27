@@ -143,16 +143,9 @@ export const NavigationItems: NavigationItem[] = [
           },
           {
             id: 'Funcionários',
-            title: 'Funcionário',
+            title: 'Funcionários',
             type: 'item',
             url: '/funcionario-list',
-            classes: 'nav-item',
-          },
-          {
-            id: 'Form',
-            title: 'Formulario',
-            type: 'item',
-            url: '/form-element',
             classes: 'nav-item',
           }
         ]
