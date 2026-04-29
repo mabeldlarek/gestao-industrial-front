@@ -1,0 +1,111 @@
+<div class="row">
+  <div class="col-sm-12">
+    <app-card cardTitle="" [options]="false">
+      @if (error) {
+      <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        {{ error }}
+        <button type="button" class="btn-close" (click)="error = null"></button>
+      </div>
+      }
+
+      <form action="javascript:void(0)">
+
+        <div class="d-flex align-items-center mb-4 pb-2 border-bottom">
+          <div
+            class="bg-light-success text-success p-2 rounded-circle mr-3 d-flex align-items-center justify-content-center"
+            style="width: 45px; height: 45px;">
+            <i class="feather icon-shield font-weight-bold" style="font-size: 1.2rem;"></i>
+          </div>
+          <div>
+            <h4 class="mb-0 font-weight-600 text-dark">
+              {{ dadosForm.id ? 'Configurar' : 'Novo' }} Acesso de Usuário
+            </h4>
+            <small class="text-muted">Gerencie credenciais e níveis de permissão no sistema</small>
+          </div>
+        </div>
+
+        <div ngbAccordion [closeOthers]="true" activeIds="aba-credenciais">
+
+          <div ngbAccordionItem id="aba-credenciais">
+            <h2 ngbAccordionHeader>
+              <button ngbAccordionButton>
+                <i class=""></i> Credenciais de Acesso
+              </button>
+            </h2>
+            <div ngbAccordionCollapse>
+              <div ngbAccordionBody>
+                <ng-template>
+                  <div class="row">
+                    <div class="form-group col-md-12">
+                      <label>Nome de Exibição</label>
+                      <input type="text" name="nomeUsuario" class="form-control" [(ngModel)]="dadosForm.nomeUsuario"
+                        placeholder="Ex: Maria Izabel" />
+                    </div>
+                    <div class="form-group col-md-12">
+                      <label>E-mail (Login)</label>
+                      <input type="email" name="email" class="form-control" [(ngModel)]="dadosForm.email"
+                        placeholder="email@exemplo.com" />
+                    </div>
+                    <div class="form-group col-md-12" *ngIf="!dadosForm.id">
+                      <label>Senha Provisória</label>
+                      <div class="input-group">
+                        <input [type]="exibirSenha ? 'text' : 'password'" name="senha" class="form-control"
+                          [(ngModel)]="dadosForm.senha" />
+                        <div class="input-group-append">
+                          <button class="btn btn-secondary" type="button" (click)="exibirSenha = !exibirSenha">
+                            <i class="feather" [ngClass]="exibirSenha ? 'icon-eye-off' : 'icon-eye'"></i>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </ng-template>
+              </div>
+            </div>
+          </div>
+
+          <div ngbAccordionItem id="aba-permissoes">
+            <h2 ngbAccordionHeader>
+              <button ngbAccordionButton>
+                <i class=""></i> Permissões e Status
+              </button>
+            </h2>
+            <div ngbAccordionCollapse>
+              <div ngbAccordionBody>
+                <ng-template>
+                  <div class="row">
+                    <div class="form-group col-md-8">
+                      <label>Tipo de Perfil</label>
+                      <select name="tipoUsuario" class="form-control" [(ngModel)]="dadosForm.tipoUsuario">
+                        @for (tipo of tiposUsuario; track tipo.value) {
+                        <option [value]="tipo.value">{{ tipo.label }}</option>
+                        }
+                      </select>
+                    </div>
+                    <div class="form-group col-md-4 d-flex align-items-end">
+                      <div class="custom-control custom-switch mb-3 ml-2">
+                        <input type="checkbox" class="custom-control-input" id="statusAtivo" name="ativo"
+                          [(ngModel)]="dadosForm.ativo">
+                        <label class="custom-control-label" for="statusAtivo" style="padding-left: 8px;">Usuário
+                          Ativo</label>
+                      </div>
+                    </div>
+                  </div>
+                </ng-template>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="text-right mt-4">
+          <button type="button" class="btn btn-secondary mr-2" (click)="activeModal.dismiss()">Cancelar</button>
+          <button type="button" class="btn btn-success" (click)="salvar()">
+            <i class="feather icon-check-circle mr-1"></i> Salvar Usuário
+          </button>
+        </div>
+
+      </form>
+    </app-card>
+  </div>
+</div>
