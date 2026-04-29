@@ -1,0 +1,27 @@
+{
+  "/api/identidade": {
+    "target": "http://localhost:8081",
+    "secure": false,
+    "pathRewrite": {"^/api/identidade" : ""}
+  },
+  "/api/estoque": {
+    "target": "http://localhost:8082",
+    "secure": false,
+    "pathRewrite": {"^/api/estoque" : ""}
+  },
+  "/api/conteudo": {
+    "target": "http://localhost:8086",
+    "secure": false,
+    "pathRewrite": {"^/api/conteudo" : ""}
+  },
+  "/api/ativos": {
+    "target": "http://localhost:8090",
+    "secure": false,
+    "pathRewrite": {"^/api/ativos" : ""}
+  },
+  "/api/manutencao": {
+    "target": "http://localhost:8091",
+    "secure": false,
+    "pathRewrite": {"^/api/manutencao" : ""}
+  }
+}

@@ -9,7 +9,7 @@ import { LoginResponse } from './login-response.model';
 export class AuthService {
 
   private readonly loginUrl =
-    `${environment.apiUrl}/login`;
+    `${environment.apiUrl}/identidade/login`;
 
   constructor(private http: HttpClient) {}
 

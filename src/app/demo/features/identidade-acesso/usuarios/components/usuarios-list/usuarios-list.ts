@@ -3,8 +3,8 @@ import { CardComponent } from "src/app/theme/shared/components/card/card.compone
 import { SharedModule } from 'src/app/theme/shared/shared.module';
 import { NgbModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import Swal from 'sweetalert2';
-import { UsuarioCreate } from '../formulario/usuarios-create';
-import { UsuarioService } from '../formulario/services/usuario.service';
+import { UsuarioCreate } from '../usuarios-create/usuarios-create';
+import { UsuarioService } from '../../services/usuario.service';
 import { finalize, lastValueFrom } from 'rxjs';
 
 @Component({

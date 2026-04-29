@@ -17,22 +17,28 @@
           </div>
 
           <h3 class="mb-4">Login</h3>
-
+          @if (error) {
+            <div class="alert alert-danger alert-dismissible fade show text-start" role="alert">
+              <i class="feather icon-alert-triangle me-2"></i>
+              {{ error }}
+              <button type="button" class="btn-close" (click)="error = ''" aria-label="Close"></button>
+            </div>
+          }
           <div class="input-group mb-3">
-            <input type="text" class="form-control" formControlName="username" placeholder="Usuário"
-              [class.is-invalid]="
+            <input type="text" class="form-control" formControlName="username" placeholder="Usuário" [class.is-invalid]="
                 loginForm.get('username')?.touched &&
                 loginForm.get('username')?.invalid
               " />
 
-            <div class="invalid-feedback" *ngIf="
-                loginForm.get('username')?.touched &&
-                loginForm.get('username')?.invalid
-              ">
-              <div *ngIf="loginForm.get('username')?.errors?.['required']">
-                Email é obrigatório
+            @if (loginForm.get('username')?.touched && loginForm.get('username')?.invalid) {
+              <div class="invalid-feedback">
+                @if (loginForm.get('username')?.errors?.['required']) {
+                  <div>
+                    Email é obrigatório
+                  </div>
+                }
               </div>
-            </div>
+            }
           </div>
 
           <div class="input-group mb-4">
@@ -45,17 +51,20 @@
               <i class="feather" [ngClass]="showPassword ? 'icon-eye' : 'icon-eye-off'"></i>
             </span>
 
-            <div class="invalid-feedback" *ngIf="
-                loginForm.get('password')?.touched &&
-                loginForm.get('password')?.invalid
-              ">
-              <div *ngIf="loginForm.get('password')?.errors?.['required']">
-                Senha é obrigatória
+            @if (loginForm.get('password')?.touched && loginForm.get('password')?.invalid) {
+              <div class="invalid-feedback">
+                @if (loginForm.get('password')?.errors?.['required']) {
+                  <div>
+                    Senha é obrigatória
+                  </div>
+                }
+                @if (loginForm.get('password')?.errors?.['minlength']) {
+                  <div>
+                    Senha
+                  </div>
+                }
               </div>
-              <div *ngIf="loginForm.get('password')?.errors?.['minlength']">
-                Senha deve ter no mínimo 8 caracteres
-              </div>
-            </div>
+            }
           </div>
 
           <div class="form-group text-start">
@@ -75,11 +84,6 @@
           </p>
 
         </form>
-
-        <p class="mb-0 text-muted">
-          Não tem uma conta?
-          <a routerLink="/register">Cadastrar-se</a>
-        </p>
 
       </div>
     </div>

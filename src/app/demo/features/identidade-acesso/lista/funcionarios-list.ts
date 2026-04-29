@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { CardComponent } from "src/app/theme/shared/components/card/card.component";
 import { SharedModule } from 'src/app/theme/shared/shared.module';
 import { NgbModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
-
 import Swal from 'sweetalert2';
 import { FuncionarioCreate } from '../formulario/funcionario-create';
+import { FuncionarioService } from '../formulario/services/funcionario.service';
+import { lastValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-funcionario-list',
@@ -14,55 +15,48 @@ import { FuncionarioCreate } from '../formulario/funcionario-create';
   styleUrl: './funcionarios-list.scss'
 })
 export class FuncionarioListComponent implements OnInit {
-
+  carregando: boolean = false;
   termoPesquisa: string = '';
-  
-  // Dados simulando o retorno do seu POST/GET
-  dados = [
-    {
-      id: 1,
-      matricula: "FUNC1234",
-      nome: "Maria Oliveira Mongo",
-      cargo: "Técnica de Manutenção",
-      equipe: "Equipe A",
-      especialidades: ["Elétrica", "Hidráulica"],
-      disponibilidade: {
-        diasSemana: ["SEGUNDA", "TERÇA", "QUARTA"],
-        turnos: ["MANHA", "TARDE"]
-      },
-      status: "ATIVO"
-    },
-    {
-      id: 2,
-      matricula: "FUNC5566",
-      nome: "João Silva Santos",
-      cargo: "Mecânico Industrial",
-      equipe: "Equipe B",
-      especialidades: ["Mecânica", "Solda"],
-      disponibilidade: {
-        diasSemana: ["QUINTA", "SEXTA"],
-        turnos: ["NOITE"]
-      },
-      status: "ATIVO"
-    }
-  ];
 
-  dadosFiltrados = [];
+  dados: any[] = [];
+  dadosFiltrados: any[] = [];
   itensSelecionados: any[] = [];
 
-  constructor(private modalService: NgbModal) { }
+  constructor(
+    private funcionarioService: FuncionarioService,
+    private modalService: NgbModal,
+    private cdr: ChangeDetectorRef
+  ) { }
 
   ngOnInit() {
-    this.dadosFiltrados = [...this.dados];
+    this.carregarFuncionarios();
+  }
+
+  carregarFuncionarios() {
+    this.carregando = true;
+
+    this.funcionarioService.list().subscribe({
+      next: (res) => {
+        this.dados = res;
+        this.filtrarFuncionarios();
+        this.carregando = false;
+        this.cdr.detectChanges();
+      },
+      error: (err) => {
+        this.carregando = false;
+        console.error('Erro ao carregar funcionários:', err);
+        this.cdr.detectChanges();
+      }
+    });
   }
 
   filtrarFuncionarios() {
     const termo = this.termoPesquisa.toLowerCase();
-    this.dadosFiltrados = this.dados.filter(item => 
-      item.nome.toLowerCase().includes(termo) ||
-      item.matricula.toLowerCase().includes(termo) ||
-      item.cargo.toLowerCase().includes(termo) ||
-      item.equipe.toLowerCase().includes(termo)
+    this.dadosFiltrados = this.dados.filter(f =>
+      f.nome?.toLowerCase().includes(termo) ||
+      f.matricula?.toLowerCase().includes(termo) ||
+      f.cargo?.toLowerCase().includes(termo) ||
+      f.equipe?.toLowerCase().includes(termo)
     );
     this.itensSelecionados = [];
   }
@@ -76,49 +70,45 @@ export class FuncionarioListComponent implements OnInit {
     }
   }
 
-  estaSelecionado(item: any): boolean {
-    return this.itensSelecionados.some(i => i.id === item.id);
-  }
-
   adicionarFuncionario() {
-    const modalRef = this.modalService.open(FuncionarioCreate, {
-      size: 'lg',
-      backdrop: 'static'
-    });
-
-    modalRef.result.then((result) => {
-      if (result) {
-        // Lógica para adicionar (id simulado)
-        result.id = Math.floor(Math.random() * 1000);
-        this.dados.push(result);
-        this.filtrarFuncionarios();
+    const modalRef = this.modalService.open(FuncionarioCreate, { size: 'lg', backdrop: 'static' });
+    modalRef.result.then((res) => {
+      if (res) {
+        this.carregarFuncionarios();
       }
-    }).catch(() => {});
+    }).catch(() => { });
   }
 
-  editarFuncionario() {
-    if (this.itensSelecionados.length !== 1) return;
+  async editarFuncionario(funcionario: any) {
+    const modalRef = this.modalService.open(FuncionarioCreate, { size: 'lg', backdrop: 'static' });
 
-    const modalRef = this.modalService.open(FuncionarioCreate, {
-      size: 'lg',
-      backdrop: 'static'
-    });
+    // Passa uma cópia para o modal
+    modalRef.componentInstance.funcionarioEdicao = { ...funcionario };
 
-    modalRef.componentInstance.funcionarioEdicao = { ...this.itensSelecionados[0] };
+    try {
+      const dadosEditados = await modalRef.result;
 
-    modalRef.result.then((result) => {
-      if (result) {
-        const index = this.dados.findIndex(d => d.id === result.id);
-        if (index !== -1) {
-          this.dados[index] = result;
-          this.filtrarFuncionarios();
-        }
+      if (dadosEditados) {
+        await lastValueFrom(this.funcionarioService.update(dadosEditados.id, dadosEditados));
+
+        this.carregarFuncionarios();
+        Swal.fire('Sucesso!', 'Funcionário atualizado com sucesso.', 'success');
       }
-    }).catch(() => {});
+    } catch (error) {
+      if (error !== 0 && error !== 1 && error !== 'backdrop click' && error !== 'esc') {
+        console.error('Erro ao salvar edição:', error);
+      }
+    }
   }
 
   confirmarExclusao() {
+    if (this.itensSelecionados.length === 0) {
+      Swal.fire('Atenção', 'Selecione pelo menos um funcionário.', 'info');
+      return;
+    }
+
     const qtd = this.itensSelecionados.length;
+
     Swal.fire({
       title: 'Tem certeza?',
       text: `Deseja excluir ${qtd === 1 ? 'este funcionário' : qtd + ' funcionários'}?`,
@@ -127,13 +117,30 @@ export class FuncionarioListComponent implements OnInit {
       confirmButtonText: 'Sim, excluir',
       cancelButtonText: 'Cancelar',
       confirmButtonColor: '#d33'
-    }).then((result) => {
+    }).then(async (result) => {
       if (result.isConfirmed) {
-        const ids = this.itensSelecionados.map(i => i.id);
-        this.dados = this.dados.filter(d => !ids.includes(d.id));
-        this.filtrarFuncionarios();
-        Swal.fire('Excluído!', 'Registro removido com sucesso.', 'success');
+        try {
+          Swal.showLoading();
+
+          // Executa todas as deleções em paralelo
+          const exclusoes = this.itensSelecionados.map(item =>
+            lastValueFrom(this.funcionarioService.delete(item.id))
+          );
+
+          await Promise.all(exclusoes);
+
+          Swal.fire('Excluído!', 'Registro(s) removido(s) com sucesso.', 'success');
+          this.carregarFuncionarios();
+          this.itensSelecionados = [];
+        } catch (err) {
+          console.error('Erro na exclusão:', err);
+          Swal.fire('Erro!', 'Falha ao tentar excluir um ou mais funcionários.', 'error');
+        }
       }
     });
+  }
+
+  estaSelecionado(item: any): boolean {
+    return this.itensSelecionados.some(i => i.id === item.id);
   }
 }
