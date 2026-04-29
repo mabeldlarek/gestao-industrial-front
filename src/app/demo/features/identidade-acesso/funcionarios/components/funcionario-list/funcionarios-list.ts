@@ -3,8 +3,8 @@ import { CardComponent } from "src/app/theme/shared/components/card/card.compone
 import { SharedModule } from 'src/app/theme/shared/shared.module';
 import { NgbModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import Swal from 'sweetalert2';
-import { FuncionarioCreate } from '../formulario/funcionario-create';
-import { FuncionarioService } from '../formulario/services/funcionario.service';
+import { FuncionarioCreate } from '../funcionario-create/funcionario-create';
+import { FuncionarioService } from '../../services/funcionario.service';
 import { lastValueFrom } from 'rxjs';
 
 @Component({
@@ -122,7 +122,6 @@ export class FuncionarioListComponent implements OnInit {
         try {
           Swal.showLoading();
 
-          // Executa todas as deleções em paralelo
           const exclusoes = this.itensSelecionados.map(item =>
             lastValueFrom(this.funcionarioService.delete(item.id))
           );

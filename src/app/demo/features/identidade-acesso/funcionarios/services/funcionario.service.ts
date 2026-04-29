@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { environment } from "src/environments/environment";
-import { UserCreateRequest } from "../models/user-create-request.model";
+import { UserCreateRequest } from "../../usuarios/models/user-create-request.model";
 import { FuncionarioCreateRequest } from "../models/funcionario-create-request.model";
 
 @Injectable({ providedIn: 'root' })

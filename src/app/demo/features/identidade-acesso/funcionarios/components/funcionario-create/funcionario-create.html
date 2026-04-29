@@ -1,0 +1,113 @@
+<div class="row">
+    <div class="col-sm-12">
+        <app-card cardTitle="" [options]="false">
+            @if (error) {
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                {{ error }}
+                <button type="button" class="btn-close" (click)="error = null"></button>
+            </div>
+            }
+
+            <form action="javascript:void(0)">
+                <div class="d-flex align-items-center mb-4 pb-2 border-bottom">
+                    <div class="bg-light-primary text-primary p-2 rounded-circle mr-3 d-flex align-items-center justify-content-center"
+                        style="width: 45px; height: 45px;">
+                        <i class="feather icon-user font-weight-bold" style="font-size: 1.2rem;"></i>
+                    </div>
+                    <div>
+                        <h4 class="mb-0 font-weight-600 text-dark">
+                            {{ funcionario.id ? 'Editar' : 'Novo' }} Funcionário
+                        </h4>
+                        <small class="text-muted">Gerencie dados cadastrais e especialidades técnicas</small>
+                    </div>
+                </div>
+
+                <div ngbAccordion [closeOthers]="true" activeIds="aba-basica">
+
+                    <div ngbAccordionItem id="aba-basica">
+                        <h2 ngbAccordionHeader>
+                            <button ngbAccordionButton>
+                                <i class="feather icon-info mr-2"></i> Informações Cadastrais
+                            </button>
+                        </h2>
+                        <div ngbAccordionCollapse>
+                            <div ngbAccordionBody>
+                                <ng-template>
+                                    <div class="row">
+                                        <div class="form-group col-md-4">
+                                            <label>Matrícula</label>
+                                            <input type="text" name="matricula" class="form-control"
+                                                [(ngModel)]="funcionario.matricula" placeholder="Ex: FUNC1234" />
+                                        </div>
+                                        <div class="form-group col-md-8">
+                                            <label>Nome Completo</label>
+                                            <input type="text" name="nome" class="form-control"
+                                                [(ngModel)]="funcionario.nome" placeholder="Nome do funcionário" />
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label>Cargo</label>
+                                            <input type="text" name="cargo" class="form-control"
+                                                [(ngModel)]="funcionario.cargo"
+                                                placeholder="Ex: Técnica de Manutenção" />
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label>Equipe</label>
+                                            <input type="text" name="equipe" class="form-control"
+                                                [(ngModel)]="funcionario.equipe" placeholder="Ex: Equipe A" />
+                                        </div>
+                                    </div>
+                                </ng-template>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div ngbAccordionItem id="aba-detalhes">
+                        <h2 ngbAccordionHeader>
+                            <button ngbAccordionButton>
+                                <i class="feather icon-settings mr-2"></i> Detalhes Técnicos e Status
+                            </button>
+                        </h2>
+                        <div ngbAccordionCollapse>
+                            <div ngbAccordionBody>
+                                <ng-template>
+                                    <div class="row">
+                                        <div class="form-group col-md-12">
+                                            <label>Especialidades (separadas por vírgula)</label>
+                                            <input type="text" name="especialidades" class="form-control"
+                                                [ngModel]="funcionario.especialidades?.join(', ')"
+                                                (ngModelChange)="atualizarEspecialidades($event)"
+                                                placeholder="Ex: Elétrica, Hidráulica, Mecânica" />
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label>Status</label>
+                                            <select name="status" class="form-control" [(ngModel)]="funcionario.status">
+                                                <option value="ATIVO">Ativo</option>
+                                                <option value="INATIVO">Inativo</option>
+                                                <option value="FERIAS">Férias</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label>ID do Usuário Associado</label>
+                                            <input type="text" name="usuarioId" class="form-control"
+                                                [(ngModel)]="funcionario.usuarioId"
+                                                placeholder="ID do sistema (opcional)" />
+                                        </div>
+                                    </div>
+                                </ng-template>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-right mt-4">
+                    <button type="button" class="btn btn-secondary mr-2"
+                        (click)="activeModal.dismiss()">Cancelar</button>
+                    <button type="button" class="btn btn-success" (click)="salvar()">
+                        <i class="feather icon-save mr-1"></i> Salvar Funcionário
+                    </button>
+                </div>
+
+            </form>
+        </app-card>
+    </div>
+</div>
