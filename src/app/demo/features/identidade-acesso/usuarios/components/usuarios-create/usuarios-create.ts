@@ -1,14 +1,15 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 import { NgbActiveModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CardComponent } from 'src/app/theme/shared/components/card/card.component';
 import { SharedModule } from 'src/app/theme/shared/shared.module';
+import { UsuarioService } from '../../services/usuario.service';
 import Swal from 'sweetalert2';
-import { FuncionarioService } from './services/funcionario.service';
 
 @Component({
-  selector: 'app-funcionario-create',
+  selector: 'app-usuario-create',
   standalone: true,
   imports: [
     CommonModule,
@@ -17,33 +18,39 @@ import { FuncionarioService } from './services/funcionario.service';
     NgbModule,
     CardComponent
   ],
-  templateUrl: './funcionario-create.html'
+  templateUrl: './usuarios-create.html'
 })
-export class FuncionarioCreate implements OnInit {
-  @Input() funcionarioEdicao: any;
+export class UsuarioCreate implements OnInit {
+  @Input() usuarioEdicao: any;
 
   dadosForm: any = {
-    id: null,
-    matricula: '',
-    nome: '',
-    cargo: '',
-    equipe: '',
-    especialidades: [],
-    status: 'ATIVO'
+    id: null,        // Adicione o id explicitamente para controle
+    nomeUsuario: '',
+    email: '',
+    senha: '',
+    ativo: true,
+    tipoUsuario: 'BASIC'
   };
 
+  tiposUsuario = [
+    { label: 'Administrador', value: 'ADMIN' },
+    { label: 'Padrão', value: 'BASIC' },
+  ];
+
+  exibirSenha = false;
   error: string | null = null;
 
   constructor(
     public activeModal: NgbActiveModal,
-    private funcionarioService: FuncionarioService,
+    private userService: UsuarioService,
+    private router: Router,
     private cdr: ChangeDetectorRef
   ) { }
 
   ngOnInit(): void {
-    if (this.funcionarioEdicao) {
-      // Clonagem para evitar mutação direta na tabela antes do save
-      this.dadosForm = JSON.parse(JSON.stringify(this.funcionarioEdicao));
+    if (this.usuarioEdicao) {
+      this.dadosForm = JSON.parse(JSON.stringify(this.usuarioEdicao));
+      console.log("nomeUsuario: ", this.dadosForm.nomeUsuario)
     }
   }
 
@@ -51,8 +58,8 @@ export class FuncionarioCreate implements OnInit {
     this.error = null;
 
     const operacaoObs = this.dadosForm.id
-      ? this.funcionarioService.update(this.dadosForm.id, this.dadosForm)
-      : this.funcionarioService.create(this.dadosForm);
+      ? this.userService.update(this.dadosForm.id, this.dadosForm)
+      : this.userService.create(this.dadosForm);
 
     operacaoObs.subscribe({
       next: (response) => {
@@ -61,15 +68,16 @@ export class FuncionarioCreate implements OnInit {
         Swal.fire({
           icon: 'success',
           title: 'Sucesso!',
-          text: this.dadosForm.id ? 'Funcionário atualizado com sucesso!' : 'Funcionário cadastrado com sucesso!',
+          text: this.dadosForm.id ? 'Usuário atualizado com sucesso!' : 'Usuário cadastrado com sucesso!',
           timer: 2000,
           showConfirmButton: false
         });
       },
       error: (err) => {
-        console.error('Erro na requisição:', err);
+        console.error('Erro completo recebido:', err);
 
         let backendMessage = '';
+
         if (err.error) {
           try {
             const objetoJson = typeof err.error === 'string' ? JSON.parse(err.error) : err.error;
@@ -81,7 +89,7 @@ export class FuncionarioCreate implements OnInit {
 
         switch (err.status) {
           case 409:
-            this.error = backendMessage || 'Conflito: Matrícula ou dado duplicado.';
+            this.error = backendMessage || 'Conflito: Este e-mail já está em uso.';
             break;
           case 400:
             this.error = backendMessage || 'Dados inválidos. Verifique os campos.';
@@ -90,7 +98,7 @@ export class FuncionarioCreate implements OnInit {
             this.error = 'Você não tem permissão para esta ação.';
             break;
           case 0:
-            this.error = 'Servidor inacessível.';
+            this.error = 'Não foi possível comunicar com o servidor. Verifique sua conexão.';
             break;
           default:
             this.error = backendMessage || `Erro inesperado (${err.status})`;
