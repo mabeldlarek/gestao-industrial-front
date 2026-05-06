@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { CardComponent } from "src/app/theme/shared/components/card/card.component";
 import { SharedModule } from 'src/app/theme/shared/shared.module';
-import { CriticidadeCreate } from './criticidade-create';
+import { CriticidadeCreate } from '../../../ativos/criticidade/criticidade-create';
 import { MedidorCreate } from './medidor-create';
 
 @Component({

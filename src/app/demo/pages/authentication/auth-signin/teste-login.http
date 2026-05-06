@@ -1,0 +1,8 @@
+### Criar Novo Usuário
+POST http://localhost:8081/login
+Content-Type: application/json
+
+{
+    "username": "ADMIN",
+    "password": "123"
+}
