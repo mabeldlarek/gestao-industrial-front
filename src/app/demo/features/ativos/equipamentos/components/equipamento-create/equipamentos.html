@@ -1,0 +1,189 @@
+<div class="row">
+    <div class="col-sm-12">
+        <app-card cardTitle="" [options]="false">
+            <form action="javascript:void(0)">
+                <!-- Header -->
+                <div class="d-flex align-items-center mb-4 pb-2 border-bottom">
+                    <div class="bg-light-primary text-primary p-2 rounded-circle mr-3 d-flex align-items-center justify-content-center"
+                        style="width: 45px; height: 45px;">
+                        <i class="feather icon-settings font-weight-bold" style="font-size: 1.2rem;"></i>
+                    </div>
+                    <div>
+                        <h4 class="mb-0 font-weight-600 text-dark">Cadastro de Equipamento</h4>
+                        <small class="text-muted">Gerenciamento de ativos e sensores industriais</small>
+                    </div>
+                </div>
+
+                <div ngbAccordion [closeOthers]="true">
+                    <!-- Informações Gerais -->
+                    <div ngbAccordionItem [collapsed]="false">
+                        <h2 ngbAccordionHeader><button ngbAccordionButton>Informações Gerais</button></h2>
+                        <div ngbAccordionCollapse>
+                            <div ngbAccordionBody>
+                                <div class="row">
+                                    <div class="form-group col-md-3">
+                                        <label>Código Interno</label>
+                                        <input type="text" name="codigo" class="form-control"
+                                            [(ngModel)]="dadosForm.codigo" />
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label>Nome do Ativo</label>
+                                        <input type="text" name="nome" class="form-control"
+                                            [(ngModel)]="dadosForm.nome" />
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label>Criticidade</label>
+                                        <div class="input-group">
+                                            <input type="text" name="crit" class="form-control"
+                                                [value]="dadosForm.criticidadeID || 'Não Analisado'" readonly />
+                                            <button class="btn btn-outline-danger" (click)="abrirCalculoCriticidade()">
+                                                <i class="feather icon-target"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-md-6">
+                                        <label>Tipo</label>
+                                        <select name="tipo" class="form-control" [(ngModel)]="dadosForm.tipo">
+                                            <option>Sensor</option>
+                                            <option>Motor</option>
+                                            <option>Bomba</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label>Status</label>
+                                        <select name="status" class="form-control"
+                                            [(ngModel)]="dadosForm.statusOperacional">
+                                            <option>Operacional</option>
+                                            <option>Em Manutenção</option>
+                                            <option>Inoperante</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Fabricação -->
+                    <div ngbAccordionItem>
+                        <h2 ngbAccordionHeader><button ngbAccordionButton>Fabricação e Localização</button></h2>
+                        <div ngbAccordionCollapse>
+                            <div ngbAccordionBody>
+                                <div class="row">
+                                    <div class="form-group col-md-4">
+                                        <label>Nº de Série</label>
+                                        <input type="text" name="sn" class="form-control"
+                                            [(ngModel)]="dadosForm.numeroSerie" />
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label>Fabricante</label>
+                                        <input type="text" name="fab" class="form-control"
+                                            [(ngModel)]="dadosForm.fabricante" />
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label>Modelo</label>
+                                        <input type="text" name="mod" class="form-control"
+                                            [(ngModel)]="dadosForm.modelo" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div ngbAccordionItem>
+                        <h2 ngbAccordionHeader><button ngbAccordionButton>Parâmetros Operacionais</button></h2>
+                        <div ngbAccordionCollapse>
+                            <div ngbAccordionBody>
+
+                                @for (campo of listaCampos; track $index) {
+                                @if (campo) {
+                                <div class="row mb-2 align-items-end">
+                                    <div class="col-md-5">
+                                        @if ($index === 0) { <label class="small font-weight-bold">Nome do
+                                            Parâmetro</label> }
+                                        <input type="text" class="form-control form-control-sm"
+                                            placeholder="Ex: Frequência" [(ngModel)]="campo.chave"
+                                            name="chave-{{$index}}">
+                                    </div>
+                                    <div class="col-md-5">
+                                        @if ($index === 0) { <label class="small font-weight-bold">Valor</label> }
+                                        <input type="text" class="form-control form-control-sm" placeholder="Ex: 60"
+                                            [(ngModel)]="campo.valor" name="valor-{{$index}}">
+                                    </div>
+                                    <div class="col-md-2 text-right">
+                                        <button type="button" class="btn btn-sm btn-outline-danger"
+                                            (click)="removerParametro($index)">
+                                            <i class="feather icon-trash-2"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                }
+                                } @empty {
+                                <p class="text-muted small">Clique no botão abaixo para adicionar parâmetros.</p>
+                                }
+
+                                <div class="row mt-3">
+                                    <div class="col-12">
+                                        <button type="button" class="btn btn-sm btn-outline-primary"
+                                            (click)="adicionarParametro()">
+                                            <i class="feather icon-plus"></i> Adicionar Parâmetro
+                                        </button>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Medidores -->
+                <div class="mt-4">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <label class="mb-0 font-weight-bold">Medidores Vinculados</label>
+                        <button type="button" class="btn btn-sm btn-primary" (click)="inserirMedidor()">
+                            <i class="feather icon-plus"></i> Adicionar Medidor
+                        </button>
+                    </div>
+
+                    <div class="table-responsive border rounded"
+                        *ngIf="dadosForm.medidorIds && dadosForm.medidorIds.length > 0">
+                        <table class="table table-sm table-hover mb-0">
+                            <thead class="bg-light">
+                                <tr>
+                                    <th>Código</th>
+                                    <th>Nome</th>
+                                    <th>Tipo</th>
+                                    <th class="text-center">Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let med of dadosForm.medidorIds; let i = index">
+                                    <td>{{ med.codigo }}</td>
+                                    <td>{{ med.nome }}</td>
+                                    <td><span class="badge badge-light-info">{{ med.tipo }}</span></td>
+                                    <td class="text-center">
+                                        <button type="button" class="btn btn-link text-danger p-0"
+                                            (click)="removerMedidor(i)">
+                                            <i class="feather icon-trash-2"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div *ngIf="!dadosForm.medidorIds || dadosForm.medidorIds.length === 0"
+                        class="text-center p-3 border rounded bg-light">
+                        <small class="text-muted">Nenhum medidor vinculado.</small>
+                    </div>
+                </div>
+
+                <div class="text-right mt-4">
+                    <button type="button" class="btn btn-secondary mr-2"
+                        (click)="activeModal.dismiss()">Cancelar</button>
+                    <button type="button" class="btn btn-primary" (click)="salvar()">Salvar Equipamento</button>
+                </div>
+            </form>
+        </app-card>
+    </div>
+</div>

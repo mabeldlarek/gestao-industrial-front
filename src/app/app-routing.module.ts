@@ -24,6 +24,10 @@ const routes: Routes = [
         loadChildren: () => import('./demo/ui-elements/ui-basic/ui-basic.module').then((m) => m.UiBasicModule)
       },
       {
+        path: 'forms',
+        loadComponent: () => import('./demo/pages/form-element/form-element').then((c) => c.FormElement)
+      },
+      {
         path: 'tables',
         loadComponent: () => import('./demo/pages/tables/tbl-bootstrap/tbl-bootstrap.component').then((c) => c.TblBootstrapComponent)
       },
@@ -53,7 +57,7 @@ const routes: Routes = [
       },
       {
         path: 'usuarios-list',
-        loadComponent: () => import('./demo/features/identidade-acesso/usuarios/components/usuarios-list/usuarios-list').then((c) => c.UsuarioListComponent)
+         loadComponent: () => import('./demo/features/identidade-acesso/usuarios/components/usuarios-list/usuarios-list').then((c) => c.UsuarioListComponent)
       },
       {
         path: 'consumo-pecas-list',
@@ -65,11 +69,11 @@ const routes: Routes = [
       },
       {
         path: 'equipamento-create',
-        loadComponent: () => import('./demo/features/ativos/equipamentos/formulario/equipamentos-create').then((c) => c.EquipamentosCreate)
+        loadComponent: () => import('./demo/features/ativos/equipamentos/components/equipamento-create/equipamentos').then((c) => c.EquipamentosCreate)
       },
       {
         path: 'equipamentos-list',
-        loadComponent: () => import('./demo/features/ativos/equipamentos/lista/equipamentos-list').then((c) => c.EquipamentosComponent)
+        loadComponent: () => import('./demo/features/ativos/equipamentos/components/equipamento-list/equipamentos-list').then((c) => c.EquipamentoListComponent)
       },
       {
         path: 'pecas-create',
@@ -109,7 +113,7 @@ const routes: Routes = [
       },
       {
         path: 'criticidade-create',
-        loadComponent: () => import('./demo/features/ativos/equipamentos/formulario/criticidade-create').then((c) => c.CriticidadeCreate)
+        loadComponent: () => import('./demo/features/ativos/criticidade/criticidade-create').then((c) => c.CriticidadeCreate)
       },
       {
         path: 'executar',
