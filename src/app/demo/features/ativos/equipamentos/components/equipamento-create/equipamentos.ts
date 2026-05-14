@@ -104,12 +104,11 @@ export class EquipamentosCreate implements OnInit {
     this.error = null;
     this.prepararJson();
 
-    // Mapeia os IDs se houver objetos completos na lista (ajuste conforme seu retorno do modal de medidores)
     const medidoresIdsEnvio = this.dadosForm.medidorIds?.map((m: any) => m.id ? m.id : m) || [];
 
-    const payload = { 
-        ...this.dadosForm,
-        medidorIds: medidoresIdsEnvio 
+    const payload = {
+      ...this.dadosForm,
+      medidorIds: medidoresIdsEnvio
     };
 
     const operacaoObs = this.dadosForm.id
@@ -165,10 +164,31 @@ export class EquipamentosCreate implements OnInit {
   }
 
   abrirCalculoCriticidade() {
-    const modalRef = this.modalService.open(CriticidadeCreate, { size: 'lg', backdrop: 'static' });
-    modalRef.result.then((res) => {
-      if (res) this.dadosForm.criticidadeID = res.id;
-    }).catch(() => { });
+    const modalRef = this.modalService.open(
+      CriticidadeCreate,
+      {
+        size: 'lg',
+        backdrop: 'static'
+      }
+    );
+
+    modalRef.componentInstance.idEquipamento = this.dadosForm.id;
+
+    modalRef.result
+      .then((criticidadeCriada) => {
+
+        if (!criticidadeCriada) {
+          return;
+        }
+
+        this.dadosForm.criticidadeID =
+          criticidadeCriada.id ||
+          criticidadeCriada.criticidadeID;
+
+      })
+      .catch(() => {
+        console.log('Modal fechado');
+      });
   }
 
   inserirMedidor() {

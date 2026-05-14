@@ -2,7 +2,8 @@
   <div class="col-sm-8">
     <app-card cardTitle="" [options]="false" blockClass="table-border-style">
 
-      <div class="d-flex flex-column flex-md-row justify-content-between align-items-stretch align-items-md-center mb-3 gap-2">
+      <div
+        class="d-flex flex-column flex-md-row justify-content-between align-items-stretch align-items-md-center mb-3 gap-2">
         <div class="flex-grow-1" style="max-width: 500px;">
           <input class="form-control" placeholder="Pesquisar por nome, código, fabricante ou tipo..."
             [(ngModel)]="termoPesquisa" (input)="filtrarEquipamentos()" />
@@ -37,8 +38,8 @@
               [class.table-active]="estaSelecionado(item)" style="cursor:pointer">
               <td>
                 <div class="d-inline-block align-middle">
-                  <img [src]="item.imagemURL || 'assets/images/equipment-default.png'" class="rounded" style="width: 40px; height: 40px; object-fit: cover;"
-                    alt="Equipamento">
+                  <img [src]="item.imagemURL || 'assets/images/equipment-default.png'" class="rounded"
+                    style="width: 40px; height: 40px; object-fit: cover;" alt="Equipamento">
                 </div>
               </td>
               <td>
@@ -60,19 +61,28 @@
                 </span>
               </td>
               <td class="text-right">
-                <button type="button" class="btn btn-icon btn-warning"
-                  (click)="$event.stopPropagation(); editarEquipamento(item)" [disabled]="itensSelecionados.length > 1">
-                  <i class="feather icon-edit"></i>
-                </button>
+                <div class="d-flex justify-content-end gap-1">
+                  <button *ngIf="!item.criticidadeID" type="button" class="btn btn-icon btn-info"
+                    (click)="$event.stopPropagation(); calcularCriticidade(item)" title="Calcular Criticidade">
+                    <i class="feather icon-target"></i>
+                  </button>
+                  <button type="button" class="btn btn-icon btn-warning"
+                    (click)="$event.stopPropagation(); editarEquipamento(item)"
+                    [disabled]="itensSelecionados.length > 1">
+                    <i class="feather icon-edit"></i>
+                  </button>
+
+                </div>
               </td>
             </tr>
+
             <tr *ngIf="dadosFiltrados.length === 0 && !carregando">
               <td colspan="6" class="text-center text-muted py-4">Nenhum equipamento encontrado.</td>
             </tr>
             <tr *ngIf="carregando">
-               <td colspan="6" class="text-center py-4">
-                 <div class="spinner-border spinner-border-sm text-primary" role="status"></div> Carregando...
-               </td>
+              <td colspan="6" class="text-center py-4">
+                <div class="spinner-border spinner-border-sm text-primary" role="status"></div> Carregando...
+              </td>
             </tr>
           </tbody>
         </table>

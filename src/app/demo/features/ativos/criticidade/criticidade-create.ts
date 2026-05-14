@@ -2,10 +2,11 @@ import { CommonModule } from '@angular/common';
 import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { NgbActiveModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import Swal from 'sweetalert2';
+
 import { CardComponent } from 'src/app/theme/shared/components/card/card.component';
 import { SharedModule } from 'src/app/theme/shared/shared.module';
 import { CriticidadeService } from './criticidade.service';
-import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-criticidade-create',
@@ -20,30 +21,43 @@ import Swal from 'sweetalert2';
   templateUrl: './criticidade-create.html'
 })
 export class CriticidadeCreate implements OnInit {
+
   @Input() criticidadeEdicao: any;
+  @Input() idEquipamento!: string;
 
   dadosForm: any = {
-    id: null,
-    equipamentoID: '',
-    impactoProducao: null,
-    frequenciaProducao: null,
-    impactoSeguranca: null,
-    frequenciaSeguranca: null,
-    impactoAmbiental: null,
-    frequenciaAmbiental: null,
-    impactoCusto: null,
-    frequenciaCusto: null,
-    impactoFalha: null,
-    frequenciaFalha: null,
-    dataAnalise: new Date().toISOString(),
+    nivel: '',
+    impactoProducao: '',
+    frequenciaProducao: '',
+    impactoSeguranca: '',
+    frequenciaSeguranca: '',
+    impactoAmbiental: '',
+    frequenciaAmbiental: '',
+    impactoCusto: '',
+    frequenciaCusto: '',
+    impactoFalha: '',
+    frequenciaFalha: '',
     resultadoFinal: ''
   };
 
   error: string | null = null;
-  
-  impactoOptions = ['INSIGNIFICANTE', 'BAIXO', 'MEDIO', 'ALTO', 'CATASTROFICO'];
-  frequenciaOptions = ['IMPROVAVEL', 'REMOTA', 'BAIXA', 'MEDIA', 'ALTA'];
+  loading = false;
 
+  impactoOptions = [
+    'Insignificante',
+    'Baixo',
+    'Médio',
+    'Alto',
+    'Catastrófico'
+  ];
+
+  frequenciaOptions = [
+    'Improvável',
+    'Remota',
+    'Baixa',
+    'Média',
+    'Alta'
+  ];
   constructor(
     public activeModal: NgbActiveModal,
     private criticidadeService: CriticidadeService,
@@ -52,78 +66,153 @@ export class CriticidadeCreate implements OnInit {
 
   ngOnInit(): void {
     if (this.criticidadeEdicao) {
-      this.dadosForm = JSON.parse(JSON.stringify(this.criticidadeEdicao));
+      this.dadosForm = {
+        ...this.criticidadeEdicao
+      };
     }
   }
 
-  calcularScoreTotal(): string {
-    const pesosImpacto: any = { 'INSIGNIFICANTE': 1, 'BAIXO': 2, 'MEDIO': 3, 'ALTO': 4, 'CATASTROFICO': 5 };
-    const pesosFrequencia: any = { 'IMPROVAVEL': 1, 'REMOTA': 2, 'BAIXA': 3, 'MEDIA': 4, 'ALTA': 5 };
+  private montarPayloadCalculo() {
 
-  
-    const score = pesosImpacto[this.dadosForm.impactoProducao || 'BAIXO'] + 
-                  pesosFrequencia[this.dadosForm.frequenciaProducao || 'REMOTA'];
+    return {
 
-    if (score >= 8) return 'CRÍTICO';
-    if (score >= 5) return 'MÉDIO';
-    return 'BAIXO';
+      nivel: this.dadosForm.nivel,
+
+      impactoProducao:
+        this.dadosForm.impactoProducao,
+
+      frequenciaImpactoProducao:
+        this.dadosForm.frequenciaProducao,
+
+      impactoSeguranca:
+        this.dadosForm.impactoSeguranca,
+
+      frequenciaImpactoSeguranca:
+        this.dadosForm.frequenciaSeguranca,
+
+      impactoAmbiental:
+        this.dadosForm.impactoAmbiental,
+
+      frequenciaImpactoAmbiental:
+        this.dadosForm.frequenciaAmbiental,
+
+      custoReparo:
+        this.dadosForm.impactoCusto,
+
+      frequenciaCustoReparo:
+        this.dadosForm.frequenciaCusto,
+
+      impactoFalha:
+        this.dadosForm.impactoFalha,
+
+      frequenciaFalha:
+        this.dadosForm.frequenciaFalha
+    };
   }
 
-  salvar() {
-    this.error = null;
-    
-    this.dadosForm.resultadoFinal = this.calcularScoreTotal();
+  calcularScoreTotal(): Promise<any> {
 
-    const operacaoObs = this.dadosForm.id
-      ? this.criticidadeService.update(this.dadosForm.id, this.dadosForm)
-      : this.criticidadeService.create(this.dadosForm);
+    return new Promise((resolve, reject) => {
 
-    operacaoObs.subscribe({
-      next: (response: any) => {
-        const resultado = response?.body || this.dadosForm;
-        
-        this.activeModal.close(resultado);
+      const payload = this.montarPayloadCalculo();
 
-        Swal.fire({
-          icon: 'success',
-          title: 'Sucesso!',
-          text: this.dadosForm.id ? 'Análise de criticidade atualizada!' : 'Análise de criticidade registrada!',
-          timer: 2000,
-          showConfirmButton: false
+      this.criticidadeService
+        .calculate(this.idEquipamento, payload)
+        .subscribe({
+
+          next: (response) => {
+            resolve(response);
+          },
+
+          error: (err) => {
+            reject(err);
+          }
         });
-      },
-      error: (err) => {
-        console.error('Erro na análise:', err);
-        this.tratarErro(err);
-        this.cdr.detectChanges();
-      }
     });
   }
 
+  async salvar() {
+    this.error = null;
+    this.loading = true;
+
+    try {
+      const resultadoCalculo = await this.calcularScoreTotal();
+
+
+      this.activeModal.close(resultadoCalculo);
+
+      Swal.fire({
+        icon: 'success',
+        title: 'Sucesso!',
+        text: 'Análise de criticidade registrada e calculada!',
+        timer: 2000,
+        showConfirmButton: false
+      });
+
+      this.loading = false;
+
+    } catch (err: any) {
+      console.error('Erro na operação:', err);
+      this.loading = false;
+      this.tratarErro(err);
+      this.cdr.detectChanges();
+    }
+  }
+
   private tratarErro(err: any) {
+
     let backendMessage = '';
 
-    if (err.error) {
+    if (err?.error) {
+
       try {
-        const objetoJson = typeof err.error === 'string' ? JSON.parse(err.error) : err.error;
-        backendMessage = objetoJson.message || objetoJson.error;
-      } catch (e) {
-        backendMessage = typeof err.error === 'string' ? err.error : err.message;
+
+        const objetoJson =
+          typeof err.error === 'string'
+            ? JSON.parse(err.error)
+            : err.error;
+
+        backendMessage =
+          objetoJson.message ||
+          objetoJson.error ||
+          '';
+
+      } catch {
+
+        backendMessage =
+          typeof err.error === 'string'
+            ? err.error
+            : err.message;
       }
     }
 
     switch (err.status) {
+
       case 400:
-        this.error = backendMessage || 'Verifique se todos os campos de impacto e frequência foram preenchidos.';
+        this.error =
+          backendMessage ||
+          'Verifique se todos os campos foram preenchidos.';
         break;
+
       case 403:
-        this.error = 'Sem permissão para salvar análises.';
+        this.error =
+          'Sem permissão para salvar análises.';
         break;
+
+      case 404:
+        this.error =
+          'Equipamento não encontrado.';
+        break;
+
       case 0:
-        this.error = 'Servidor offline.';
+        this.error =
+          'Servidor offline.';
         break;
+
       default:
-        this.error = backendMessage || `Erro inesperado (${err.status})`;
+        this.error =
+          backendMessage ||
+          `Erro inesperado (${err.status})`;
         break;
     }
   }

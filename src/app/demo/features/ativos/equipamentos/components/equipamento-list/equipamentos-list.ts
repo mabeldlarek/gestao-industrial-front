@@ -3,9 +3,11 @@ import { CardComponent } from "src/app/theme/shared/components/card/card.compone
 import { SharedModule } from 'src/app/theme/shared/shared.module';
 import { NgbModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import Swal from 'sweetalert2';
-import { EquipamentosCreate } from '../equipamento-create/equipamentos'; // Ajuste o path conforme seu projeto
-import { EquipamentoService } from '../../services/equipamentos.service';
 import { lastValueFrom } from 'rxjs';
+
+import { EquipamentoService } from '../../services/equipamentos.service';
+import { EquipamentosCreate } from '../equipamento-create/equipamentos';
+import { CriticidadeCreate } from '../../../criticidade/criticidade-create';
 
 @Component({
   selector: 'app-equipamento-list',
@@ -79,14 +81,80 @@ export class EquipamentoListComponent implements OnInit {
     }).catch(() => { });
   }
 
+  calcularCriticidade(item: any) {
+
+    const modalRef = this.modalService.open(
+      CriticidadeCreate,
+      {
+        size: 'lg',
+        backdrop: 'static'
+      }
+    );
+
+    modalRef.componentInstance.idEquipamento = item.id;
+
+    modalRef.result
+      .then((criticidadeCriada) => {
+
+        if (!criticidadeCriada) {
+          return;
+        }
+
+        console.log('Criticidade criada:', criticidadeCriada);
+
+        const equipamentoAtualizado = {
+          ...item,
+          criticidadeID:
+            criticidadeCriada.id ||
+            criticidadeCriada.criticidadeID
+        };
+
+        this.equipamentoService
+          .update(item.id, equipamentoAtualizado)
+          .subscribe({
+
+            next: () => {
+
+              item.criticidadeID =
+                criticidadeCriada.id ||
+                criticidadeCriada.criticidadeID;
+
+              Swal.fire({
+                icon: 'success',
+                title: 'Sucesso!',
+                text: 'Criticidade vinculada ao equipamento.',
+                timer: 2000,
+                showConfirmButton: false
+              });
+            },
+
+            error: (err) => {
+              console.error(err);
+
+              Swal.fire({
+                icon: 'error',
+                title: 'Erro',
+                text: 'Erro ao vincular criticidade.'
+              });
+            }
+          });
+
+      })
+      .catch(() => {
+        console.log('Modal fechado');
+      });
+  }
+
   async editarEquipamento(equipamento: any) {
     const modalRef = this.modalService.open(EquipamentosCreate, { size: 'lg', backdrop: 'static' });
+
     modalRef.componentInstance.equipamentoEdicao = { ...equipamento };
 
     try {
       const dadosEditados = await modalRef.result;
       if (dadosEditados) {
         await lastValueFrom(this.equipamentoService.update(dadosEditados.id, dadosEditados));
+
         this.carregarEquipamentos();
         Swal.fire('Sucesso!', 'Equipamento atualizado com sucesso.', 'success');
       }
@@ -98,7 +166,10 @@ export class EquipamentoListComponent implements OnInit {
   }
 
   confirmarExclusao() {
-    if (this.itensSelecionados.length === 0) return;
+    if (this.itensSelecionados.length === 0) {
+      Swal.fire('Atenção', 'Selecione pelo menos um equipamento.', 'info');
+      return;
+    }
 
     const qtd = this.itensSelecionados.length;
     Swal.fire({
@@ -113,15 +184,19 @@ export class EquipamentoListComponent implements OnInit {
       if (result.isConfirmed) {
         try {
           Swal.showLoading();
+
           const exclusoes = this.itensSelecionados.map(item =>
             lastValueFrom(this.equipamentoService.delete(item.id))
           );
+
           await Promise.all(exclusoes);
+
           Swal.fire('Excluído!', 'Equipamento(s) removido(s) com sucesso.', 'success');
           this.carregarEquipamentos();
           this.itensSelecionados = [];
         } catch (err) {
-          Swal.fire('Erro!', 'Falha ao excluir.', 'error');
+          console.error('Erro na exclusão:', err);
+          Swal.fire('Erro!', 'Falha ao tentar excluir um ou mais equipamentos.', 'error');
         }
       }
     });

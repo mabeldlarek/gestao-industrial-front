@@ -4,7 +4,8 @@
       <form action="javascript:void(0)">
 
         <div class="d-flex align-items-center mb-4 pb-2 border-bottom">
-          <div class="bg-light-danger text-danger p-2 rounded-circle mr-3 d-flex align-items-center justify-content-center"
+          <div
+            class="bg-light-danger text-danger p-2 rounded-circle mr-3 d-flex align-items-center justify-content-center"
             style="width: 45px; height: 45px;">
             <i class="feather icon-alert-triangle font-weight-bold" style="font-size: 1.2rem;"></i>
           </div>
@@ -29,22 +30,22 @@
                     <label>Impacto na Produção</label>
                     <select name="impactoProducao" class="form-control" [(ngModel)]="dadosForm.impactoProducao">
                       <option [value]="null" disabled>Selecione o Impacto</option>
-                      <option value="INSIGNIFICANTE">Insignificante</option>
-                      <option value="BAIXO">Baixo</option>
-                      <option value="MEDIO">Médio</option>
-                      <option value="ALTO">Alto</option>
-                      <option value="CATASTROFICO">Catastrófico</option>
+                      <option value="Insignificante">Insignificante</option>
+                      <option value="Baixo">Baixo</option>
+                      <option value="Médio">Medio</option>
+                      <option value="Alto">Alto</option>
+                      <option value="Catastrófico">Catastrofico</option>
                     </select>
                   </div>
                   <div class="form-group col-md-6">
                     <label>Frequência de Parada</label>
                     <select name="frequenciaProducao" class="form-control" [(ngModel)]="dadosForm.frequenciaProducao">
                       <option [value]="null" disabled>Selecione a Frequência</option>
-                      <option value="IMPROVAVEL">Improvável</option>
-                      <option value="REMOTA">Remota</option>
-                      <option value="BAIXA">Baixa</option>
-                      <option value="MEDIA">Média</option>
-                      <option value="ALTA">Alta</option>
+                      <option value="Improvável">Improvavel</option>
+                      <option value="Remota">Remota</option>
+                      <option value="Baixa">Baixa</option>
+                      <option value="Média">Media</option>
+                      <option value="Alta">Alta</option>
                     </select>
                   </div>
                 </div>
@@ -63,22 +64,22 @@
                     <label>Impacto à Integridade Física</label>
                     <select name="impactoSeguranca" class="form-control" [(ngModel)]="dadosForm.impactoSeguranca">
                       <option [value]="null" disabled>Selecione o Impacto</option>
-                      <option value="INSIGNIFICANTE">Insignificante</option>
-                      <option value="BAIXO">Baixo</option>
-                      <option value="MEDIO">Médio</option>
-                      <option value="ALTO">Alto</option>
-                      <option value="CATASTROFICO">Catastrófico</option>
+                      <option value="Insignificante">Insignificante</option>
+                      <option value="Baixo">Baixo</option>
+                      <option value="Médio">Medio</option>
+                      <option value="Alto">Alto</option>
+                      <option value="Catastrófico">Catastrofico</option>
                     </select>
                   </div>
                   <div class="form-group col-md-6">
                     <label>Frequência de Exposição ao Risco</label>
                     <select name="frequenciaSeguranca" class="form-control" [(ngModel)]="dadosForm.frequenciaSeguranca">
                       <option [value]="null" disabled>Selecione a Frequência</option>
-                      <option value="IMPROVAVEL">Improvável</option>
-                      <option value="REMOTA">Remota</option>
-                      <option value="BAIXA">Baixa</option>
-                      <option value="MEDIA">Média</option>
-                      <option value="ALTA">Alta</option>
+                      <option value="Improvável">Improvavel</option>
+                      <option value="Remota">Remota</option>
+                      <option value="Baixa">Baixa</option>
+                      <option value="Média">Media</option>
+                      <option value="Alta">Alta</option>
                     </select>
                   </div>
                 </div>
@@ -97,22 +98,22 @@
                     <label>Impacto Ambiental</label>
                     <select name="impactoAmbiental" class="form-control" [(ngModel)]="dadosForm.impactoAmbiental">
                       <option [value]="null" disabled>Selecione o Impacto</option>
-                      <option value="INSIGNIFICANTE">Insignificante</option>
-                      <option value="BAIXO">Baixo</option>
-                      <option value="MEDIO">Médio</option>
-                      <option value="ALTO">Alto</option>
-                      <option value="CATASTROFICO">Catastrófico</option>
+                      <option value="Insignificante">Insignificante</option>
+                      <option value="Baixo">Baixo</option>
+                      <option value="Médio">Medio</option>
+                      <option value="Alto">Alto</option>
+                      <option value="Catastrófico">Catastrofico</option>
                     </select>
                   </div>
                   <div class="form-group col-md-6">
                     <label>Frequência de Possíveis Vazamentos/Incidentes</label>
                     <select name="frequenciaAmbiental" class="form-control" [(ngModel)]="dadosForm.frequenciaAmbiental">
                       <option [value]="null" disabled>Selecione a Frequência</option>
-                      <option value="IMPROVAVEL">Improvável</option>
-                      <option value="REMOTA">Remota</option>
-                      <option value="BAIXA">Baixa</option>
-                      <option value="MEDIA">Média</option>
-                      <option value="ALTA">Alta</option>
+                      <option value="Improvável">Improvavel</option>
+                      <option value="Remota">Remota</option>
+                      <option value="Baixa">Baixa</option>
+                      <option value="Média">Media</option>
+                      <option value="Alta">Alta</option>
                     </select>
                   </div>
                 </div>
@@ -131,22 +132,22 @@
                     <label>Impacto Financeiro (Peças/Mão de Obra)</label>
                     <select name="impactoCusto" class="form-control" [(ngModel)]="dadosForm.impactoCusto">
                       <option [value]="null" disabled>Selecione o Impacto</option>
-                      <option value="INSIGNIFICANTE">Insignificante</option>
-                      <option value="BAIXO">Baixo</option>
-                      <option value="MEDIO">Médio</option>
-                      <option value="ALTO">Alto</option>
-                      <option value="CATASTROFICO">Catastrófico</option>
+                      <option value="Insignificante">Insignificante</option>
+                      <option value="Baixo">Baixo</option>
+                      <option value="Médio">Medio</option>
+                      <option value="Alto">Alto</option>
+                      <option value="Catastrófico">Catastrofico</option>
                     </select>
                   </div>
                   <div class="form-group col-md-6">
                     <label>Frequência de Quebras de Alto Custo</label>
                     <select name="frequenciaCusto" class="form-control" [(ngModel)]="dadosForm.frequenciaCusto">
                       <option [value]="null" disabled>Selecione a Frequência</option>
-                      <option value="IMPROVAVEL">Improvável</option>
-                      <option value="REMOTA">Remota</option>
-                      <option value="BAIXA">Baixa</option>
-                      <option value="MEDIA">Média</option>
-                      <option value="ALTA">Alta</option>
+                      <option value="Improvável">Improvavel</option>
+                      <option value="Remota">Remota</option>
+                      <option value="Baixa">Baixa</option>
+                      <option value="Média">Media</option>
+                      <option value="Alta">Alta</option>
                     </select>
                   </div>
                 </div>
@@ -165,22 +166,22 @@
                     <label>Severidade da Falha</label>
                     <select name="impactoFalha" class="form-control" [(ngModel)]="dadosForm.impactoFalha">
                       <option [value]="null" disabled>Selecione o Impacto</option>
-                      <option value="INSIGNIFICANTE">Insignificante</option>
-                      <option value="BAIXO">Baixo</option>
-                      <option value="MEDIO">Médio</option>
-                      <option value="ALTO">Alto</option>
-                      <option value="CATASTROFICO">Catastrófico</option>
+                      <option value="Insignificante">Insignificante</option>
+                      <option value="Baixo">Baixo</option>
+                      <option value="Médio">Medio</option>
+                      <option value="Alto">Alto</option>
+                      <option value="Catastrófico">Catastrofico</option>
                     </select>
                   </div>
                   <div class="form-group col-md-6">
                     <label>Frequência da Ocorrência</label>
                     <select name="frequenciaFalha" class="form-control" [(ngModel)]="dadosForm.frequenciaFalha">
                       <option [value]="null" disabled>Selecione a Frequência</option>
-                      <option value="IMPROVAVEL">Improvável</option>
-                      <option value="REMOTA">Remota</option>
-                      <option value="BAIXA">Baixa</option>
-                      <option value="MEDIA">Média</option>
-                      <option value="ALTA">Alta</option>
+                      <option value="Improvável">Improvavel</option>
+                      <option value="Remota">Remota</option>
+                      <option value="Baixa">Baixa</option>
+                      <option value="Média">Media</option>
+                      <option value="Alta">Alta</option>
                     </select>
                   </div>
                 </div>
@@ -195,7 +196,7 @@
             Cancelar
           </button>
           <button type="button" class="btn btn-danger" (click)="salvar()">
-            <i class="feather icon-bar-chart mr-1"></i> 
+            <i class="feather icon-bar-chart mr-1"></i>
             Calcular Criticidade Final
           </button>
         </div>
